@@ -94,7 +94,7 @@ Then:
 
 1. **Video Processing (`pipeline.py`)**
    - Handles video file input
-   - Manages the processing pipeline and the diarization
+   - Acts like a wrapper and Manages the entire processing pipeline and the diarization
 
 2. **Audio Processing (`audio_processing.py`)**
    - Extracts audio from videos (makes use of ffmpeg)
@@ -108,19 +108,20 @@ Then:
    - Uses CardiffNLP's RoBERTa model (recently optimized by switching to VADER)
    - Provides sentiment scores (-1 to +1)
 
+5. **Named Entity Recognition (NER) (`ner.py`)**
+   - Uses spaCy for extracting entities from transcribed text
+   - Identifies names, organizations, locations, and other relevant entities
 
 >[!NOTE]
    >- All tasks  uses a local pre-trained model, zero external APIs or internet connection.
-   >- Processing time varies based on video length and system capabilities
+   >- Processing time varies based on video length and system capabilities (GPU or CPU)
    >- CSV outputs are saved with unique names based on input video filenames
 
 
 ## Testing
 
 The system has been tested with:
-- Single video files
-- Multiple video batch processing
-- Various video lengths and formats
-- Different speech patterns and languages
+- Uploading the footage directly
+- Loading in the footage directly through a folder.
 
 
