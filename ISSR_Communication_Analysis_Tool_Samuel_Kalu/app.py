@@ -26,12 +26,6 @@ def get_image_base64(path):
     return f'<img src="data:image/png;base64,{encoded}" width="300" style="display: block; margin: 0 auto;"/>'
 
 
-def pil_image_to_base64_html(img):
-    buf = io.BytesIO()
-    img.save(buf, format="PNG")
-    base64_str = base64.b64encode(buf.getvalue()).decode("utf-8")
-    return f'<img src="data:image/png;base64,{base64_str}" width="500" style="display: block; margin: 0 auto;"/>'
-
 
 def process_multiple_videos(
     folder_path=None,
@@ -96,6 +90,8 @@ def process_multiple_videos(
                     f"Error: Uploaded video file does not exist at path: {video_path}. Please try re-uploading.",
                     gr.update(visible=False, value=None),
                     gr.update(visible=False, value=None),
+                    gr.update(visible=False, value=None),
+                    gr.update(open=False),
                 )
 
             original_filename = os.path.basename(video_path)
@@ -132,6 +128,8 @@ def process_multiple_videos(
                     f"Error processing {original_filename}: {str(e)}. Check console for details.",
                     gr.update(visible=False, value=None),
                     gr.update(visible=False, value=None),
+                    gr.update(visible=False, value=None),
+                    gr.update(open=False),
                 )
         logger.info(
             f"Finished processing uploaded videos. Found {len(processed_csvs)} CSVs."
@@ -143,6 +141,8 @@ def process_multiple_videos(
             "Please provide a folder path or upload video files to begin.",
             gr.update(visible=False, value=None),
             gr.update(visible=False, value=None),
+            gr.update(visible=False, value=None),
+            gr.update(open=False),
         )
 
     if processed_csvs:
@@ -152,15 +152,12 @@ def process_multiple_videos(
             logger.info(f"Displaying data from: {os.path.basename(processed_csvs[0])}")
             # Generate plots and convert to base64 HTML
             plot_img = plot_speaker_charts(df)
-            plot_html = pil_image_to_base64_html(plot_img)
             return (
                 f"Successfully processed {len(processed_csvs)} video(s). Displaying data from {os.path.basename(processed_csvs[0])}.",
                 gr.update(visible=True, value=df),
-                # Ensure the download_csv component gets the correct path to the first CSV
                 gr.update(visible=True, value=processed_csvs[0]),
-                plot_html,
-                # Remove timeline_html since all charts are now in one image
-                None,
+                plot_img,
+                gr.update(open=True),
             )
         except Exception as e:
             import traceback
@@ -174,6 +171,7 @@ def process_multiple_videos(
                 gr.update(visible=False, value=None),
                 gr.update(visible=False, value=None),
                 "",
+                gr.update(open=False),
             )
 
     logger.warning("No videos were processed or no CSV outputs were generated.")
@@ -182,6 +180,7 @@ def process_multiple_videos(
         gr.update(visible=False, value=None),
         gr.update(visible=False, value=None),
         "",
+        gr.update(open=False),
     )
 
 
@@ -264,28 +263,27 @@ def create_interface():
 
                 submit_btn = gr.Button("Start Processing", variant="primary")
 
-            with gr.Column(scale=2):
+            with gr.Column(scale=3):
                 status = gr.Textbox(
                     label="Status",
                     interactive=False,
                     placeholder="Waiting for input...",
                 )
-                output_table = gr.DataFrame(
-                    label="Processed Data (First Video)",
-                    visible=False,
-                    type="pandas",
-                    interactive=True,
-                )
+                with gr.Accordion("Show Table", open=False) as table_accordion:
+                    output_table = gr.DataFrame(
+                        label="Processed Data (First Video)",
+                        visible=False,
+                        type="pandas",
+                        interactive=True,
+                    )
                 download_csv = gr.File(
                     label="Download Processed CSV",
                     visible=False,
                     type="filepath",  # This is for download, not upload
                     file_count="single",
                 )
-                plot_html = gr.HTML(
-                    label="Word Count Plot",
-                    value="",
-                )
+                with gr.Accordion("Show Plots", open=True) as plot_accordion:
+                    plot_image = gr.Image(label="Speaker Analysis Plots", width=1200)
 
         submit_btn.click(
             fn=process_multiple_videos,
@@ -296,7 +294,7 @@ def create_interface():
                 checkbox_sentiment,
                 checkbox_tone,
             ],
-            outputs=[status, output_table, download_csv, plot_html],
+            outputs=[status, output_table, download_csv, plot_image, table_accordion],
         )
 
     return demo

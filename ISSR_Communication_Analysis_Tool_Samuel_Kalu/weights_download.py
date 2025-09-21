@@ -1,6 +1,9 @@
 import gdown
 import os
+from loguru import logger
 
+
+logger.info("Starting the download of model weights...This would take a while")
 # === CONFIG ===
 FOLDER_URL = "https://drive.google.com/drive/folders/14psZGt00sC8J08aAPjIzzeaW4dpRhNOY"
 DEST_DIR = os.path.join(os.getcwd(), 'model_weights')
@@ -14,4 +17,4 @@ gdown.download_folder(
     remaining_ok=True
 )
 
-print(" Download complete.")
+logger.success(" Download complete.")

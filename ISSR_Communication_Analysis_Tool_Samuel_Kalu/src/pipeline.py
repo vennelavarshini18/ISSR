@@ -26,7 +26,7 @@ pipeline = Pipeline.from_pretrained(
     "pyannote/speaker-diarization-3.1",
     # use_auth_token="", # we don't need this since we running locally
 )
-
+    
 # Send pipeline to GPU if available and log device info
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 if torch.cuda.is_available():
@@ -36,6 +36,20 @@ else:
 
 pipeline.to(device)
 
+params = {
+    "clustering": {
+        "method": "average",          # Agglomerative clustering
+        "min_cluster_size": 14,        # Avoid tiny false clusters
+        "threshold": 0.65,            # Tweak between 0.6-0.7 for ~7 speakers
+    },
+
+    "segmentation": {
+        "min_duration_off": 0.05,      # Min silence to break segments
+    }
+}
+
+pipeline.instantiate(params)
+logger.info("STARTING DIARIZATION PROCESS.....")
 
 def process_video(
     video_path,
@@ -43,29 +57,49 @@ def process_video(
     perform_ner=True,
     perform_sentiment=True,
     perform_tone=True,
+    debug=False,
 ):
     """Process a single video: extract audio, perform speaker identification and diarization, run NER, transcribe, analyze sentiment and tone, save to CSV."""
     audio_path = "temp_audio.wav"
     logger.info(f"Extracting audio from {video_path} to {audio_path}")
     extract_audio(video_path, audio_path)
 
-    diarization = pipeline(audio_path, num_speakers=6)
+    # 🔧 FIX 1: num_speakers = 7
+    diarization = pipeline(audio_path, num_speakers=7)
     audio, sr = sf.read(audio_path)
     output_dir = "speaker_segments"
     os.makedirs(output_dir, exist_ok=True)
     table_data = []
 
-    for turn, _, speaker in (
-        diarization.itertracks(yield_label=True) if diarization else []
-    ):
+    for turn, _, speaker in diarization.itertracks(yield_label=True):
+        duration = turn.end - turn.start
+
+        # 🔧 FIX 2: Skip very short segments EARLY
+        if duration < 0.5:
+            if debug:
+                logger.debug(f"Skipping segment {speaker}_{turn.start:.1f}_{turn.end:.1f}.wav: duration {duration:.3f}s < 0.5s")
+            continue
+
+        # Only now proceed
         start_sample = int(turn.start * sr)
         end_sample = int(turn.end * sr)
         segment = audio[start_sample:end_sample]
+
         output_file = os.path.join(
             output_dir, f"{speaker}_{turn.start:.1f}_{turn.end:.1f}.wav"
         )
         sf.write(output_file, segment, sr)
-        transcription = transcribe_audio(output_file)
+
+        # 🔧 FIX 3: Protect transcription with try/except
+        try:
+            transcription = transcribe_audio(output_file)
+            if transcription is None or transcription.strip() == "":
+                logger.warning(f"Empty transcription for {output_file} .. skipping")
+                transcription = ""
+        except Exception as e:
+            logger.error(f"Transcription failed for {output_file}: {str(e)}.. skipping")
+            transcription = ""
+
         # Only compute if enabled
         sentiment_score = (
             analyze_sentiment(transcription) if perform_sentiment else None
@@ -76,9 +110,6 @@ def process_video(
             else None
         )
         named_entities = extract_named_entities(transcription) if perform_ner else None
-
-        if (turn.end - turn.start) < 0.5:
-            continue
 
         row = {
             "speaker_id": speaker,
@@ -92,18 +123,19 @@ def process_video(
             row["sentiment_score"] = sentiment_score
         if perform_tone:
             row["tone_intensity"] = tone_intensity
+
         table_data.append(row)
         logger.success(
             f"Saved and transcribed: {output_file} (start={turn.start:.1f}s stop={turn.end:.1f}s speaker_{speaker})"
         )
 
     df = pd.DataFrame(table_data)
-
     df.to_csv(output_csv_path, index=False)
     logger.info(f"Saved DataFrame to CSV: {output_csv_path}")
     os.remove(audio_path)
     logger.info(f"Removed temporary audio file: {audio_path}")
     return df
+
 
 
 def process_all_videos_from_path(
