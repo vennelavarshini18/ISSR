@@ -1,0 +1,7 @@
+numpy>=1.24.0
+soundfile>=0.12.1
+librosa>=0.10.0
+scipy>=1.10.0
+pystoi>=0.3.3
+noisereduce>=3.0.2
+deepfilternet>=0.5.6
