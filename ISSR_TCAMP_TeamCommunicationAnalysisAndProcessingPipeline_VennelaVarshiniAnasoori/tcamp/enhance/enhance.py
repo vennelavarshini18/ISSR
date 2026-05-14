@@ -1,42 +1,13 @@
 """
-tcamp/enhance/enhance.py
+audio enhancement core interface
+removes background hum and simulator noise from headset recordings.
 
-Stage 1: Audio Enhancement
-==========================
-Primary method : DeepFilterNet3 (DL-based, full-band 48kHz)
-Baseline       : NoiseReduce (spectral gating, reference-free)
-
-Design rationale
-----------------
-TRIP Lab headset recordings present three noise profiles:
-  1. Low-frequency equipment hum (50–60 Hz)
-  2. Push-to-talk click artifacts
-  3. Variable room reverberation
-
-DeepFilterNet3 is selected as primary because:
-  - Full-band 48kHz processing (vs 16kHz for most speech enhancement models)
-  - RTF ~0.19 on CPU, practical for long simulation session recordings
-  - Perceptual loss training: optimizes for human intelligibility, not just SNR
-
-NoiseReduce is retained as classical baseline because:
-  - Reference-free (no clean audio required — matches real lab conditions)
-  - Led on DNSMOS (1.725) in screening task evaluation
-  - Serves as fallback if DeepFilterNet3 unavailable
-
-Evaluation metrics
-------------------
-  STOI    : Short-Time Objective Intelligibility [0,1], higher = more intelligible
-  DNSMOS  : Reference-free MOS prediction (Microsoft P.835), higher = better quality
-  SI-SDR  : Scale-Invariant SDR in dB, higher = cleaner signal
 """
 
 from __future__ import annotations
 import logging
 from pathlib import Path
 from typing import Literal
-
-import numpy as np
-import soundfile as sf
 
 logger = logging.getLogger(__name__)
 
@@ -47,74 +18,54 @@ def enhance_audio(
     method: Literal["deepfilter", "noisereduce"] = "deepfilter",
 ) -> dict:
     """
-    Enhance raw headset audio. Main entry point for Stage 1.
+    cleans up audio using the chosen method.
 
-    Args:
-        input_path  : Path to raw .WAV (mono or multi-channel)
-        output_path : Path to write enhanced .WAV
-        method      : 'deepfilter' (primary DL) | 'noisereduce' (classical baseline)
+    args:
+        input_path: path to the raw .wav file
+        output_path: path to save the cleaned .wav file
+        method: 'deepfilter' or 'noisereduce'
 
-    Returns:
-        dict — {method, stoi, dnsmos, si_sdr}
-
-    Raises:
-        FileNotFoundError : input_path does not exist
-        ValueError        : unsupported method string
+    returns:
+        dict with quality scores and method name
     """
-    input_path = Path(input_path)
-    output_path = Path(output_path)
+    in_file = Path(input_path)
+    out_file = Path(output_path)
 
-    if not input_path.exists():
-        raise FileNotFoundError(
-            f"Input audio not found: {input_path}\n"
-            "Verify the path and confirm the file is a .WAV format."
-        )
+    if not in_file.exists():
+        raise FileNotFoundError(f"input file not found: {in_file}")
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-
-    logger.info(f"[Stage 1 — Audio Enhancement] Method: {method} | Input: {input_path.name}")
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+    logger.info(f"running {method} on {in_file.name}")
 
     if method == "deepfilter":
-        _run_deepfilter(input_path, output_path)
+        _run_deepfilter(in_file, out_file)
     elif method == "noisereduce":
         from .baseline import run_noisereduce
-        run_noisereduce(input_path, output_path)
+        run_noisereduce(in_file, out_file)
     else:
-        raise ValueError(
-            f"Unsupported method: '{method}'. Choose 'deepfilter' or 'noisereduce'."
-        )
+        raise ValueError(f"unknown method '{method}'. choose 'deepfilter' or 'noisereduce'.")
 
     from .metrics import evaluate
-    results = evaluate(original_path=input_path, enhanced_path=output_path)
-    results["method"] = method
+    scores = evaluate(original_path=in_file, enhanced_path=out_file)
+    scores["method"] = method
 
-    logger.info(f"[Stage 1 — Complete] {results}")
-    return results
+    logger.info(f"finished. scores: {scores}")
+    return scores
 
 
-def _run_deepfilter(input_path: Path, output_path: Path) -> None:
-    """
-    Run DeepFilterNet3 enhancement.
-
-    Processes audio at native 48kHz (resampling applied automatically).
-    No fine-tuning required — pretrained weights generalize well to
-    headset microphone noise profiles per Schröter et al. (2023).
-    """
+def _run_deepfilter(in_file: Path, out_file: Path) -> None:
+    """runs deepfilternet3 enhancement at native 48kHz."""
     try:
         from df.enhance import enhance, init_df
         from df.io import load_audio, save_audio
     except ImportError:
-        raise ImportError(
-            "DeepFilterNet not installed.\n"
-            "Install with: pip install deepfilternet"
-        )
+        raise ImportError("deepfilternet not installed. run: pip install deepfilternet")
 
-    logger.info("[DeepFilterNet3] Loading model...")
-    model, df_state, _ = init_df()
+    logger.info("loading deepfilternet model...")
+    model, state, _ = init_df()
 
-    audio, _ = load_audio(str(input_path), sr=df_state.sr())
-    logger.info(f"[DeepFilterNet3] Enhancing at {df_state.sr()} Hz...")
-    enhanced = enhance(model, df_state, audio)
+    audio, _ = load_audio(str(in_file), sr=state.sr())
+    enhanced = enhance(model, state, audio)
 
-    save_audio(str(output_path), enhanced, df_state.sr())
-    logger.info(f"[DeepFilterNet3] Saved to {output_path.name}")
+    save_audio(str(out_file), enhanced, state.sr())
+    logger.info(f"saved deepfilter output to {out_file.name}")
