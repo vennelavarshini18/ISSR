@@ -15,6 +15,15 @@ logger = logging.getLogger(__name__)
 
 def evaluate(original_path: Path, enhanced_path: Path) -> dict:
     """calculates stoi, dnsmos, and si-sdr scores. returns nan if missing models."""
+    _, ref_sr = _load(original_path)
+    _, enh_sr = _load(enhanced_path)
+
+    if ref_sr != enh_sr:
+        raise ValueError(
+            f"sampling rate mismatch (ref: {ref_sr}hz vs enh: {enh_sr}hz). "
+            "metrics like stoi and si-sdr require aligned frequencies."
+        )
+
     return {
         "stoi": _stoi(original_path, enhanced_path),
         "dnsmos": _dnsmos(enhanced_path),

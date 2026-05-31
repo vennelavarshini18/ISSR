@@ -33,10 +33,14 @@ class TestEnhancementOnSample:
 
     def test_noisereduce(self, ami_sample, observations_output):
         out_file = observations_output / "enhanced_noisereduce_ami.wav"
-        res = enhance_audio(ami_sample, out_file, method="noisereduce")
+        res = enhance_audio(ami_sample, out_file, method="noisereduce", target_sr=16000)
 
         assert out_file.exists()
         assert res["method"] == "noisereduce"
+
+        import soundfile as sf
+        _, sr = sf.read(str(out_file))
+        assert sr == 16000
 
         print("\n--- noisereduce results ---")
         print(f"stoi:   {res['stoi']}")
@@ -46,16 +50,20 @@ class TestEnhancementOnSample:
     def test_deepfilter(self, ami_sample, observations_output):
         out_file = observations_output / "enhanced_deepfilter_ami.wav"
         try:
-            res = enhance_audio(ami_sample, out_file, method="deepfilter")
+            res = enhance_audio(ami_sample, out_file, method="deepfilter", target_sr=16000)
             assert out_file.exists()
             assert res["method"] == "deepfilter"
 
+            import soundfile as sf
+            _, sr = sf.read(str(out_file))
+            assert sr == 16000
+
             print("\n--- deepfilter results ---")
-            print(f"stoi:   {res['stoi']} (note: unaligned 48kHz scale)")
+            print(f"stoi:   {res['stoi']} (aligned 16khz scale)")
             print(f"si-sdr: {res['si_sdr']} dB")
             print(f"saved:  {out_file}")
         except ImportError as e:
-            assert "deepfilternet" in str(e)
+            assert "deepfilternet" in str(e) or "torchaudio" in str(e)
             print("\n--- deepfilter model not installed in this env ---")
 
     def test_auto_mkdir(self, ami_sample, tmp_path):
