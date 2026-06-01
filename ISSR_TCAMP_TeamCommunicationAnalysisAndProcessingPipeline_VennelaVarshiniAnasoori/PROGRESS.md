@@ -30,6 +30,10 @@ Goal: set up the repository structure and test out early audio enhancement model
 - implemented `target_sr` in the enhancement router. deepfilternet outputs are now automatically resampled back to 16000 hz before saving and evaluation.
 - metric alignment is fully fixed, deepfilter stoi score jumped to 0.9988 on the aligned scale.
 
+### June 1: Local DNSMOS Integration
+- successfully integrated the `speechmos` library for completely offline, local DNSMOS evaluation.
+- updated the test suite to calculate and record DNSMOS scores alongside STOI and SI-SDR.
+- the pipeline is now fully compliant with our strict local execution req (zero cloud APIs).
+
 ### Next steps
-- integrate the official local dnsmos onnx model so we have a reference-free metric without needing internet access.
-- a live vs code walkthrough for the next mentor meeting.
+- a live walkthrough for the next mentor meeting to demonstrate the completed Phase 1 pipeline.

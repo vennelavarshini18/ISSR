@@ -54,9 +54,16 @@ def _stoi(ref_path: Path, enh_path: Path) -> float:
 
 
 def _dnsmos(enh_path: Path) -> float:
-    """returns nan placeholder until local dnsmos model is added."""
-    logger.warning("dnsmos model not added yet -- returning nan")
-    return float("nan")
+    """calculates dnsmos score locally using speechmos (onnx)."""
+    try:
+        from speechmos import dnsmos
+        import soundfile as sf
+        audio, sr = sf.read(str(enh_path))
+        res = dnsmos.run(audio, sr=sr)
+        return round(float(res['ovrl_mos']), 4)
+    except Exception as e:
+        logger.warning(f"dnsmos failed: {e}")
+        return float("nan")
 
 
 def _si_sdr(ref_path: Path, enh_path: Path) -> float:

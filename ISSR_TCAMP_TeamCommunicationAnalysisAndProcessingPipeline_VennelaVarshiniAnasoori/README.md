@@ -14,7 +14,7 @@ Currently completing Phase 1: Setting up the base repository and the audio enhan
 ---
 
 ## Audio Enhancement Module
-We support two options to remove background noise. To ensure all evaluation metrics are valid, the pipeline standardizes everything to a `target_sr` (default 16000 Hz) before and after enhancement.
+We support two options to remove background noise. To ensure all evaluation metrics are valid, the pipeline standardizes everything to a `target_sr` (default 16000 Hz) before and after enhancement. The pipeline also includes completely offline, reference-free evaluation (DNSMOS) using a local ONNX runtime.
 
 - `deepfilter`: Deep learning approach using DeepFilterNet3. Automatically resamples its native 48kHz output back to the target sampling rate.
 - `noisereduce`: Simple spectral gating baseline that works well without needing clean reference audio.

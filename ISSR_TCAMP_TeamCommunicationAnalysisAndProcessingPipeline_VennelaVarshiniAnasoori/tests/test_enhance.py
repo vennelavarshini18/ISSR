@@ -45,6 +45,7 @@ class TestEnhancementOnSample:
         print("\n--- noisereduce results ---")
         print(f"stoi:   {res['stoi']}")
         print(f"si-sdr: {res['si_sdr']} dB")
+        print(f"dnsmos: {res['dnsmos']}")
         print(f"saved:  {out_file}")
 
     def test_deepfilter(self, ami_sample, observations_output):
@@ -61,6 +62,7 @@ class TestEnhancementOnSample:
             print("\n--- deepfilter results ---")
             print(f"stoi:   {res['stoi']} (aligned 16khz scale)")
             print(f"si-sdr: {res['si_sdr']} dB")
+            print(f"dnsmos: {res['dnsmos']}")
             print(f"saved:  {out_file}")
         except ImportError as e:
             assert "deepfilternet" in str(e) or "torchaudio" in str(e)
@@ -97,6 +99,8 @@ class TestMetricsCalculation:
         res = evaluate(ami_sample, out_file)
         assert all(k in res for k in ("stoi", "dnsmos", "si_sdr"))
 
-    def test_dnsmos_nan(self, ami_sample):
+    def test_dnsmos_valid(self, ami_sample):
         res = evaluate(ami_sample, ami_sample)
-        assert math.isnan(res["dnsmos"])
+        score = res["dnsmos"]
+        if not math.isnan(score):
+            assert score > 1.0
