@@ -47,5 +47,5 @@ Goal: set up the repository structure and test out early audio enhancement model
 - Phase 1 is now fully complete and documented.
 
 ### Next steps
-- commit Phase 1 code and show the working pipeline to mentors.
+- commit Phase 1 code and document it well.
 - start Phase 2 by adding `pyannote.audio` for speaker diarization.
