@@ -9,4 +9,4 @@ torch==2.5.1
 torchaudio==2.5.1
 deepfilternet>=0.5.6
 onnxruntime>=1.15.0
-speechmos>=0.0.5 
+speechmos==0.0.1.1

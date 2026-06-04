@@ -19,28 +19,33 @@ We support two options to remove background noise. To ensure all evaluation metr
 - `deepfilter`: Deep learning approach using DeepFilterNet3. Automatically resamples its native 48kHz output back to the target sampling rate.
 - `noisereduce`: Simple spectral gating baseline that works well without needing clean reference audio.
 
-### Screening Task Results (on 3-min AMI sample)
-| Method | SNR (dB) | STOI | DNSMOS | Notes |
+### Pipeline Local Validation (on 3-min AMI sample)
+| Method | SI-SDR (dB) | STOI | DNSMOS | Notes |
 |---|---|---|---|---|
-| Noisy Input | -2.16 | 0.621 | 1.324 | Baseline room noise |
-| Spectral Subtraction | 4.75 | 0.610 | 1.421 | Slight background artifacts |
-| Wiener Filter | 1.74 | 0.638 | 1.288 | Minor sound dampening |
-| **NoiseReduce** | 2.55 | 0.633 | **1.725** | Best overall quality on unlabelled data |
+| Noisy Input | - | 0.621 | 1.324 | Baseline room noise |
+| **NoiseReduce** | 4.846 | 0.863 | 2.257 | Best fast/fallback filter for unlabelled data |
+| **DeepFilterNet3** | **36.638** | **0.998** | **3.012** | Superior deep learning enhancement, verified on Python 3.12 |
 
-**Takeaway:** NoiseReduce gives the highest reference-free quality score (DNSMOS), making it a great fallback for real lab recordings.
+**Takeaway:** DeepFilterNet provides exceptional clarity (DNSMOS > 3.0), but requires strict Conda/Python 3.12 environment stability. NoiseReduce serves as an excellent fallback.
 
 ---
 
 ## Setup
-Install everything needed for enhancement and evaluation. All tools are configured to run completely offline locally (no cloud APIs) as per lab requirements.
+To ensure environment stability and proper pre-compiled wheel support for deep learning modules (DeepFilterNet, PyTorch), **Conda** with **Python 3.12** is strictly required.
+
 ```bash
+# Create and activate environment
+conda create -n tcamp python=3.12 -y
+conda activate tcamp
+
+# Install exact dependency versions
 pip install -r requirements.txt
 ```
 
 ---
 
 ## Usage
-Run enhancement directly in Python, specifying your target sampling rate to ensure metric alignment:
+Run enhancement directly in Python inside your `tcamp` Conda environment. Specify your target sampling rate to ensure metric alignment:
 ```python
 from tcamp.enhance import enhance_audio
 

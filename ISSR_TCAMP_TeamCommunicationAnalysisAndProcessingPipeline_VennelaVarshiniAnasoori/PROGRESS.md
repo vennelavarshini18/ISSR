@@ -35,5 +35,17 @@ Goal: set up the repository structure and test out early audio enhancement model
 - updated the test suite to calculate and record DNSMOS scores alongside STOI and SI-SDR.
 - the pipeline is now fully compliant with our strict local execution req (zero cloud APIs).
 
+### June 2: Third Meeting
+- showed the pipeline to mentors, but deepfilter didn't run.
+- found out it was because python 3.14 doesn't support the required PyTorch wheels yet.
+- mentors told to fix the environment first and switch to a Conda environment with Python 3.12.
+
+### June 4: Fixing the Environment (Phase 1 Complete)
+- moved the project to a new Conda environment using Python 3.12.
+- locked exact versions for torch, torchaudio, and speechmos in `requirements.txt` so everyone has the exact same setup.
+- tested the pipeline locally and everything works, DeepFilterNet ran successfully and gave great scores (STOI: 0.9988, SI-SDR: 36.638 dB, DNSMOS: 3.0126).
+- Phase 1 is now fully complete and documented.
+
 ### Next steps
-- a live walkthrough for the next mentor meeting to demonstrate the completed Phase 1 pipeline.
+- commit Phase 1 code and show the working pipeline to mentors.
+- start Phase 2 by adding `pyannote.audio` for speaker diarization.
