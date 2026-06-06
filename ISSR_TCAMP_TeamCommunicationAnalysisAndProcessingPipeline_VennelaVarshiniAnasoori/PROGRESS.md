@@ -46,6 +46,15 @@ Goal: set up the repository structure and test out early audio enhancement model
 - tested the pipeline locally and everything works, DeepFilterNet ran successfully and gave great scores (STOI: 0.9988, SI-SDR: 36.638 dB, DNSMOS: 3.0126).
 - Phase 1 is now fully complete and documented.
 
+### June 6: Phase 2 Diarization & Pipeline Setup
+- completed phase 2 by integrating `pyannote.audio` to identify speakers.
+- the code now successfully tracks who spoke when from the cleaned audio.
+- added code to calculate Diarization Error Rate (DER) so we can measure accuracy.
+- cleaned up the repository.
+- built a single script (`run_pipeline.py`) that runs the entire process: enhancement, diarization, and evaluation in one go.
+- patched a lazy-loading bug in `speechbrain`/`lazy_loader` that crashed the test suite on Windows.
+- added an auto-discovery feature to the pipeline to automatically search for and evaluate against a ground-truth RTTM file.
+
 ### Next steps
-- commit Phase 1 code and document it well.
-- start Phase 2 by adding `pyannote.audio` for speaker diarization.
+- test DER on full, properly-annotated AMI dataset ground truth RTTM files.
+- test the pipeline on larger multi-speaker audio files.

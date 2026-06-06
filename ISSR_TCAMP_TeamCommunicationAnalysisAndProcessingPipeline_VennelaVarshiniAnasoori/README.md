@@ -7,17 +7,24 @@ Mentors: Piyush Pawar, Josh White
 ---
 
 ## Overview
-In simulator driving studies, teams talk through headsets. These recordings often catch low-frequency room hum, clicks, and echo. **TCAMP** cleans up this audio so speech is clearer for analysis.
+In simulator driving studies, teams talk through headsets. These recordings often catch low-frequency room hum, clicks, and echo. **TCAMP** cleans up this audio so speech is clearer for analysis, and then diarizes the audio to extract precise "who spoke when" timestamps.
 
-Currently completing Phase 1: Setting up the base repository and the audio enhancement module.
+Currently completed Phase 1 (Audio Enhancement) and Phase 2 (Speaker Diarization).
 
 ---
 
-## Audio Enhancement Module
-We support two options to remove background noise. To ensure all evaluation metrics are valid, the pipeline standardizes everything to a `target_sr` (default 16000 Hz) before and after enhancement. The pipeline also includes completely offline, reference-free evaluation (DNSMOS) using a local ONNX runtime.
+## Architecture
+The pipeline is divided into two core modules that execute sequentially:
 
+### 1. Audio Enhancement
+We support two options to remove background noise. To ensure all evaluation metrics are valid, the pipeline standardizes everything to a `target_sr` (default 16000 Hz). The pipeline also includes offline, reference-free evaluation (DNSMOS) using a local ONNX runtime.
 - `deepfilter`: Deep learning approach using DeepFilterNet3. Automatically resamples its native 48kHz output back to the target sampling rate.
 - `noisereduce`: Simple spectral gating baseline that works well without needing clean reference audio.
+
+### 2. Speaker Diarization
+We leverage `pyannote.audio` to segment the enhanced audio and cluster speaker identities. 
+- The module extracts timestamps and maps individual speakers to segments.
+- Includes a built-in Diarization Error Rate (DER) evaluator that natively uses `pyannote.metrics` against ground-truth RTTM files.
 
 ### Pipeline Local Validation (on 3-min AMI sample)
 | Method | SI-SDR (dB) | STOI | DNSMOS | Notes |
@@ -26,12 +33,10 @@ We support two options to remove background noise. To ensure all evaluation metr
 | **NoiseReduce** | 4.846 | 0.863 | 2.257 | Best fast/fallback filter for unlabelled data |
 | **DeepFilterNet3** | **36.638** | **0.998** | **3.012** | Superior deep learning enhancement, verified on Python 3.12 |
 
-**Takeaway:** DeepFilterNet provides exceptional clarity (DNSMOS > 3.0), but requires strict Conda/Python 3.12 environment stability. NoiseReduce serves as an excellent fallback.
-
 ---
 
 ## Setup
-To ensure environment stability and proper pre-compiled wheel support for deep learning modules (DeepFilterNet, PyTorch), **Conda** with **Python 3.12** is strictly required.
+To ensure environment stability and proper pre-compiled wheel support for deep learning modules (DeepFilterNet, PyTorch, Pyannote), **Conda** with **Python 3.12** is strictly required. You must also supply a Hugging Face token to access the gated Pyannote models.
 
 ```bash
 # Create and activate environment
@@ -45,23 +50,23 @@ pip install -r requirements.txt
 ---
 
 ## Usage
-Run enhancement directly in Python inside your `tcamp` Conda environment. Specify your target sampling rate to ensure metric alignment:
-```python
-from tcamp.enhance import enhance_audio
+We provide a unified, production-ready CLI runner to execute the entire pipeline (Enhancement -> Diarization -> Evaluation) in one command:
 
-results = enhance_audio(
-    input_path="input.wav",
-    output_path="enhanced.wav",
-    method="noisereduce",  # or "deepfilter"
-    target_sr=16000        # standardizes frequencies
-)
-print(results)
+```bash
+# Run the full pipeline (Enhancement -> Diarization -> Auto-Evaluation)
+python run_pipeline.py \
+    --input screening_notebooks/sample_input_and_output_files/sample_input.wav \
+    --output-dir observations/outputs \
+    --enhance-method deepfilter \
+    --token YOUR_HF_TOKEN
 ```
+
+*Note: If a ground truth RTTM file named `{input_filename}_ground_truth.rttm` exists in the `observations` folder, the pipeline will automatically evaluate the Diarization Error Rate (DER).*
 
 ---
 
 ## Testing
-To run tests on the real audio sample and save outputs to `observations/`:
+To run the automated test suite across both enhancement and diarization modules:
 ```bash
 python -m pytest tests/ -v -s
 ```
@@ -69,7 +74,10 @@ python -m pytest tests/ -v -s
 ---
 
 ## Repository Structure
-- `tcamp/enhance/`: Audio enhancement scripts and evaluation metrics
-- `tests/`: Test suite using real lab recordings
-- `observations/`: Folder where cleaned audio files are saved to listen to later
-- `screening_notebooks/`: Original screening task work and audio samples
+- `run_pipeline.py`: Unified CLI entry point for the entire pipeline.
+- `tcamp/pipeline.py`: Core logic router that bridges enhancement and diarization.
+- `tcamp/enhance/`: Audio enhancement models and audio quality metrics (STOI, DNSMOS).
+- `tcamp/diarization/`: Pyannote integration and DER tracking algorithms.
+- `tests/`: Pytest suite using real lab recordings.
+- `observations/`: Folder where cleaned audio, diarization JSON outputs, and evaluation reports are saved.
+- `screening_notebooks/`: Original screening task work and audio samples.
