@@ -11,6 +11,18 @@ def save_diarization_results(results: List[Dict[str, Any]], output_path: str):
     """
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
+
+def save_rttm(results: List[Dict[str, Any]], output_path: str, uri: str = "audio"):
+    """
+    Save the diarization output to a standard RTTM file.
+    """
+    with open(output_path, 'w') as f:
+        for seg in results:
+            speaker = seg['speaker']
+            start = seg['start']
+            duration = seg['end'] - start
+            # Format: SPEAKER <uri> 1 <start> <duration> <NA> <NA> <speaker> <NA> <NA>
+            f.write(f"SPEAKER {uri} 1 {start:.3f} {duration:.3f} <NA> <NA> {speaker} <NA> <NA>\n")
         
 def load_diarization_results(input_path: str) -> List[Dict[str, Any]]:
     """
@@ -60,7 +72,7 @@ def segments_to_annotation(segments: List[Dict[str, Any]], uri: str = "audio") -
         annotation[Segment(seg["start"], seg["end"])] = seg["speaker"]
     return annotation
 
-def calculate_der(reference_segments: List[Dict[str, Any]], hypothesis_segments: List[Dict[str, Any]]) -> float:
+def calculate_der(reference_segments: List[Dict[str, Any]], hypothesis_segments: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
     Calculate the Diarization Error Rate (DER) between reference (ground truth) and hypothesis (prediction).
     
@@ -69,7 +81,7 @@ def calculate_der(reference_segments: List[Dict[str, Any]], hypothesis_segments:
         hypothesis_segments: Predicted segments from pipeline
         
     Returns:
-        float: Diarization Error Rate (lower is better, 0.0 is perfect)
+        Dict: Detailed metrics including overall DER, miss, false alarm, and confusion rates.
     """
     try:
         from pyannote.metrics.diarization import DiarizationErrorRate  # type: ignore
@@ -80,6 +92,15 @@ def calculate_der(reference_segments: List[Dict[str, Any]], hypothesis_segments:
     hypothesis = segments_to_annotation(hypothesis_segments, uri="eval")
     
     metric = DiarizationErrorRate()
-    # Compute the metric
-    der = metric(reference, hypothesis)
-    return abs(der)
+    der_val = metric(reference, hypothesis)
+    components = metric.compute_components(reference, hypothesis)
+    
+    total = max(components.get("total", 1.0), 1e-6)
+    
+    return {
+        "der": abs(der_val),
+        "miss": components.get("missed detection", 0.0) / total,
+        "false_alarm": components.get("false alarm", 0.0) / total,
+        "confusion": components.get("confusion", 0.0) / total,
+        "total_speech_duration": total
+    }

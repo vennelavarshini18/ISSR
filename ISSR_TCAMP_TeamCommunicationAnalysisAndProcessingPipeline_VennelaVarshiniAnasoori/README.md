@@ -26,42 +26,41 @@ We leverage `pyannote.audio` to segment the enhanced audio and cluster speaker i
 - The module extracts timestamps and maps individual speakers to segments.
 - Includes a built-in Diarization Error Rate (DER) evaluator that natively uses `pyannote.metrics` against ground-truth RTTM files.
 
-### Pipeline Local Validation (on 3-min AMI sample)
+### Pipeline Local Validation (on AMI Sample)
 | Method | SI-SDR (dB) | STOI | DNSMOS | Notes |
 |---|---|---|---|---|
 | Noisy Input | - | 0.621 | 1.324 | Baseline room noise |
-| **NoiseReduce** | 4.846 | 0.863 | 2.257 | Best fast/fallback filter for unlabelled data |
-| **DeepFilterNet3** | **36.638** | **0.998** | **3.012** | Superior deep learning enhancement, verified on Python 3.12 |
+| **NoiseReduce** | 4.846 | 0.863 | 2.257 | Fast fallback filter |
+| **DeepFilterNet3** | **36.638** | **0.998** | **3.012** | Deep learning enhancement. Reduces False Alarms to 1.18% |
 
 ---
 
 ## Setup
-To ensure environment stability and proper pre-compiled wheel support for deep learning modules (DeepFilterNet, PyTorch, Pyannote), **Conda** with **Python 3.12** is strictly required. You must also supply a Hugging Face token to access the gated Pyannote models.
+The environment is managed via Conda. You will also need a Hugging Face token (via `$env:HF_TOKEN`) to access Pyannote models.
 
 ```bash
 # Create and activate environment
-conda create -n tcamp python=3.12 -y
+conda env create -f environment.yml
 conda activate tcamp
-
-# Install exact dependency versions
-pip install -r requirements.txt
 ```
 
 ---
 
 ## Usage
-We provide a unified, production-ready CLI runner to execute the entire pipeline (Enhancement -> Diarization -> Evaluation) in one command:
+Use the CLI to run the pipeline (Enhancement -> Diarization -> Evaluation):
 
 ```bash
-# Run the full pipeline (Enhancement -> Diarization -> Auto-Evaluation)
-python run_pipeline.py \
-    --input screening_notebooks/sample_input_and_output_files/sample_input.wav \
-    --output-dir observations/outputs \
-    --enhance-method deepfilter \
-    --token YOUR_HF_TOKEN
+# Run the full pipeline
+python run_pipeline.py --input screening_notebooks/sample_input_and_output_files/EN2002a.wav
 ```
 
-*Note: If a ground truth RTTM file named `{input_filename}_ground_truth.rttm` exists in the `observations` folder, the pipeline will automatically evaluate the Diarization Error Rate (DER).*
+*Note: The pipeline will automatically find `_ground_truth.rttm` files in the `observations` folder and calculate DER metrics (Miss Rate, False Alarm Rate, Speaker Confusion).*
+
+### Batch Testing
+To run the automated batch script:
+```bash
+python evaluate_batch.py
+```
 
 ---
 

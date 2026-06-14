@@ -16,6 +16,8 @@ def main():
     parser.add_argument("--output-dir", "-o", type=str, default="observations/outputs", help="Directory to save output files")
     parser.add_argument("--enhance-method", "-m", type=str, choices=["deepfilter", "noisereduce"], default="deepfilter", help="Enhancement method")
     parser.add_argument("--evaluate", "-e", type=str, help="Path to reference RTTM file for DER evaluation")
+    parser.add_argument("--phase", type=str, choices=["all", "enhance", "diarize"], default="all", help="Which pipeline phase to run")
+    parser.add_argument("--num-speakers", "-s", type=int, help="Force a specific number of speakers (optional)")
     parser.add_argument("--token", "-t", type=str, help="Hugging Face token (defaults to HF_TOKEN env var)")
     
     args = parser.parse_args()
@@ -29,7 +31,9 @@ def main():
             input_audio=args.input,
             output_dir=args.output_dir,
             enhance_method=args.enhance_method,
-            reference_rttm=args.evaluate
+            reference_rttm=args.evaluate,
+            phase=args.phase,
+            num_speakers=args.num_speakers
         )
         
         logger.info("\n=== Pipeline Execution Summary ===")

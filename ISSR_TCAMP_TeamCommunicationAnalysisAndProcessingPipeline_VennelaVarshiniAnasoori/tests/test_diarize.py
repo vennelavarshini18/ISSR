@@ -52,8 +52,10 @@ class TestDiarizationMetrics:
             {"start": 2.5, "end": 4.0, "speaker": "SPEAKER_01"}
         ]
         
-        der = calculate_der(mock_reference, mock_hypothesis)
-        assert der == 0.0
+        der_stats = calculate_der(mock_reference, mock_hypothesis)
+        assert der_stats["der"] == 0.0
+        assert der_stats["miss"] == 0.0
+        assert der_stats["false_alarm"] == 0.0
 
     def test_rttm_parser(self, tmp_path):
         """tests if the RTTM parsing skeleton works correctly."""
