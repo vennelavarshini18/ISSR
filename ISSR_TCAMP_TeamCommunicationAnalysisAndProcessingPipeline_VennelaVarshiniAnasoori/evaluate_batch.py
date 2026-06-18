@@ -38,8 +38,7 @@ def main():
     pipeline = TCAMPPipeline()
     
     audio_dir = Path("screening_notebooks/sample_input_and_output_files")
-    # Only test the actual AMI datasets we downloaded
-    test_files = ["EN2002a.wav", "ES2004a.wav", "IS1009a.wav"]
+    test_files = ["sample_input.wav", "ES2004a.wav"]
     
     results = []
     
@@ -52,14 +51,10 @@ def main():
         print(f"\n==============================================")
         print(f"Evaluating {filename}...")
         try:
-            # We skip enhancement here just to test diarization directly, or we can run all
-            # Since these are long files (30-60 mins), enhancement might take a very long time
-            # For quick testing, we will just run diarize phase. 
-            # If full pipeline is desired, change phase="all"
             res = pipeline.process(
                 input_audio=audio_path,
                 output_dir="observations/outputs",
-                phase="diarize"
+                phase="all"
             )
             results.append(res)
         except Exception as e:

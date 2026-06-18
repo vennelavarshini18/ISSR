@@ -56,7 +56,7 @@ Goal: set up the repository structure and test out early audio enhancement model
 - added an auto-discovery feature to the pipeline to automatically search for and evaluate against a ground-truth RTTM file.
 
 ### June 13: Phase 2 Evaluation & Edge Cases
-- `environment.yml` to standardize the local setup.
+- generated `environment.yml` to standardize the local setup.
 - added `.rttm` file generation and a `--num-speakers` argument to the pipeline.
 - updated DER metric calculation to include `Miss`, `False Alarm`, and `Confusion` rates.
 - added `evaluate_batch.py` to automate testing across multiple files.
@@ -64,4 +64,3 @@ Goal: set up the repository structure and test out early audio enhancement model
 ### Next steps
 - use the batch script to track DER metrics across all edge cases (overlap, long audio, variable speakers).
 - tune the deepfilternet noise-reduction threshold to lower the Pyannote Miss Rate.
-- proceed to Phase 3 (Speech-to-Text / Transcription Integration).

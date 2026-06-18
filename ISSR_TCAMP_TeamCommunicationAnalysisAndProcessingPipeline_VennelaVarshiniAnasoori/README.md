@@ -2,7 +2,7 @@
 
 GSoC 2026 Project | HumanAI Foundation | TRIP Lab, University of Alabama
 Contributor: Vennela Varshini Anasoori
-Mentors: Piyush Pawar, Josh White
+Mentors: Piyush Pawar, Joshua White
 
 ---
 
