@@ -14,6 +14,9 @@ class TCAMPPipeline:
         self.auth_token = auth_token or os.environ.get("HF_TOKEN")
         self.diarization_pipeline = None
         
+        from tcamp.enhance.enhance import AudioEnhancer
+        self.audio_enhancer = AudioEnhancer()
+        
     def process(
         self,
         input_audio: str | Path,
@@ -30,9 +33,9 @@ class TCAMPPipeline:
         out_dir = Path(output_dir)
         out_dir.mkdir(parents=True, exist_ok=True)
         
-        enhanced_audio_path = out_dir / f"enhanced_{input_path.name}"
-        diarization_json_path = out_dir / f"diarization_{input_path.stem}.json"
-        diarization_rttm_path = out_dir / f"diarization_{input_path.stem}.rttm"
+        enhanced_audio_path = out_dir / f"enhanced_{enhance_method}_{input_path.name}"
+        diarization_json_path = out_dir / f"diarization_{enhance_method}_{input_path.stem}.json"
+        diarization_rttm_path = out_dir / f"diarization_{enhance_method}_{input_path.stem}.rttm"
         
         results = {
             "input_audio": str(input_path),
@@ -46,8 +49,8 @@ class TCAMPPipeline:
         
         # 1. Enhancement
         if phase in ["all", "enhance"]:
-            logger.info(f"Step 1: Enhancing audio using {enhance_method}...")
-            metrics = enhance_audio(
+            logger.info(f"step 1: enhancing audio using {enhance_method}...")
+            metrics = self.audio_enhancer.enhance(
                 input_path=input_path,
                 output_path=enhanced_audio_path,
                 method=enhance_method,
@@ -55,24 +58,24 @@ class TCAMPPipeline:
             )
             results["enhancement_metrics"] = metrics
         else:
-            logger.info("Skipping Step 1 (Enhancement). Using input directly for diarization if needed.")
+            logger.info("skipping step 1 (enhancement). using input directly for diarization.")
             if not enhanced_audio_path.exists():
                 enhanced_audio_path = input_path
                 results["enhanced_audio"] = str(input_path)
 
         # 2. Diarization
         if phase in ["all", "diarize"]:
-            logger.info("Step 2: Running Diarization...")
+            logger.info("step 2: running diarization...")
             if self.diarization_pipeline is None:
                 if not self.auth_token:
-                    raise ValueError("HF_TOKEN is missing. Cannot initialize DiarizationPipeline.")
+                    raise ValueError("hf_token is missing. cannot initialize diarization pipeline.")
                 self.diarization_pipeline = DiarizationPipeline(auth_token=self.auth_token)
                 
             from tcamp.diarization.utils import save_rttm
             segments = self.diarization_pipeline.process(str(enhanced_audio_path), num_speakers=num_speakers)
             save_diarization_results(segments, str(diarization_json_path))
             save_rttm(segments, str(diarization_rttm_path), uri=input_path.stem)
-            logger.info(f"Diarization complete. Saved to {diarization_json_path.name} and {diarization_rttm_path.name}")
+            logger.info(f"diarization complete. saved to {diarization_json_path.name} and {diarization_rttm_path.name}")
             
             # 3. Evaluation (Optional, only if Diarization ran)
             if reference_rttm is None:
@@ -86,7 +89,7 @@ class TCAMPPipeline:
             if reference_rttm:
                 ref_path = Path(reference_rttm)
                 if ref_path.exists():
-                    logger.info(f"Step 3: Evaluating against ground truth {ref_path.name}...")
+                    logger.info(f"step 3: evaluating against ground truth {ref_path.name}...")
                     ref_segments = parse_rttm(str(ref_path))
                     try:
                         der_stats = calculate_der(ref_segments, segments)
@@ -96,16 +99,16 @@ class TCAMPPipeline:
                             "false_alarm": der_stats["false_alarm"],
                             "confusion": der_stats["confusion"]
                         }
-                        logger.info(f"Diarization Error Rate (DER): {der_stats['der']:.2%} "
-                                    f"[Miss: {der_stats['miss']:.2%} | "
-                                    f"FA: {der_stats['false_alarm']:.2%} | "
-                                    f"Confusion: {der_stats['confusion']:.2%}]")
+                        logger.info(f"der: {der_stats['der']:.2%} "
+                                    f"[miss: {der_stats['miss']:.2%} | "
+                                    f"fa: {der_stats['false_alarm']:.2%} | "
+                                    f"confusion: {der_stats['confusion']:.2%}]")
                     except ImportError:
-                        logger.error("pyannote.metrics not installed. Skipping DER calculation.")
+                        logger.error("pyannote.metrics not installed. skipping der calculation.")
                 else:
-                    logger.warning(f"Reference RTTM not found at {ref_path}. Skipping evaluation.")
+                    logger.warning(f"reference rttm not found at {ref_path}. skipping evaluation.")
         else:
-            logger.info("Skipping Step 2 (Diarization).")
+            logger.info("skipping step 2 (diarization).")
             results["diarization_results"] = None
                 
         return results

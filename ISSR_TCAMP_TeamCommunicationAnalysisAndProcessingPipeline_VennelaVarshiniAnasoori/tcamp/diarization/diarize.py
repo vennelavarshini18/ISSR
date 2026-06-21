@@ -1,6 +1,8 @@
 import os
+# pyrefly: ignore [missing-import]
 import torch
 from typing import Optional, Dict, Any, List
+# pyrefly: ignore [missing-import]
 from pyannote.audio import Pipeline
 
 class DiarizationPipeline:
@@ -23,18 +25,29 @@ class DiarizationPipeline:
                 )
                 
         self.auth_token = auth_token
-        print("Initializing Pyannote Speaker Diarization Pipeline...")
+        print("initializing pyannote speaker diarization pipeline...")
         self.pipeline = Pipeline.from_pretrained(
             "pyannote/speaker-diarization-3.1",
             use_auth_token=self.auth_token
         )
         
+        # phase 3 tuning: lower vad threshold to 0.30 to catch quiet speech 
+        # that deepfilternet might have suppressed.
+        print("applying phase 3 tuning: lowering vad threshold to 0.30...")
+        try:
+            params = self.pipeline.parameters(instantiated=True)
+            if "segmentation" in params:
+                params["segmentation"]["threshold"] = 0.30
+                self.pipeline.instantiate(params)
+        except Exception as e:
+            print(f"warning: could not apply vad tuning ({e})")
+        
         # Use GPU if available
         if torch.cuda.is_available():
-            print("CUDA available! Using GPU for diarization.")
+            print("cuda available. using gpu for diarization.")
             self.pipeline.to(torch.device("cuda"))
         else:
-            print("Using CPU for diarization.")
+            print("using cpu for diarization.")
         
     def process(self, audio_path: str, num_speakers: Optional[int] = None) -> List[Dict[str, Any]]:
         """
@@ -48,9 +61,9 @@ class DiarizationPipeline:
             List of dictionaries containing speaker segments and timestamps.
         """
         if not os.path.exists(audio_path):
-            raise FileNotFoundError(f"Audio file not found: {audio_path}")
+            raise FileNotFoundError(f"audio file not found: {audio_path}")
             
-        print(f"Running diarization on {audio_path}...")
+        print(f"running diarization on {audio_path}...")
         
         # Run pipeline
         if num_speakers is not None:

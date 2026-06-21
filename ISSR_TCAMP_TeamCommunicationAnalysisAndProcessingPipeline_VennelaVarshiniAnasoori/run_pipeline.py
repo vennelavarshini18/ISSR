@@ -24,7 +24,7 @@ def main():
     setup_logger()
     logger = logging.getLogger("run_pipeline")
     
-    logger.info("Initializing TCAMP Pipeline...")
+    logger.info("initializing tcamp pipeline...")
     try:
         pipeline = TCAMPPipeline(auth_token=args.token)
         results = pipeline.process(
@@ -36,13 +36,13 @@ def main():
             num_speakers=args.num_speakers
         )
         
-        logger.info("\n=== Pipeline Execution Summary ===")
+        logger.info("\npipeline execution summary:")
         print(json.dumps(results, indent=2))
         
     except ValueError as ve:
-        logger.error(f"Configuration Error: {str(ve)}")
+        logger.error(f"config error: {str(ve)}")
     except Exception as ex:
-        logger.error(f"Pipeline crashed: {str(ex)}")
+        logger.error(f"pipeline crashed: {str(ex)}")
 
 if __name__ == "__main__":
     main()

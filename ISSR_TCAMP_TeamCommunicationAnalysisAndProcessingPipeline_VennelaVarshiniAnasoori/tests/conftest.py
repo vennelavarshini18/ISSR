@@ -38,5 +38,5 @@ def output_path(tmp_path):
 
 @pytest.fixture
 def observations_output():
-    """returns path to observations directory to save audio files permanently."""
+    """returns path to observations directory to save audio files."""
     return observations_dir

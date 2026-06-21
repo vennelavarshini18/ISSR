@@ -17,12 +17,12 @@ Currently completed Phase 1 (Audio Enhancement) and Phase 2 (Speaker Diarization
 The pipeline is divided into two core modules that execute sequentially:
 
 ### 1. Audio Enhancement
-We support two options to remove background noise. To ensure all evaluation metrics are valid, the pipeline standardizes everything to a `target_sr` (default 16000 Hz). The pipeline also includes offline, reference-free evaluation (DNSMOS) using a local ONNX runtime.
+Supports two options to remove background noise. To ensure all evaluation metrics are valid, the pipeline standardizes everything to a `target_sr` (default 16000 Hz). The pipeline also includes offline, reference-free evaluation (DNSMOS) using a local ONNX runtime.
 - `deepfilter`: Deep learning approach using DeepFilterNet3. Automatically resamples its native 48kHz output back to the target sampling rate.
 - `noisereduce`: Simple spectral gating baseline that works well without needing clean reference audio.
 
 ### 2. Speaker Diarization
-We leverage `pyannote.audio` to segment the enhanced audio and cluster speaker identities. 
+Leverages `pyannote.audio` to segment the enhanced audio and cluster speaker identities. 
 - The module extracts timestamps and maps individual speakers to segments.
 - Includes a built-in Diarization Error Rate (DER) evaluator that natively uses `pyannote.metrics` against ground-truth RTTM files.
 
@@ -31,7 +31,7 @@ We leverage `pyannote.audio` to segment the enhanced audio and cluster speaker i
 |---|---|---|---|---|
 | Noisy Input | - | 0.621 | 1.324 | Baseline room noise |
 | **NoiseReduce** | 4.846 | 0.863 | 2.257 | Fast fallback filter |
-| **DeepFilterNet3** | **36.638** | **0.998** | **3.012** | Deep learning enhancement. Reduces False Alarms to 1.18% |
+| **DeepFilterNet3** | **36.638** | **0.998** | **3.012** | Deep learning enhancement. |
 
 ---
 

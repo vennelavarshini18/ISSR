@@ -41,26 +41,33 @@ Goal: set up the repository structure and test out early audio enhancement model
 - mentors told to fix the environment first and switch to a Conda environment with Python 3.12.
 
 ### June 4: Fixing the Environment (Phase 1 Complete)
-- moved the project to a new Conda environment using Python 3.12.
-- locked exact versions for torch, torchaudio, and speechmos in `requirements.txt` so everyone has the exact same setup.
-- tested the pipeline locally and everything works, DeepFilterNet ran successfully and gave great scores (STOI: 0.9988, SI-SDR: 36.638 dB, DNSMOS: 3.0126).
-- Phase 1 is now fully complete and documented.
+- moved the project to a new conda environment using python 3.12
+- locked exact versions for torch, torchaudio, and speechmos in `requirements.txt` so everyone has the exact same setup
+- tested the pipeline locally and deepfilternet gave good scores (stoi: 0.9988, si-sdr: 36.638 db, dnsmos: 3.0126)
+- finished phase 1
 
 ### June 6: Phase 2 Diarization & Pipeline Setup
-- completed phase 2 by integrating `pyannote.audio` to identify speakers.
-- the code now successfully tracks who spoke when from the cleaned audio.
-- added code to calculate Diarization Error Rate (DER) so we can measure accuracy.
-- cleaned up the repository.
-- built a single script (`run_pipeline.py`) that runs the entire process: enhancement, diarization, and evaluation in one go.
-- patched a lazy-loading bug in `speechbrain`/`lazy_loader` that crashed the test suite on Windows.
-- added an auto-discovery feature to the pipeline to automatically search for and evaluate against a ground-truth RTTM file.
+- started phase 2 by adding `pyannote.audio` to identify speakers
+- the code now tracks who spoke when from the cleaned audio
+- added code to calculate diarization error rate (der) to measure accuracy
+- cleaned up the repository
+- built a single script (`run_pipeline.py`) that runs enhancement, diarization, and evaluation together
+- fixed a bug in `speechbrain` that was crashing the tests on windows
+- added a feature to automatically find and evaluate against the ground-truth rttm file
 
 ### June 13: Phase 2 Evaluation & Edge Cases
-- generated `environment.yml` to standardize the local setup.
-- added `.rttm` file generation and a `--num-speakers` argument to the pipeline.
-- updated DER metric calculation to include `Miss`, `False Alarm`, and `Confusion` rates.
-- added `evaluate_batch.py` to automate testing across multiple files.
+- made an `environment.yml` to standardize the local setup
+- added `.rttm` file generation and a `--num-speakers` argument
+- updated der calculation to include miss, false alarm, and confusion rates
+- added `evaluate_batch.py` to test multiple files automatically
 
-### Next steps
-- use the batch script to track DER metrics across all edge cases (overlap, long audio, variable speakers).
-- tune the deepfilternet noise-reduction threshold to lower the Pyannote Miss Rate.
+### June 20: Mass Batch Evaluation 
+- evaluated 10 standard ami corpus datasets
+- ran the evaluation script across all files for raw, noisereduce, and deepfilternet
+- added audio chunking in `enhance.py` to fix memory crashes on large audio files
+- noticed that `noisereduce` messes up diarization by erasing voice features, which causes the confusion rate to go up
+- noticed that `deepfilternet` preserves speaker identity better, but it's a bit too aggressive and suppresses quiet speech, causing the miss rate to go up
+
+### June 21: Tuning for next phase
+- moved deepfilternet initialization into an `AudioEnhancer` class in `enhance.py` so the model doesn't reload constantly during batch runs
+- lowered pyannote's segmentation threshold to 0.30 to make it more sensitive to the quiet speech that deepfilternet suppresses
