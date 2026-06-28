@@ -9,12 +9,13 @@ class DiarizationPipeline:
     """
     Handles speaker diarization for audio files using Pyannote.
     """
-    def __init__(self, auth_token: Optional[str] = None):
+    def __init__(self, auth_token: Optional[str] = None, vad_threshold: Optional[float] = None):
         """
         Initialize the diarization pipeline.
         
         Args:
             auth_token: HuggingFace access token required for pyannote models.
+            vad_threshold: Optional float to override the default Pyannote VAD threshold.
         """
         if not auth_token:
             auth_token = os.environ.get("HF_TOKEN")
@@ -31,21 +32,24 @@ class DiarizationPipeline:
             use_auth_token=self.auth_token
         )
         
-        # phase 3 tuning: lower vad threshold to 0.30 to catch quiet speech 
-        # that deepfilternet might have suppressed.
-        print("applying phase 3 tuning: lowering vad threshold to 0.30...")
-        try:
-            params = self.pipeline.parameters(instantiated=True)
-            if "segmentation" in params:
-                params["segmentation"]["threshold"] = 0.30
-                self.pipeline.instantiate(params)
-        except Exception as e:
-            print(f"warning: could not apply vad tuning ({e})")
+        # apply vad tuning if threshold is provided
+        if vad_threshold is not None:
+            print(f"applying custom vad threshold: {vad_threshold}")
+            try:
+                params = self.pipeline.parameters(instantiated=True)
+                if "segmentation" in params:
+                    params["segmentation"]["threshold"] = vad_threshold
+                    self.pipeline.instantiate(params)
+            except Exception as e:
+                print(f"warning: could not apply vad tuning ({e})")
         
-        # Use GPU if available
+        # hardware acceleration setup
         if torch.cuda.is_available():
             print("cuda available. using gpu for diarization.")
             self.pipeline.to(torch.device("cuda"))
+        elif hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
+            print("using mps for diarization.")
+            self.pipeline.to(torch.device("mps"))
         else:
             print("using cpu for diarization.")
         

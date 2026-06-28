@@ -24,6 +24,7 @@ class AudioEnhancer:
         output_path: str | Path,
         method: Literal["deepfilter", "noisereduce"] = "deepfilter",
         target_sr: int = 16000,
+        apply_normalization: bool = False,
     ) -> dict:
         """
         Cleans up audio using the chosen method.
@@ -47,7 +48,7 @@ class AudioEnhancer:
         logger.info(f"running {method} on {in_file.name} (target {target_sr} hz)")
 
         if method == "deepfilter":
-            self._run_deepfilter(in_file, out_file, target_sr)
+            self._run_deepfilter(in_file, out_file, target_sr, apply_normalization)
         elif method == "noisereduce":
             from .baseline import run_noisereduce
             run_noisereduce(in_file, out_file, target_sr)
@@ -61,7 +62,7 @@ class AudioEnhancer:
         logger.info(f"finished. scores: {scores}")
         return scores
 
-    def _run_deepfilter(self, in_file: Path, out_file: Path, target_sr: int) -> None:
+    def _run_deepfilter(self, in_file: Path, out_file: Path, target_sr: int, apply_normalization: bool = False) -> None:
         """Runs DeepFilterNet3 enhancement and aligns output to target_sr."""
         try:
             from df.enhance import enhance, init_df
@@ -82,7 +83,7 @@ class AudioEnhancer:
         # pyrefly: ignore [missing-import]
         import torch
         
-        # Process in 3-minute chunks to prevent OOM errors on large files
+        # chunk processing to prevent memory overflow
         chunk_size = 3 * 60 * self._df_state.sr()
         enhanced_chunks = []
         
@@ -102,8 +103,33 @@ class AudioEnhancer:
             logger.info(f"resampling deepfilter output from {self._df_state.sr()} to {target_sr} hz")
             enhanced = F.resample(enhanced, self._df_state.sr(), target_sr)
 
+        if apply_normalization:
+            enhanced = self._apply_dynamic_range_compression(enhanced, target_sr)
+
         save_audio(str(out_file), enhanced, target_sr)
         logger.info(f"saved deepfilter output to {out_file.name} at {target_sr} hz")
+
+    def _apply_dynamic_range_compression(self, audio_tensor, sample_rate: int):
+        """Applies pedalboard dynamic range compression to recover suppressed speech."""
+        logger.info("applying dynamic range compression (DRC)...")
+        try:
+            from pedalboard import Pedalboard, Compressor, NoiseGate, Gain
+            import torch
+        except ImportError:
+            raise ImportError("pedalboard is not installed. Run: pip install pedalboard")
+            
+        # Audio from df is a torch tensor [1, samples] in range [-1, 1]
+        audio_np = audio_tensor.numpy()
+        
+        # apply dynamic range compression (noisegate -> compressor -> gain) to recover quiet speech
+        board = Pedalboard([
+            NoiseGate(threshold_db=-60.0, ratio=10, attack_ms=1.0, release_ms=100.0),
+            Compressor(threshold_db=-30.0, ratio=4.0, attack_ms=5.0, release_ms=100.0),
+            Gain(gain_db=15.0)
+        ])
+        
+        processed_np = board(audio_np, sample_rate)
+        return torch.from_numpy(processed_np)
 
 # Keep the old function for backwards compatibility with test scripts
 _default_enhancer = None
@@ -113,8 +139,9 @@ def enhance_audio(
     output_path: str | Path,
     method: Literal["deepfilter", "noisereduce"] = "deepfilter",
     target_sr: int = 16000,
+    apply_normalization: bool = False,
 ) -> dict:
     global _default_enhancer
     if _default_enhancer is None:
         _default_enhancer = AudioEnhancer()
-    return _default_enhancer.enhance(input_path, output_path, method, target_sr)
+    return _default_enhancer.enhance(input_path, output_path, method, target_sr, apply_normalization)

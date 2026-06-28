@@ -9,7 +9,7 @@ Mentors: Piyush Pawar, Joshua White
 ## Overview
 In simulator driving studies, teams talk through headsets. These recordings often catch low-frequency room hum, clicks, and echo. **TCAMP** cleans up this audio so speech is clearer for analysis, and then diarizes the audio to extract precise "who spoke when" timestamps.
 
-Currently completed Phase 1 (Audio Enhancement) and Phase 2 (Speaker Diarization).
+Currently completed Phase 1 (Audio Enhancement), Phase 2 (Speaker Diarization), and Phase 2.5 (Tuning & Normalization).
 
 ---
 
@@ -21,9 +21,10 @@ Supports two options to remove background noise. To ensure all evaluation metric
 - `deepfilter`: Deep learning approach using DeepFilterNet3. Automatically resamples its native 48kHz output back to the target sampling rate.
 - `noisereduce`: Simple spectral gating baseline that works well without needing clean reference audio.
 
-### 2. Speaker Diarization
+### 2. Speaker Diarization & Tuning
 Leverages `pyannote.audio` to segment the enhanced audio and cluster speaker identities. 
 - The module extracts timestamps and maps individual speakers to segments.
+- Includes a configurable VAD threshold and post-filter dynamic range compression (DRC) to recover quiet speech suppressed by the enhancement models.
 - Includes a built-in Diarization Error Rate (DER) evaluator that natively uses `pyannote.metrics` against ground-truth RTTM files.
 
 ### Pipeline Local Validation (on AMI Sample)

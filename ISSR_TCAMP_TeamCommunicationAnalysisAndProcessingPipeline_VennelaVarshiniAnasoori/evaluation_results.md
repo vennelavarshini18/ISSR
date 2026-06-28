@@ -1,5 +1,8 @@
 # TCAMP Batch Evaluation Results
 
+> [!NOTE]
+> Phase 1 and Phase 2 baseline results are recorded here. For the Phase 2.5 (Tuning & Normalization) ablation study, please see `observations/phase2.5_validation.md`.
+
 | Sample | Condition | Expected Speakers | Actual Speakers | DER | Miss | False Alarm | Confusion | Notes |
 |---|---|---|---|---|---|---|---|---|
 | EN2001a | **Raw** | ? | 7 | 8.26% | 3.85% | 2.14% | 2.27% | Auto-evaluated |

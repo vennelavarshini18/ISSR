@@ -61,6 +61,10 @@ Goal: set up the repository structure and test out early audio enhancement model
 - updated der calculation to include miss, false alarm, and confusion rates
 - added `evaluate_batch.py` to test multiple files automatically
 
+### June 16: Fourth Meeting
+- discussed about the batch evaluation result on ami sample about deepfilter affecting miss rate metric
+- concluded to run a mass batch evaluation on diverse multiple ami samples 
+
 ### June 20: Mass Batch Evaluation 
 - evaluated 10 standard ami corpus datasets
 - ran the evaluation script across all files for raw, noisereduce, and deepfilternet
@@ -71,3 +75,24 @@ Goal: set up the repository structure and test out early audio enhancement model
 ### June 21: Tuning for next phase
 - moved deepfilternet initialization into an `AudioEnhancer` class in `enhance.py` so the model doesn't reload constantly during batch runs
 - lowered pyannote's segmentation threshold to 0.30 to make it more sensitive to the quiet speech that deepfilternet suppresses
+
+### June 23: Fifth Meeting
+- discussed midterm expectations.
+- decided deepfilternet stays as the primary enhancement model, identified miss rate as the main bottleneck
+- agreed to run a 4-step validation experiment across diverse ami samples to find a way to recover quiet speech without increasing false alarms or confusion.
+- discussed exploring a post-filter speech normalization method 
+
+### June 25: Phase 2.5 Tuning & Batch Setup
+- selected dynamic range compression (drc) using the `pedalboard` package to recover suppressed speech without amplifying background noise
+- implemented `_apply_dynamic_range_compression` in the enhancement module using a noisegate and compressor
+- modified the batch evaluation script to test 5 specific edge-case ami samples across 5 different pipeline configurations
+
+### June 27: Phase 2.5 Results & Phase 3 Architecture
+- completed the 5-step batch validation experiments on the edge-case ami files
+- concluded that post-processing cannot recover the quiet speech without breaking diarization
+- documented all findings 
+
+### June 28: GPU Migration & Code Cleanup
+- recognized that running Pyannote on CPU is a massive bottleneck (taking >30 mins per file)
+- migrated the repository execution to google colab (t4 gpu) using a github + google drive hybrid approach
+

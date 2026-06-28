@@ -18,6 +18,8 @@ def main():
     parser.add_argument("--evaluate", "-e", type=str, help="Path to reference RTTM file for DER evaluation")
     parser.add_argument("--phase", type=str, choices=["all", "enhance", "diarize"], default="all", help="Which pipeline phase to run")
     parser.add_argument("--num-speakers", "-s", type=int, help="Force a specific number of speakers (optional)")
+    parser.add_argument("--vad-threshold", type=float, help="Override Pyannote VAD segmentation threshold (e.g., 0.30)")
+    parser.add_argument("--apply-normalization", action="store_true", help="Apply DRC speech normalization after enhancement")
     parser.add_argument("--token", "-t", type=str, help="Hugging Face token (defaults to HF_TOKEN env var)")
     
     args = parser.parse_args()
@@ -33,7 +35,9 @@ def main():
             enhance_method=args.enhance_method,
             reference_rttm=args.evaluate,
             phase=args.phase,
-            num_speakers=args.num_speakers
+            num_speakers=args.num_speakers,
+            apply_normalization=args.apply_normalization,
+            vad_threshold=args.vad_threshold
         )
         
         logger.info("\npipeline execution summary:")

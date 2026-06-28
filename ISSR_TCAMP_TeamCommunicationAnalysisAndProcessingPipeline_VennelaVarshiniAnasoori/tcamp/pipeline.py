@@ -24,7 +24,9 @@ class TCAMPPipeline:
         enhance_method: Literal["deepfilter", "noisereduce"] = "deepfilter",
         reference_rttm: Optional[str | Path] = None,
         phase: Literal["all", "enhance", "diarize"] = "all",
-        num_speakers: Optional[int] = None
+        num_speakers: Optional[int] = None,
+        apply_normalization: bool = False,
+        vad_threshold: Optional[float] = None
     ) -> Dict[str, Any]:
         """
         Runs the full TCAMP pipeline: Enhancement -> Diarization -> Evaluation.
@@ -54,7 +56,8 @@ class TCAMPPipeline:
                 input_path=input_path,
                 output_path=enhanced_audio_path,
                 method=enhance_method,
-                target_sr=16000
+                target_sr=16000,
+                apply_normalization=apply_normalization
             )
             results["enhancement_metrics"] = metrics
         else:
@@ -69,7 +72,9 @@ class TCAMPPipeline:
             if self.diarization_pipeline is None:
                 if not self.auth_token:
                     raise ValueError("hf_token is missing. cannot initialize diarization pipeline.")
-                self.diarization_pipeline = DiarizationPipeline(auth_token=self.auth_token)
+                # Pass vad_threshold to the constructor. If we already initialized without it, 
+                # we'll have to rely on the user passing it consistently across batch runs.
+                self.diarization_pipeline = DiarizationPipeline(auth_token=self.auth_token, vad_threshold=vad_threshold)
                 
             from tcamp.diarization.utils import save_rttm
             segments = self.diarization_pipeline.process(str(enhanced_audio_path), num_speakers=num_speakers)

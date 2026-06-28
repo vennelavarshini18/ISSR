@@ -123,9 +123,5 @@ if raw audio has a better der, why enhance it at all?
 1. **Human Transcription:** researchers have to manually listen to these driving simulator recordings to transcribe exact words and analyze driver cognitive load. raw audio has severe engine hum and road noise, causing massive listening fatigue. deepfilternet is needed to make the audio listenable.
 2. **ASR (speech-to-text):** while pyannote (diarization) handles noise well, speech recognition models (like whisper) hallucinate and fail in heavy noise. the audio *must* be cleaned for the transcription phase.
 
-### 3. The Goal of Phase 3 (Tuning)
+### 3. The Goal of Phase 2.5 (Tuning)
 since we must use deepfilternet to clean the audio for humans and asr, we have to deal with its main side effect: the increased miss rate in diarization. 
-
-this is why phase 3 (tuning) is so important. the goal of phase 3 is to bridge this gap. by lowering pyannote's voice activity detection (vad) threshold, we force pyannote to be more sensitive to the quiet speech that deepfilternet suppresses. 
-
-the ultimate goal is to get the best of both worlds: the clean, human-readable audio of deepfilternet, combined with the high machine accuracy of the raw audio.
