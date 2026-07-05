@@ -9,30 +9,27 @@ Mentors: Piyush Pawar, Joshua White
 ## Overview
 In simulator driving studies, teams talk through headsets. These recordings often catch low-frequency room hum, clicks, and echo. **TCAMP** cleans up this audio so speech is clearer for analysis, and then diarizes the audio to extract precise "who spoke when" timestamps.
 
-Currently completed Phase 1 (Audio Enhancement), Phase 2 (Speaker Diarization), and Phase 2.5 (Tuning & Normalization).
+Currently completed Phase 1 (Audio Enhancement), Phase 2 (Speaker Diarization), Phase 2.5 (Tuning & Normalization), and Phase 3 (Transcription).
 
 ---
 
-## Architecture
-The pipeline is divided into two core modules that execute sequentially:
+## Architecture: The Segment-Level Dual-Path Pipeline
+The pipeline is divided into three core modules that execute sequentially, employing a unique "Dual-Path" approach to maximize both diarization accuracy and transcription accuracy.
 
-### 1. Audio Enhancement
-Supports two options to remove background noise. To ensure all evaluation metrics are valid, the pipeline standardizes everything to a `target_sr` (default 16000 Hz). The pipeline also includes offline, reference-free evaluation (DNSMOS) using a local ONNX runtime.
-- `deepfilter`: Deep learning approach using DeepFilterNet3. Automatically resamples its native 48kHz output back to the target sampling rate.
-- `noisereduce`: Simple spectral gating baseline that works well without needing clean reference audio.
+### 1. Audio Enhancement (DeepFilterNet)
+Supports two options to remove background noise (standardized to 16000 Hz). The pipeline includes offline, reference-free evaluation (DNSMOS).
+- `deepfilter`: Deep learning approach using DeepFilterNet3.
+- `noisereduce`: Simple spectral gating fallback.
 
-### 2. Speaker Diarization & Tuning
-Leverages `pyannote.audio` to segment the enhanced audio and cluster speaker identities. 
-- The module extracts timestamps and maps individual speakers to segments.
-- Includes a configurable VAD threshold and post-filter dynamic range compression (DRC) to recover quiet speech suppressed by the enhancement models.
-- Includes a built-in Diarization Error Rate (DER) evaluator that natively uses `pyannote.metrics` against ground-truth RTTM files.
+### 2. Speaker Diarization (Pyannote on RAW Audio)
+Leverages `pyannote.audio` to segment the audio and cluster speaker identities. 
+- **The Dual-Path Insight:** We run Diarization on the **RAW audio** rather than the enhanced audio. Enhancement models like DeepFilterNet sometimes distort or suppress quiet speech, causing Pyannote's VAD to miss speakers. By using RAW audio, we extract perfect timestamps without losing quiet speech segments.
+- Includes a built-in Diarization Error Rate (DER) evaluator that natively uses `pyannote.metrics`.
 
-### Pipeline Local Validation (on AMI Sample)
-| Method | SI-SDR (dB) | STOI | DNSMOS | Notes |
-|---|---|---|---|---|
-| Noisy Input | - | 0.621 | 1.324 | Baseline room noise |
-| **NoiseReduce** | 4.846 | 0.863 | 2.257 | Fast fallback filter |
-| **DeepFilterNet3** | **36.638** | **0.998** | **3.012** | Deep learning enhancement. |
+### 3. Smart Transcription (WhisperX)
+Transcribes the audio segment-by-segment using WhisperX.
+- **Smart Segment Selector:** For every timestamp found by Pyannote, we extract the segment from *both* the RAW audio and the Enhanced audio. If the RMS energy of the enhanced segment is extremely low compared to the raw audio (indicating the enhancement model over-suppressed it), we pass the RAW audio to WhisperX. Otherwise, we pass the clean Enhanced audio.
+- This results in highly accurate text transcripts where background noise is eliminated, but quiet speech is never lost.
 
 ---
 
@@ -48,20 +45,14 @@ conda activate tcamp
 ---
 
 ## Usage
-Use the CLI to run the pipeline (Enhancement -> Diarization -> Evaluation):
+Use the CLI to run the full pipeline (Enhancement -> Diarization -> Transcription):
 
 ```bash
-# Run the full pipeline
-python run_pipeline.py --input screening_notebooks/sample_input_and_output_files/EN2002a.wav
+# Run the full pipeline using the large-v2 model on GPU
+python run_pipeline.py --input screening_notebooks/sample_input_and_output_files/EN2002a.wav --transcription-model large-v2 --transcription-device cuda --transcription-compute float16
 ```
 
-*Note: The pipeline will automatically find `_ground_truth.rttm` files in the `observations` folder and calculate DER metrics (Miss Rate, False Alarm Rate, Speaker Confusion).*
-
-### Batch Testing
-To run the automated batch script:
-```bash
-python evaluate_batch.py
-```
+*Note: For local CPU testing, you can pass `--transcription-model tiny --transcription-device cpu`.*
 
 ---
 
@@ -75,9 +66,9 @@ python -m pytest tests/ -v -s
 
 ## Repository Structure
 - `run_pipeline.py`: Unified CLI entry point for the entire pipeline.
-- `tcamp/pipeline.py`: Core logic router that bridges enhancement and diarization.
-- `tcamp/enhance/`: Audio enhancement models and audio quality metrics (STOI, DNSMOS).
+- `tcamp/pipeline.py`: Core logic router implementing the Segment-Level Dual-Path architecture.
+- `tcamp/enhance/`: Audio enhancement models and audio quality metrics.
 - `tcamp/diarization/`: Pyannote integration and DER tracking algorithms.
+- `tcamp/transcription/`: WhisperX integration.
 - `tests/`: Pytest suite using real lab recordings.
-- `observations/`: Folder where cleaned audio, diarization JSON outputs, and evaluation reports are saved.
-- `screening_notebooks/`: Original screening task work and audio samples.
+- `observations/`: Folder where cleaned audio, diarization JSON outputs, transcripts, and evaluation reports are saved.

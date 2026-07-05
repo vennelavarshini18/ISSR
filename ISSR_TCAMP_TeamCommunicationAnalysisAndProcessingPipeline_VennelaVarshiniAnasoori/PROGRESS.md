@@ -96,3 +96,17 @@ Goal: set up the repository structure and test out early audio enhancement model
 - recognized that running Pyannote on CPU is a massive bottleneck (taking >30 mins per file)
 - migrated the repository execution to google colab (t4 gpu) using a github + google drive hybrid approach
 
+### June 30: Sixth Meeting
+- Discussed the phase 2.5 results with mentors.
+- Piyush suggested a completely different architectural approach: "Segment-Level Dual Path".
+- Instead of trying to fix DeepFilterNet to work with Pyannote, we will use RAW audio for Diarization (to find perfect timestamps) and use DeepFilterNet audio for Transcription (to get perfect text).
+
+### July 2: Phase 3 Setup 
+- Prototyped `prototype_dual_path.py` to test the Dual-Path theory.
+- Introduced `whisperx` for transcription.
+
+### July 5: Phase 3 Colab Run & Completion
+- built the Segment-Level Dual-Path architecture directly into `pipeline.py`
+- fed raw audio to diarization and enhanced audio to whisperx
+- ran the prototype on colab gpu on a 50-minute meeting and confirmed it perfectly recovered previously lost speech
+- added a quick filter to remove annoying whisper hallucinations

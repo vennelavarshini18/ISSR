@@ -16,11 +16,16 @@ def main():
     parser.add_argument("--output-dir", "-o", type=str, default="observations/outputs", help="Directory to save output files")
     parser.add_argument("--enhance-method", "-m", type=str, choices=["deepfilter", "noisereduce"], default="deepfilter", help="Enhancement method")
     parser.add_argument("--evaluate", "-e", type=str, help="Path to reference RTTM file for DER evaluation")
-    parser.add_argument("--phase", type=str, choices=["all", "enhance", "diarize"], default="all", help="Which pipeline phase to run")
+    parser.add_argument("--phase", type=str, choices=["all", "enhance", "diarize", "transcribe"], default="all", help="Which pipeline phase to run")
     parser.add_argument("--num-speakers", "-s", type=int, help="Force a specific number of speakers (optional)")
     parser.add_argument("--vad-threshold", type=float, help="Override Pyannote VAD segmentation threshold (e.g., 0.30)")
     parser.add_argument("--apply-normalization", action="store_true", help="Apply DRC speech normalization after enhancement")
     parser.add_argument("--token", "-t", type=str, help="Hugging Face token (defaults to HF_TOKEN env var)")
+    
+    # Transcription Arguments
+    parser.add_argument("--transcription-model", type=str, default="large-v2", help="WhisperX model size (e.g., large-v2, base, tiny)")
+    parser.add_argument("--transcription-device", type=str, default="cpu", help="Device for WhisperX (cpu or cuda)")
+    parser.add_argument("--transcription-compute", type=str, default="int8", help="Compute precision for WhisperX (int8 or float16)")
     
     args = parser.parse_args()
     setup_logger()
@@ -37,7 +42,10 @@ def main():
             phase=args.phase,
             num_speakers=args.num_speakers,
             apply_normalization=args.apply_normalization,
-            vad_threshold=args.vad_threshold
+            vad_threshold=args.vad_threshold,
+            transcription_model=args.transcription_model,
+            transcription_device=args.transcription_device,
+            transcription_compute=args.transcription_compute
         )
         
         logger.info("\npipeline execution summary:")

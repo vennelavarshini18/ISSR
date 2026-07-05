@@ -2,6 +2,7 @@ import os
 # pyrefly: ignore [missing-import]
 import torch
 from typing import Optional, Dict, Any, List
+
 # pyrefly: ignore [missing-import]
 from pyannote.audio import Pipeline
 
@@ -26,10 +27,11 @@ class DiarizationPipeline:
                 )
                 
         self.auth_token = auth_token
+        os.environ["HF_TOKEN"] = self.auth_token
         print("initializing pyannote speaker diarization pipeline...")
         self.pipeline = Pipeline.from_pretrained(
             "pyannote/speaker-diarization-3.1",
-            use_auth_token=self.auth_token
+            token=self.auth_token
         )
         
         # apply vad tuning if threshold is provided
