@@ -41,8 +41,8 @@ class TCAMPPipeline:
         """
         Runs the full TCAMP Dual-Path pipeline.
         Step 1: Enhance the audio.
-        Step 2: Diarize the RAW audio (to prevent Pyannote from missing speech).
-        Step 3: Transcribe segments (dynamically switching between DFN and RAW based on RMS energy).
+        Step 2: Diarize the RAW audio.
+        Step 3: Transcribe segments (switching between DFN and RAW based on RMS energy).
         """
         input_path = Path(input_audio)
         out_dir = Path(output_dir)
@@ -149,23 +149,24 @@ class TCAMPPipeline:
                     selected_seg = dfn_seg
                     source = "DFN"
                     
-                # Skip segments shorter than 0.5 seconds to prevent Whisper hallucinations on silence
+                # Minimum duration safeguard
                 segment_duration = end_time - start_time
                 if segment_duration < 0.5:
                     continue
 
                 # Transcribe numpy array
-                trans_result = self.transcription_pipeline.transcribe_audio(selected_seg)
-                text = " ".join([s["text"] for s in trans_result["segments"]]).strip()
+                try:
+                    trans_result = self.transcription_pipeline.transcribe_audio(selected_seg, language="en")
+                    segments = trans_result.get("segments", [])
+                    text = " ".join([s.get("text", "") for s in segments]).strip()
+                except IndexError:
+                    # Handle WhisperX VAD empty-chunk IndexError
+                    continue
+                except Exception as e:
+                    logger.warning(f"WhisperX failed to transcribe segment [{start_time}-{end_time}]: {e}")
+                    continue
                 
-                # Filter out known Whisper hallucinations
-                hallucinations = [
-                    "", "you", "you.", "Thank you.", "Thank you", 
-                    "Bye.", "Bye", "Yeah.", "Okay.", "Oh.", "Hmm."
-                ]
-                
-                # If text is empty, a known hallucination, or contains watermark links, skip it entirely
-                if not text or text.strip() in hallucinations or "www." in text or "http" in text:
+                if not text:
                     continue
                     
                 log_line = f"[{start_time:05.1f} - {end_time:05.1f}] {speaker} ({source}): {text}"

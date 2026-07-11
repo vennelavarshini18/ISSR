@@ -110,3 +110,20 @@ Goal: set up the repository structure and test out early audio enhancement model
 - fed raw audio to diarization and enhanced audio to whisperx
 - ran the prototype on colab gpu on a 50-minute meeting and confirmed it perfectly recovered previously lost speech
 - added a quick filter to remove annoying whisper hallucinations
+
+### July 8: Seventh Meeting
+- finalized the segment-level dual-path architecture as the direction for transcription
+- identified minor whisper hallucinations as remaining transcription issue
+- discussed the upcoming shift to the text analytics phase for the second half of gsoc
+
+### July 9: Midterm Submission
+- submitted the gsoc midterm contributor evaluation form 
+
+### July 10: Midterm Pass & Feedback
+- passed the gsoc midterm evaluation
+- mentors advised to continue documenting metrics and methods throughout the development cycle
+
+### July 11: Whisper Hallucination Analysis
+- Analyzed whisper hallucinations in the AMI dataset.
+- Identified that the current dual-path pipeline and zero-speech vad filters inherently solve the whisper hallucination problem without needing a post-processing layer.
+- Documented findings in `observations/hallucination_analysis.md`.

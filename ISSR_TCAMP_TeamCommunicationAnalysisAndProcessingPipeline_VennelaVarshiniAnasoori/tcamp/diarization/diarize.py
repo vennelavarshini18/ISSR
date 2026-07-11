@@ -3,6 +3,17 @@ import os
 import torch
 from typing import Optional, Dict, Any, List
 
+# Patch huggingface_hub to bypass deprecated 'use_auth_token' kwarg from pyannote
+import huggingface_hub.file_download
+_orig_hf_hub_download = huggingface_hub.file_download.hf_hub_download
+
+def _safe_hf_hub_download(*args, **kwargs):
+    kwargs.pop('use_auth_token', None)
+    return _orig_hf_hub_download(*args, **kwargs)
+
+huggingface_hub.file_download.hf_hub_download = _safe_hf_hub_download
+huggingface_hub.hf_hub_download = _safe_hf_hub_download
+
 # pyrefly: ignore [missing-import]
 from pyannote.audio import Pipeline
 
@@ -30,8 +41,7 @@ class DiarizationPipeline:
         os.environ["HF_TOKEN"] = self.auth_token
         print("initializing pyannote speaker diarization pipeline...")
         self.pipeline = Pipeline.from_pretrained(
-            "pyannote/speaker-diarization-3.1",
-            token=self.auth_token
+            "pyannote/speaker-diarization-3.1"
         )
         
         # apply vad tuning if threshold is provided

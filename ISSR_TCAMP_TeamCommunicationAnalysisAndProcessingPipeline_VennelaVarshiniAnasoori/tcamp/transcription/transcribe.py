@@ -43,13 +43,14 @@ class TranscriptionPipeline:
         self.device = device
         self.model = whisperx.load_model(model_size, device, compute_type=compute_type)
 
-    def transcribe_audio(self, audio_input: Any, batch_size: int = 16) -> Dict[str, Any]:
+    def transcribe_audio(self, audio_input: Any, batch_size: int = 16, language: str = None) -> Dict[str, Any]:
         """
         Transcribes audio.
         
         Args:
             audio_input: Path to the .wav file OR a numpy array of shape (samples,) at 16000Hz.
             batch_size: Batch size for WhisperX processing.
+            language: ISO language code (e.g., 'en'). If None, Whisper auto-detects.
             
         Returns:
             Dictionary containing the transcribed segments and text.
@@ -70,7 +71,7 @@ class TranscriptionPipeline:
                 audio = audio.mean(axis=1)
         
         # Transcribe
-        result = self.model.transcribe(audio, batch_size=batch_size)
+        result = self.model.transcribe(audio, batch_size=batch_size, language=language)
         return result
 
     def align_transcript(self, result: Dict[str, Any], audio_path: str | Path) -> Dict[str, Any]:

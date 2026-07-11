@@ -9,7 +9,7 @@ Mentors: Piyush Pawar, Joshua White
 ## Overview
 In simulator driving studies, teams talk through headsets. These recordings often catch low-frequency room hum, clicks, and echo. **TCAMP** cleans up this audio so speech is clearer for analysis, and then diarizes the audio to extract precise "who spoke when" timestamps.
 
-Currently completed Phase 1 (Audio Enhancement), Phase 2 (Speaker Diarization), Phase 2.5 (Tuning & Normalization), and Phase 3 (Transcription).
+Currently completed Phase 1 (Audio Enhancement), Phase 2 (Speaker Diarization), Phase 2.5 (Tuning & Normalization), Phase 3 (Transcription), and Phase 3.5 (Hallucination Management).
 
 ---
 
@@ -23,13 +23,13 @@ Supports two options to remove background noise (standardized to 16000 Hz). The 
 
 ### 2. Speaker Diarization (Pyannote on RAW Audio)
 Leverages `pyannote.audio` to segment the audio and cluster speaker identities. 
-- **The Dual-Path Insight:** We run Diarization on the **RAW audio** rather than the enhanced audio. Enhancement models like DeepFilterNet sometimes distort or suppress quiet speech, causing Pyannote's VAD to miss speakers. By using RAW audio, we extract perfect timestamps without losing quiet speech segments.
+- **The Dual-Path Insight:** Diarization is executed on the **RAW audio** rather than the enhanced audio. Enhancement models like DeepFilterNet sometimes distort or suppress quiet speech, causing Pyannote's VAD to miss speakers. By using RAW audio, precise timestamps are extracted without losing quiet speech segments.
 - Includes a built-in Diarization Error Rate (DER) evaluator that natively uses `pyannote.metrics`.
 
 ### 3. Smart Transcription (WhisperX)
 Transcribes the audio segment-by-segment using WhisperX.
-- **Smart Segment Selector:** For every timestamp found by Pyannote, we extract the segment from *both* the RAW audio and the Enhanced audio. If the RMS energy of the enhanced segment is extremely low compared to the raw audio (indicating the enhancement model over-suppressed it), we pass the RAW audio to WhisperX. Otherwise, we pass the clean Enhanced audio.
-- This results in highly accurate text transcripts where background noise is eliminated, but quiet speech is never lost.
+- **Smart Segment Selector:** For every timestamp found by Pyannote, the segment is extracted from *both* the RAW audio and the Enhanced audio. If the RMS energy of the enhanced segment is extremely low compared to the raw audio (indicating the enhancement model over-suppressed it), the RAW audio is passed to WhisperX. Otherwise, the clean Enhanced audio is used.
+- This results in highly accurate text transcripts where background noise is eliminated, but quiet speech is retained.
 
 ---
 
