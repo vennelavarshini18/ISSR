@@ -23,7 +23,7 @@ def main():
     parser.add_argument("--token", "-t", type=str, help="Hugging Face token (defaults to HF_TOKEN env var)")
     
     # Transcription Arguments
-    parser.add_argument("--transcription-model", type=str, default="large-v2", help="WhisperX model size (e.g., large-v2, base, tiny)")
+    parser.add_argument("--transcription-model", type=str, default="medium.en", help="WhisperX model size (e.g., medium.en, large-v2, base)")
     parser.add_argument("--transcription-device", type=str, default="cpu", help="Device for WhisperX (cpu or cuda)")
     parser.add_argument("--transcription-compute", type=str, default="int8", help="Compute precision for WhisperX (int8 or float16)")
     

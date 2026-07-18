@@ -29,7 +29,8 @@ Leverages `pyannote.audio` to segment the audio and cluster speaker identities.
 ### 3. Smart Transcription (WhisperX)
 Transcribes the audio segment-by-segment using WhisperX.
 - **Smart Segment Selector:** For every timestamp found by Pyannote, the segment is extracted from *both* the RAW audio and the Enhanced audio. If the RMS energy of the enhanced segment is extremely low compared to the raw audio (indicating the enhancement model over-suppressed it), the RAW audio is passed to WhisperX. Otherwise, the clean Enhanced audio is used.
-- This results in highly accurate text transcripts where background noise is eliminated, but quiet speech is retained.
+- **Model Selection (`medium.en`):** The pipeline is explicitly optimized for the `medium.en` model with strict `language="en"` constraints. This prevents multilingual hallucinations and avoids the "hallucinated fluency" (grammar autocorrecting) inherent to larger Whisper architectures.
+- This results in highly accurate, verbatim text transcripts optimized for behavioral analytics.
 
 ---
 

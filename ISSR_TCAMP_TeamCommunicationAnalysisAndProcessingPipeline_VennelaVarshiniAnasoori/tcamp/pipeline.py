@@ -34,7 +34,7 @@ class TCAMPPipeline:
         num_speakers: Optional[int] = None,
         apply_normalization: bool = False,
         vad_threshold: Optional[float] = None,
-        transcription_model: str = "large-v2",
+        transcription_model: str = "medium.en",
         transcription_device: str = "cpu",
         transcription_compute: str = "int8"
     ) -> Dict[str, Any]:

@@ -127,3 +127,13 @@ Goal: set up the repository structure and test out early audio enhancement model
 - Analyzed whisper hallucinations in the AMI dataset.
 - Identified that the current dual-path pipeline and zero-speech vad filters inherently solve the whisper hallucination problem without needing a post-processing layer.
 - Documented findings in `observations/hallucination_analysis.md`.
+
+### July 14: Eighth Meeting
+- mentors confirmed the current dual-path pipeline is reproducible.
+- decided to pause phase 4 to investigate why whisper occasionally hallucinates.
+
+### July 18: Phase 3.5 Hallucination Analysis
+- completed manual ground-truth inspection of EN2002a hallucinations.
+- generated base.en, medium.en, large-v2, and large-v3-turbo transcriptions and compared the models side-by-side.
+- officially selected `medium.en` as the default model due to its balance of acoustic robustness and verbatim faithfulness.
+- prepared `phase3.5_hallucination_analysis.md` and diagrams

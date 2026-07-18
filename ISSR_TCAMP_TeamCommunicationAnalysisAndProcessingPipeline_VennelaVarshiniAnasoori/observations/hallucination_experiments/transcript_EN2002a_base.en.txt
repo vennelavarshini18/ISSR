@@ -1,0 +1,524 @@
+[005.7 - 007.1] SPEAKER_04 (DFN): This stuff, man.
+[008.9 - 011.0] SPEAKER_04 (DFN): Good.
+[012.4 - 019.0] SPEAKER_06 (DFN): So we need to talk about it. So we just go around and everyone says what they've been doing.
+[019.1 - 020.0] SPEAKER_02 (DFN): without anything.
+[020.4 - 021.2] SPEAKER_06 (DFN): Mhm.
+[024.2 - 026.0] SPEAKER_06 (DFN): I'm sorry. Yeah.
+[026.6 - 029.4] SPEAKER_00 (DFN): Sounds like you've done so.
+[029.8 - 033.0] SPEAKER_06 (DFN): Okay, well I've got a browser now, which...
+[033.0 - 035.0] SPEAKER_04 (DFN): Whoops.
+[035.5 - 036.0] SPEAKER_04 (DFN): Good.
+[038.1 - 039.1] SPEAKER_04 (DFN): I'll drop mine as well.  //
+[043.7 - 045.0] SPEAKER_04 (DFN): It wasn't a good story.
+[048.3 - 049.1] SPEAKER_04 (DFN): Okay.
+[049.3 - 051.0] SPEAKER_04 (DFN): Sorry. Yeah.
+[051.0 - 054.1] SPEAKER_06 (DFN): Yeah, we've got a browser, we...
+[054.2 - 066.7] SPEAKER_06 (DFN): which comes up automatically with the transcription box and the topics and then when you go on the menu you can select a summarization box which pops up and an audio player.
+[068.8 - 084.8] SPEAKER_06 (DFN): And I think the search works as well, so you pop up a search. And it loads up just the background window, so empty. And so when you start, you have to either open a particular observation or do a search and open it through that.
+[086.5 - 087.0] SPEAKER_06 (DFN): That makes sense.
+[088.6 - 089.2] SPEAKER_06 (DFN): Um...
+[090.2 - 095.3] SPEAKER_06 (DFN): The transcription box has got a summarize button which doesn't do anything yet.
+[096.0 - 096.6] SPEAKER_06 (DFN): Um.
+[097.2 - 097.9] SPEAKER_06 (DFN): now.
+[098.6 - 100.8] SPEAKER_06 (DFN): I wonder how we want to do, you know.
+[101.4 - 103.9] SPEAKER_06 (DFN): We want to pop up window with the speaker characterization.
+[106.2 - 127.3] SPEAKER_06 (DFN): Either we could do that, you know, when does a pop-up come? Either we can, when you click on the ID, any sort of ID in the transcription box, or we can put an extra button, extra few buttons next to the summarize button, so that you actually in the transcription box, so that you click on a button and then the opens and whatever that speaker characterization is.
+[128.3 - 134.8] SPEAKER_06 (DFN): The problem is the left click is already used because it highlights that
+[136.6 - 140.4] SPEAKER_06 (DFN): that part of speech or whatever that, what are you saying?
+[138.7 - 140.9] SPEAKER_04 (DFN): the left.
+[140.6 - 143.9] SPEAKER_06 (DFN): They're like highlights it.
+[142.6 - 143.6] SPEAKER_04 (DFN): So that double click.
+[145.2 - 152.1] SPEAKER_06 (DFN): I don't know what happens when you double click after me, but that'd be a bit annoying if you have left click for one thing and double click for something else.
+[152.9 - 160.7] SPEAKER_06 (DFN): I think so yeah when you left click it you can for example set the marker there so that the audio goes from there I think.
+[162.7 - 168.6] SPEAKER_06 (DFN): So we can't put it on left. We could put it on the right click. We could for example have a little menu that pops up.
+[169.5 - 170.8] SPEAKER_02 (DFN): Yeah, it might be quite good, I suppose.
+[170.6 - 176.7] SPEAKER_06 (DFN): So right click on it menu, you know, and you can click on speaker characterization.
+[176.9 - 178.0] SPEAKER_02 (DFN): What else could we have in them?
+[182.4 - 184.0] SPEAKER_04 (DFN): I just have a
+[182.8 - 183.4] SPEAKER_06 (DFN): Check it out.
+[184.0 - 184.8] SPEAKER_02 (DFN): Right click with you.
+[184.8 - 185.4] SPEAKER_04 (DFN): Yeah, yeah.
+[187.4 - 190.1] SPEAKER_06 (DFN): But Uber and usually in Windows right click.  //
+[190.1 - 190.7] SPEAKER_02 (DFN): is a window.
+[190.1 - 193.5] SPEAKER_06 (DFN): Do anything, it opens a menu.
+[192.3 - 197.0] SPEAKER_02 (DFN): the menu, yeah, that's why nobody does it. So it would be a bit weird to just stop it.
+[194.9 - 196.6] SPEAKER_06 (DFN): a bit weird.
+[196.9 - 197.9] SPEAKER_06 (DFN): and stuff with it.
+[197.0 - 198.0] SPEAKER_01 (DFN): and stuff like that.
+[198.0 - 201.1] SPEAKER_00 (DFN): to just have the same sort of medium throughout.
+[204.6 - 206.5] SPEAKER_06 (DFN): or just you know, or just the button.
+[207.8 - 220.0] SPEAKER_05 (DFN): I guess a bit of button makes a bit more sense because otherwise you don't really know that. Oh, what if I write quick now? What happens then? Well, no more. It is special.
+[218.4 - 221.5] SPEAKER_06 (DFN): Well, no, it is special. Yeah. The menu pop up there.
+[223.1 - 225.7] SPEAKER_06 (DFN): Well, oh yeah, it's more obvious isn't it?
+[225.0 - 227.5] SPEAKER_02 (DFN): That's already approved, isn't it? It's got a button.
+[227.8 - 232.5] SPEAKER_06 (DFN): Yeah, that's true, yeah.
+[230.5 - 235.7] SPEAKER_00 (DFN): Well, we have more things in the future than we have.
+[236.1 - 236.7] SPEAKER_06 (DFN): Maybe.
+[236.7 - 237.8] SPEAKER_00 (DFN): more flexible.
+[238.9 - 245.4] SPEAKER_02 (DFN): Well, I guess in meeting browser 1.1, you can have a menu instead of a box.
+[246.7 - 250.0] SPEAKER_02 (DFN): That's right, this one will be big today.
+[250.1 - 261.1] SPEAKER_06 (DFN): Actually, what we could do is, in that menu as well, we could have an option that pops up a window with all the meetings that that user has been in.
+[261.1 - 263.3] SPEAKER_06 (DFN): Like a search for that user.
+[264.3 - 266.6] SPEAKER_06 (DFN): Is that going to be useful or too much?
+[267.6 - 272.7] SPEAKER_02 (DFN): I guess so. Part of the money that comes down is, give me all your meetings or something.
+[272.7 - 279.1] SPEAKER_06 (DFN): Yeah, so when you right click on it, one option will be, give me all your meetings. Characterize a speaker.
+[284.1 - 285.5] SPEAKER_04 (DFN): Was that too much and we...   //
+[285.7 - 288.5] SPEAKER_04 (DFN): I guess so. It's more.
+[286.1 - 290.3] SPEAKER_05 (DFN): I guess so. It's more like part of the.
+[291.6 - 302.3] SPEAKER_05 (DFN): browsing sort of thing more than the speaking character decision as Steve mentioned, so we didn't know how to involve the speaking characters.
+[296.8 - 298.0] SPEAKER_03 (DFN): Yeah, Steve mentioned.    //overlap
+[298.0 - 299.4] SPEAKER_06 (DFN): I don't really know how to
+[301.0 - 302.7] SPEAKER_06 (DFN): Yeah, that's true. It'd be nice to have ink.
+[303.4 - 313.7] SPEAKER_00 (DFN): Yeah, maybe tie that in with dialogue acts or something as well. I mean speaker characterization and into I don't know just some way to sort of leverage that information like we have it or doing it but what
+[314.0 - 316.9] SPEAKER_00 (DFN): How does that help the browsing? Or what can it give us?
+[316.6 - 319.7] SPEAKER_06 (DFN): What do you mean that the speaker characterization? Oh, well, yeah, I mean...  
+[321.4 - 326.8] SPEAKER_06 (DFN): I don't know about that. I mean, the speaker characterisation is a bit like he said. It's like a nice thing.
+[327.3 - 332.3] SPEAKER_06 (DFN): We're not actually sure what the user wants for it, but it's interesting, so why not give it to him?
+[332.8 - 333.5] SPEAKER_02 (DFN): Yeah, yeah.
+[334.0 - 335.0] SPEAKER_06 (DFN): I think we should do it.
+[335.0 - 336.0] SPEAKER_05 (DFN): Yeah.
+[336.5 - 353.7] SPEAKER_05 (DFN): I mean, I guess maybe we could have that as another thing of like, well, if you get to speak a characterization that someone talks a lot in a certain topic, and then if you, I don't know, click on that topic, you get everything that's in that topic.
+[353.9 - 364.3] SPEAKER_06 (DFN): Yeah, and that's still another level further. I mean, we're not even there. Yeah, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no,    //overlap
+[354.7 - 356.2] SPEAKER_05 (DFN): Yeah, and that's still in our...
+[358.8 - 359.8] SPEAKER_05 (DFN): No, no, no.
+[364.4 - 368.9] SPEAKER_02 (DFN): We have to have a speaker characterisation first before we cross any of the other areas.
+[366.9 - 368.7] SPEAKER_06 (DFN): Yeah. Okay.
+[369.4 - 371.9] SPEAKER_06 (DFN): So should we try to do a right click when you then?
+[374.7 - 387.3] SPEAKER_00 (DFN): Yeah. All right. Well, that's just from the main. Even if anyone comes in a particular window, like if we want to sort of get, like if we're on the users versus like a topic or something, have a right from these various things. Yes.
+[377.9 - 379.4] SPEAKER_04 (DFN): Even if any one thing comes up.
+[385.7 - 386.2] SPEAKER_06 (DFN): Yeah.
+[386.8 - 404.0] SPEAKER_06 (DFN): Yes, wait, yeah, there's a second thing about the topics. The topic window, where you want to somehow click, be able to click on a topic and it pops up with all the meetings that contain that. So we could do that in a similar way, do it right click as well.
+[397.7 - 398.4] SPEAKER_04 (DFN): Right.
+[401.5 - 408.1] SPEAKER_00 (DFN): as well. Okay, so this is for consistent throw. Yeah, on the speaker.
+[409.6 - 424.1] SPEAKER_06 (DFN): So we have basically two options of browsing the meetings is by either searching and opening individual observations and then we have the interlinking by right click.
+[410.9 - 411.4] SPEAKER_00 (DFN): This law is out.
+[426.1 - 440.1] SPEAKER_00 (DFN): Actually, yeah, like another common thing, like we have it so set up that if you double click and it goes to a default thing on the menu, I mean, that's kind of a typical kind of action double click on a particular topic or something that it goes to sort of like a default. //overlap
+[435.4 - 436.0] SPEAKER_04 (DFN): Thank you.
+[440.6 - 442.2] SPEAKER_00 (DFN): Oh, so it'll be like all the...
+[442.9 - 451.7] SPEAKER_00 (DFN): um, cases of that topic, either whatever we decide the default to be, whether it's in all meetings or just in one meeting and just show up the particular instances of that topic.
+[452.3 - 462.9] SPEAKER_00 (DFN): in the meeting. Like, and just think to have the default there. So if somebody knows exactly what they want to do, and we know that that's the most common thing that's going to happen. So do that and just say from the trouble of right clicking and choosing the item on the menu.
+[459.0 - 459.8] SPEAKER_06 (DFN): Yeah.
+[462.8 - 466.8] SPEAKER_06 (DFN): I don't see there's anything obvious that would be able that would be.
+[466.1 - 469.8] SPEAKER_00 (DFN): That might come to us. Start playing with it.
+[469.5 - 472.5] SPEAKER_02 (DFN): What was that? I think I understand. Do you mean like we have to.    //overlap
+[471.3 - 480.4] SPEAKER_00 (DFN): like we have the right click menu yeah menu right click but instead of like have a default double click and it'll be a choice
+[478.2 - 482.9] SPEAKER_02 (DFN): Oh, so it will be a choice to figure out what's the most common use WV.
+[483.7 - 487.8] SPEAKER_05 (DFN): Like, I don't know, show the speaker characterization, for instance.
+[486.3 - 493.8] SPEAKER_06 (DFN): then from with a lot of windows popping up again and they pop up without you being quite sure what it is you know
+[495.0 - 495.6] SPEAKER_00 (DFN): Yeah.
+[496.3 - 502.8] SPEAKER_05 (DFN): But if you do double click on something, don't you expect something to happen?
+[503.2 - 503.7] SPEAKER_05 (DFN): sort of.
+[504.6 - 506.9] SPEAKER_02 (DFN): Sometimes you do it, but I'll go away.
+[507.0 - 508.6] SPEAKER_02 (DFN): Stop coming up. Let me close.
+[508.8 - 509.8] SPEAKER_02 (DFN): Yeah.
+[509.8 - 510.9] SPEAKER_00 (DFN): It's not him.
+[511.2 - 512.0] SPEAKER_00 (DFN): Hahaha!
+[511.8 - 513.6] SPEAKER_06 (DFN): Especially if you haven't touched a pad.
+[513.7 - 515.0] SPEAKER_00 (DFN): Yeah.
+[517.5 - 518.5] SPEAKER_03 (DFN): I love you.    //hall for a sound
+[517.7 - 523.9] SPEAKER_06 (DFN): What it does on double click at the moment. Yeah, because I think it might do something.
+[522.1 - 522.8] SPEAKER_03 (DFN): Thank you. Yeah.            //hall for a sound
+[524.5 - 529.9] SPEAKER_06 (DFN): I don't really don't see anything obvious.
+[532.4 - 533.6] SPEAKER_04 (DFN): I mean, if you can think of something.
+[546.7 - 547.8] SPEAKER_04 (DFN): What you're putting on.
+[548.2 - 549.2] SPEAKER_04 (DFN): All right.
+[549.3 - 551.9] SPEAKER_04 (DFN): Yeah, another thing.
+[554.0 - 556.6] SPEAKER_06 (DFN): all your files do we want to use them or not?
+[558.6 - 562.9] SPEAKER_02 (DFN): We don't know yet. Do you mean single channel? Yeah, single channel.
+[561.8 - 565.2] SPEAKER_06 (DFN): Yeah, single channel, single channel files. Do we want them? I mean...
+[565.8 - 573.0] SPEAKER_02 (DFN): Probably not, but we might need them for experiences. If we try to do it in audio. We might use them at the moment, no, but.
+[569.3 - 570.0] SPEAKER_06 (DFN): Yeah, it is.
+[570.8 - 572.2] SPEAKER_06 (DFN): But we might use them at the moment.
+[573.0 - 577.4] SPEAKER_06 (DFN): work with them that do we want to integrate them so that when you browse you can
+[577.9 - 580.9] SPEAKER_02 (DFN): You might want to be able to say, oh, just give me what that person's saying.
+[581.4 - 585.1] SPEAKER_06 (DFN): No, it's not going to make much sense if you listen to it.
+[585.1 - 589.6] SPEAKER_02 (DFN): Unless you can't hear it properly or something. Somebody's talking over somebody else or something.
+[591.3 - 593.2] SPEAKER_02 (DFN): Would you say no for now and put it in my room?
+[596.8 - 601.2] SPEAKER_04 (DFN): Yeah, because otherwise it will increase the amount of data we need by a lot, won't it?           //
+[606.8 - 607.4] SPEAKER_04 (DFN): Um...
+[610.1 - 616.2] SPEAKER_06 (DFN): Yeah, what do people think in general about the windows culturing that you mentioned? Do you think? I think we probably.
+[615.6 - 620.2] SPEAKER_00 (DFN): think we probably need that don't have the full flexibility we need to have
+[619.1 - 623.5] SPEAKER_06 (DFN): That's what I feel as long. I mean, I'm very much... I want to have everything.
+[624.0 - 624.9] SPEAKER_06 (DFN): customizable.
+[625.6 - 626.1] SPEAKER_06 (DFN): Um.
+[626.3 - 630.5] SPEAKER_00 (DFN): Well, the thing is typically, though, is someone gonna have five windows open at the same time, only nine.
+[630.8 - 635.3] SPEAKER_00 (DFN): Probably just two or three of whatever looking like dialogue acts, whatever.       //overlap
+[631.0 - 632.4] SPEAKER_06 (DFN): Maybe not. No. Yeah.
+[632.7 - 633.6] SPEAKER_06 (DFN): for me.
+[634.5 - 635.1] SPEAKER_06 (DFN): Yeah.
+[635.4 - 649.1] SPEAKER_06 (DFN): But yeah, it depends. I mean, I really want to put the summary in somewhere, you know, and the summary, for example, as typical, you open the window, you read through it, you might click on, you know, close it against straight away. Yeah, but it'd be good. I think it's fine.
+[646.2 - 656.3] SPEAKER_05 (DFN): Yeah, maybe good. I think it's fine. Well, currently, I mean, you probably, I don't know if you want to have like the full transcription and the summary at the same time.
+[657.5 - 663.4] SPEAKER_05 (DFN): So maybe you can just like choose the same window for transcription and summary.
+[663.7 - 666.5] SPEAKER_00 (DFN): like have a time there.
+[665.0 - 670.5] SPEAKER_05 (DFN): Yeah. Yeah. Have some ice. Yeah. Have some zealous.
+[669.1 - 669.8] SPEAKER_00 (DFN): I like that.
+[669.8 - 670.9] SPEAKER_02 (DFN): That's Mozilla style.
+[670.9 - 672.9] SPEAKER_05 (DFN): Yeah.
+[672.9 - 676.2] SPEAKER_06 (DFN): That's right, I'm not sure. Did we know how to do that?
+[675.2 - 680.8] SPEAKER_02 (DFN): that we know how to do that, can you? No, I don't think so. I've a nice one to do that really. Maybe you probably can.
+[681.5 - 682.6] SPEAKER_06 (DFN): So you can do anything.
+[682.9 - 690.6] SPEAKER_02 (DFN): He really knew what he was doing, but I don't know. The bit of a cripple Java's windowing toolkit. Sometimes. Bit of a cripple.
+[691.0 - 692.7] SPEAKER_04 (DFN): I can have a look.
+[694.9 - 697.0] SPEAKER_04 (DFN): Or just, I don't know.
+[697.0 - 698.4] SPEAKER_05 (DFN): But yeah, that might be nice.
+[697.0 - 698.4] SPEAKER_04 (DFN): Yeah, that might be changed.
+[700.2 - 703.0] SPEAKER_05 (DFN): contents of the same window, like transcription.    //
+[704.4 - 704.9] SPEAKER_04 (DFN): Oh, man.
+[707.8 - 712.5] SPEAKER_00 (DFN): or even just have buttons on it, toggle buttons or something on the toolbar that we do.
+[714.5 - 715.0] SPEAKER_00 (DFN): Thank you.                 //
+[716.0 - 720.0] SPEAKER_00 (DFN): Yeah, it doesn't have to be a tab or whatever. No, no, it could be
+[716.0 - 717.3] SPEAKER_05 (DFN): Yeah, yeah, that was good.
+[719.0 - 724.0] SPEAKER_05 (DFN): No, no, it could be like transcription summary, like two letters and you just.
+[724.2 - 725.5] SPEAKER_05 (DFN): Press on the motion.
+[725.1 - 726.7] SPEAKER_00 (DFN): or check marks even have.
+[726.1 - 738.3] SPEAKER_02 (DFN): That will reduce the number of windows which is quite good. Photoshopped has a lot of windows. If you use Photoshop, it's got loads and you're always good forever going. I'll get out of the way. There's always stuff in the way.
+[740.4 - 746.0] SPEAKER_06 (DFN): I mean, people get used to it. I mean, when you use it, Windows or Linux or whatever.
+[746.0 - 748.5] SPEAKER_06 (DFN): You have a lot of windows open.
+[747.8 - 748.5] SPEAKER_04 (DFN): You do.
+[748.7 - 749.3] SPEAKER_02 (RAW): Thank you.                //
+[751.9 - 762.6] SPEAKER_02 (DFN): Yeah. Unless Kenny, I don't suppose you can minimize them and stuff like that. Yeah, you can minimize them. Can you do that? Yeah, yeah. Okay. Well, that's all right. Yeah. Of course you can.
+[754.0 - 754.7] SPEAKER_04 (DFN): I don't know.
+[756.4 - 758.6] SPEAKER_06 (DFN): Yeah, you can't minimize. Can we do that? Yeah, yeah.
+[762.3 - 777.4] SPEAKER_00 (DFN): Like a lot of these can be like once we get the disfluencies out then we can you know, I've transcribed without the disfluency transcript with a different display. Yeah, that's true. Yeah, that's definitely sort of using the same window. And so yeah, they're definitely going to be in the same window. Yeah, they're definitely going to be in the same window.
+[769.7 - 771.8] SPEAKER_06 (DFN): Yeah, that's true.
+[773.1 - 775.1] SPEAKER_06 (DFN): Yeah, they're definitely going to be in the same window.
+[778.0 - 779.2] SPEAKER_06 (DFN): The next question.
+[778.0 - 779.2] SPEAKER_04 (DFN): The next question.
+[779.6 - 782.6] SPEAKER_06 (DFN): Yeah, that was a plan for the dysplences anyway.
+[784.0 - 789.2] SPEAKER_06 (DFN): Yeah, do you want to do that with some reason? Put the summaries in the same window.
+[790.0 - 791.5] SPEAKER_06 (DFN): Yeah.
+[790.8 - 804.3] SPEAKER_05 (DFN): Yeah, well, I don't know, but transcripts, it sounds reasonable to have like transcripts, like maybe three alternatives then, like full meeting, meeting without disabilities and submarines. Yeah.
+[804.4 - 805.9] SPEAKER_04 (DFN): Do you want to do that? That kind of makes sense.
+[804.7 - 805.3] SPEAKER_02 (DFN): Do you want to do that?
+[806.8 - 807.7] SPEAKER_04 (DFN): Yes, I was kidding.         //hall
+[817.0 - 822.4] SPEAKER_06 (DFN): Finally, the prototype you need to pick about. What kind of prototype could we produce?
+[823.1 - 823.9] SPEAKER_00 (DFN): Put it into February.
+[824.3 - 832.9] SPEAKER_06 (DFN): Because I'm, I'm just, you know, I go into the lab and I say, right? What am I going to change today? You know? And it kind of just, it just develops. I'm not.
+[829.3 - 830.1] SPEAKER_00 (DFN): Any kind of                    //
+[830.4 - 830.9] SPEAKER_00 (DFN): and you
+[833.3 - 833.9] SPEAKER_06 (DFN): Thank you.                  //hall
+[835.2 - 836.5] SPEAKER_04 (DFN): Do we want to aim for something?
+[837.8 - 838.7] SPEAKER_04 (DFN): Um...
+[841.5 - 843.0] SPEAKER_04 (DFN): I'm pretty much getting there.
+[843.0 - 846.6] SPEAKER_06 (DFN): Anyway, to be honest, there's not going to be a lot more there.
+[846.6 - 856.6] SPEAKER_05 (DFN): I guess it is. I mean, just to try and I mean for us to be able to do something that we can include with your thing. Yeah, that's what we need to do.
+[854.6 - 860.1] SPEAKER_02 (DFN): Yeah, that's what we need. Something just slightly more than just plug it in.
+[860.1 - 865.7] SPEAKER_05 (DFN): Yeah, just so see the integration works sort of between the two couple.
+[865.7 - 866.4] SPEAKER_02 (DFN): Definitely.
+[868.9 - 871.2] SPEAKER_05 (DFN): So I guess that's what we need to think about.
+[871.0 - 876.1] SPEAKER_02 (DFN): I think that's kind of what he meant as well, isn't it? Yeah. Seeing it sort of start to do stuff rather than just be.
+[876.3 - 877.1] SPEAKER_05 (DFN): Well, we're asking.               //overlap
+[878.0 - 879.2] SPEAKER_02 (DFN): and prototype with the GUI.
+[879.3 - 888.7] SPEAKER_05 (DFN): Yeah, well, I guess, I mean, that was probably our intention, but we might not have written it down.
+[886.3 - 887.0] SPEAKER_03 (DFN): So go ahead.
+[887.4 - 888.0] SPEAKER_04 (DFN): hahaha            //
+[892.4 - 906.0] SPEAKER_00 (DFN): is the code accessible, like the GUI stuff that you've done. Can we just copy the latest stuff out of your directory? If we're going to just try and take a look for something.
+[903.8 - 904.9] SPEAKER_04 (DFN): Thanks for watching.                       //hall, overlap
+[905.1 - 906.7] SPEAKER_02 (DFN): You can make it world readable.
+[906.7 - 912.8] SPEAKER_00 (DFN): then anybody can see if you just tell us the directory and just make the file readable then we know the directory to get in them and yeah
+[912.4 - 913.7] SPEAKER_06 (DFN): Yeah, sure.
+[913.6 - 914.6] SPEAKER_00 (DFN): I might be.
+[914.5 - 917.2] SPEAKER_06 (DFN): I don't know if it's readable at the moment, but you can show.
+[917.0 - 918.3] SPEAKER_00 (DFN): Let me bite a ball there.
+[918.3 - 926.4] SPEAKER_02 (DFN): No, they're not world readable, they're only default, then only you can read them. You can see them, but you can't read them.
+[926.3 - 928.3] SPEAKER_06 (DFN): Right, well I'll make that readable then.
+[928.7 - 932.4] SPEAKER_06 (DFN): So the directory is my number.
+[932.6 - 937.7] SPEAKER_00 (DFN): Or you could just email to us. Okay. Yeah. Well, this is not difficult. So number. Okay.
+[934.7 - 936.7] SPEAKER_06 (DFN): It's not difficult.
+[938.1 - 940.4] SPEAKER_06 (DFN): in all the emails.
+[940.5 - 941.5] SPEAKER_02 (DFN): You a number.
+[942.1 - 943.0] SPEAKER_06 (DFN): Oh.
+[943.0 - 943.8] SPEAKER_04 (DFN): cool.
+[943.9 - 946.8] SPEAKER_04 (DFN): Okay. A4.             //hall, overlap
+[948.6 - 951.0] SPEAKER_04 (DFN): See that again. Oh, for a.
+[951.0 - 952.7] SPEAKER_06 (DFN): It's all 555-60.
+[953.0 - 953.8] SPEAKER_02 (DFN): And then it's...
+[955.0 - 958.3] SPEAKER_06 (DFN): And then there's a folder in LSSD.
+[958.6 - 959.3] SPEAKER_02 (DFN): This is...
+[958.6 - 959.2] SPEAKER_06 (DFN): This is...
+[959.3 - 961.8] SPEAKER_06 (DFN): and it's called the M browser.
+[962.5 - 964.6] SPEAKER_02 (DFN): the M browser.
+[964.2 - 965.5] SPEAKER_06 (DFN): Thank you very much.            //hall
+[965.7 - 970.5] SPEAKER_02 (DFN): But we never have to look in my direction, it's just pure chaos.
+[971.4 - 975.9] SPEAKER_06 (DFN): No, I'm extremely ordinary. I've got all this over here, I love phones.
+[976.1 - 978.5] SPEAKER_02 (DFN): The right is serious chaos.
+[980.0 - 981.6] SPEAKER_04 (DFN): Bye, everyone.           //hall
+[986.5 - 989.3] SPEAKER_04 (DFN): So that's me doing someone else want to talk about their stuff?
+[991.9 - 992.8] SPEAKER_04 (DFN): sign with John Footland.
+[994.7 - 998.6] SPEAKER_05 (DFN): tell you what I done in SP2.
+[999.9 - 1024.8] SPEAKER_05 (DFN): So, um, I don't know, basically I started like browsing a bit just like trying to see if there's anything out there to use sort of just what were you doing again? Yeah. Yeah. Found a tutorial that inverted search indexing, but I haven't read it yet.
+[1014.4 - 1017.1] SPEAKER_03 (DFN): Oh, yeah. Yeah.
+[1023.6 - 1024.7] SPEAKER_00 (DFN): Thank you very much.           //hall
+[1025.0 - 1027.1] SPEAKER_00 (DFN): Like, that was behind the question, Shastam, earlier.
+[1027.1 - 1029.0] SPEAKER_05 (DFN): Yes. Oh, yeah.
+[1028.1 - 1030.7] SPEAKER_00 (DFN): using code and stuff into something.
+[1030.1 - 1030.8] SPEAKER_05 (DFN): Well, okay.
+[1030.9 - 1031.6] SPEAKER_00 (DFN): We have found some.
+[1031.6 - 1032.3] SPEAKER_02 (DFN): Close for it.
+[1032.8 - 1040.7] SPEAKER_05 (DFN): Yeah, well, I don't know if it's usable. I haven't looked at it, but I found some code for a tutorial about indexing.
+[1035.6 - 1036.3] SPEAKER_02 (DFN): Bye bye.
+[1039.8 - 1040.5] SPEAKER_02 (DFN): indexing.
+[1040.7 - 1045.0] SPEAKER_02 (DFN): Cool, cool. So even if it doesn't work, you can jiggery pot grit around and make it work.
+[1041.1 - 1041.6] SPEAKER_05 (DFN): Cool.
+[1045.1 - 1047.1] SPEAKER_00 (DFN): We'll probably self-duty some other file manager.
+[1048.1 - 1049.0] SPEAKER_00 (DFN): I'm pretty sure.
+[1048.4 - 1052.2] SPEAKER_02 (DFN): Yeah, yeah, there's lots of nonsense, but yeah, both basics is it. OK, that's OK.        //overlap
+[1053.1 - 1053.9] SPEAKER_06 (DFN): Yeah, that's funny.
+[1055.7 - 1057.9] SPEAKER_06 (DFN): Yeah, so you think you shouldn't be too difficult?
+[1060.2 - 1082.5] SPEAKER_05 (DFN): I don't know. I was a bit worried about one. Well, when he talked about this with the file, I said, I want files. I mean, how much do we actually need to do, like extracting things from the XML files and stuff to be able to do the indexing? Oh, I see. Yeah. I have to convert it to format.    //overlap
+[1083.4 - 1103.4] SPEAKER_02 (DFN): I've been trying to write something to read the XML and get rid of it. And I can get rid of it, but I'm having trouble pointing anywhere else. So it'll come up on the screen. But at the moment, I haven't managed to put it into a vector or whatever and Java to play with it. What are you writing in Java?
+[1101.2 - 1103.8] SPEAKER_05 (DFN): Are you writing Java or yeah? Okay.
+[1106.3 - 1107.7] SPEAKER_03 (DFN): I mean, you should have had fun.
+[1106.7 - 1114.2] SPEAKER_06 (DFN): I mean, you should have a look at the browser code then because they already extract, for example, transcripts.
+[1114.4 - 1117.2] SPEAKER_04 (DFN): Yeah, I'm sure they do. Yeah.         //
+[1118.4 - 1119.1] SPEAKER_04 (DFN): That's good idea.
+[1119.4 - 1120.0] SPEAKER_04 (DFN): Yeah.
+[1120.9 - 1122.8] SPEAKER_04 (DFN): Oh yeah, I will.
+[1123.0 - 1130.2] SPEAKER_04 (DFN): I'm sure I'm making a main of it.
+[1135.6 - 1138.0] SPEAKER_04 (DFN): Yeah, I guess, I mean, it was good.
+[1138.0 - 1148.4] SPEAKER_05 (DFN): point you had that like collaborating with the file things I mean if you already started on yeah yeah we can       //
+[1145.7 - 1147.5] SPEAKER_02 (DFN): Yeah, yeah, absolutely.
+[1148.6 - 1151.0] SPEAKER_02 (DFN): should share as much as possible yeah
+[1151.0 - 1152.0] SPEAKER_00 (DFN): libraries.
+[1155.2 - 1156.4] SPEAKER_05 (DFN): Should we, I don't know.
+[1158.3 - 1167.0] SPEAKER_05 (DFN): meet up and see what we can do. I mean, I don't know, see what you've done and see what we need, what we need, what we need maybe.
+[1167.3 - 1168.8] SPEAKER_02 (DFN): next week sometime.
+[1168.8 - 1169.8] SPEAKER_05 (DFN): Thank you.     //hall for a sound
+[1169.8 - 1170.8] SPEAKER_00 (DFN): So you're safe.
+[1170.8 - 1175.0] SPEAKER_02 (DFN): I actually haven't done anything this week because this week's been manic.
+[1174.0 - 1177.4] SPEAKER_06 (DFN): Yeah, exactly. This week's only two days old.
+[1175.5 - 1176.0] SPEAKER_02 (DFN): Thank you very much.
+[1177.6 - 1186.4] SPEAKER_02 (DFN): Well, whatever goes last week, then the week has, as it is rather than the proper weeks, you know, it's getting all a bit manic that I lost.
+[1186.4 - 1189.8] SPEAKER_00 (DFN): You're an SPNLP and SP2, right? That's what I did.
+[1188.2 - 1196.0] SPEAKER_02 (DFN): That's fine. And then we had to do an IRP wherever it was last week as well, which is only a page long, but it's quite difficult to write a page.
+[1196.9 - 1199.0] SPEAKER_03 (DFN): Yeah, oh yeah.       //
+[1197.3 - 1197.8] SPEAKER_02 (DFN): Oh, yeah
+[1198.0 - 1205.6] SPEAKER_02 (DFN): I had to sit there and think about it for a bit, this is a bit irritating.
+[1199.9 - 1200.7] SPEAKER_03 (DFN): But it was.
+[1212.3 - 1222.7] SPEAKER_00 (DFN): So yeah, I was thinking that we can probably start attacking this seriously. I'm just, you know, hopefully have something by next week that we can sort of try integrating into the GUI.
+[1214.1 - 1215.5] SPEAKER_04 (DFN): Yeah, we're gonna be talking.        //hall for a sound
+[1225.0 - 1226.1] SPEAKER_00 (DFN): Well,
+[1225.2 - 1243.7] SPEAKER_06 (DFN): Well, the browsers I use it now, it was there when I took it, uses the NXT search to get the data out of the files, which I think is odd, but I'm not quite sure how it works, I don't quite understand it.
+[1244.8 - 1246.4] SPEAKER_02 (DFN): So when it, when it.
+[1247.3 - 1254.2] SPEAKER_06 (DFN): To get the data, for example, to get the summarization data, you have to search for, I think, the IDs or something.
+[1256.5 - 1259.5] SPEAKER_04 (DFN): That's pretty sure, isn't it? I guess that's right.              //
+[1261.6 - 1262.4] SPEAKER_04 (DFN): That is pretty bizarre.                   //
+[1263.7 - 1269.0] SPEAKER_06 (DFN): So they don't, you know, they don't say, look in that in that folder, but touch everything.
+[1267.1 - 1267.7] SPEAKER_04 (DFN): Yay.
+[1270.6 - 1271.6] SPEAKER_00 (DFN): He's broke, sorry.
+[1273.9 - 1275.5] SPEAKER_00 (DFN): All they did say wasn't the most efficient.
+[1278.0 - 1279.3] SPEAKER_04 (DFN): it up quite quickly.           
+[1280.4 - 1290.7] SPEAKER_05 (DFN): Okay, but what is it like a window where you have to write a search query or is it just what's behind it? No, this is not the actual search.
+[1289.2 - 1306.7] SPEAKER_06 (DFN): No, this is not the actual search. This is just when you open, you know, to load the transcript, for example, to find the transcript for that meeting. It does an NXT search for the string, I don't know, transcript or text or whatever.
+[1307.2 - 1313.7] SPEAKER_02 (DFN): Or, and it just has an open variable, transparent list, whatever, find everything that's got that and then load.
+[1313.2 - 1320.5] SPEAKER_06 (DFN): Yeah, so I don't know if you've looked at the such query language, but it's like a dollar a text.
+[1319.5 - 1325.4] SPEAKER_02 (DFN): text. Yeah, yeah, because that's the the class variable doesn't mean. And then
+[1325.0 - 1330.1] SPEAKER_06 (DFN): And then yeah, because every year all of these
+[1331.5 - 1341.6] SPEAKER_06 (DFN): These files have got an ID and all the transcript files have got the string and then what it is with or text or something in it. So just search it for those files.
+[1342.9 - 1343.4] SPEAKER_04 (DFN): my name.
+[1345.6 - 1357.0] SPEAKER_05 (DFN): When you, like, is there an open thingy, or what are you, like, what did you do to, like, how did you figure out that this uses an XD search?
+[1357.5 - 1370.4] SPEAKER_06 (DFN): Um, is it? Um, well, it's in the code just that it, you know, you define a search object and then search that string had to figure out how to, how to do the same thing for the summary. That's not why.
+[1372.0 - 1376.6] SPEAKER_06 (DFN): I had to understand how to do the transcript, how they did the transcript to do the summary myself.
+[1372.1 - 1373.1] SPEAKER_02 (DFN): Oh, see, oh.
+[1376.6 - 1379.2] SPEAKER_02 (DFN): So did you have to write it in the way that they wrote it is all he did?
+[1379.3 - 1383.0] SPEAKER_06 (DFN): Yeah, just search for specific strings.
+[1385.5 - 1391.1] SPEAKER_06 (DFN): So you could just use that if you want to take the data out.
+[1391.3 - 1393.2] SPEAKER_04 (DFN): I was just thinking that, yeah.
+[1396.7 - 1405.5] SPEAKER_06 (DFN): If you have a question about what the code means or where to find the code that you want, you know, whatever you want to do, then just send me an email.
+[1406.8 - 1407.7] SPEAKER_06 (DFN): I can explain it.
+[1408.8 - 1411.8] SPEAKER_02 (DFN): If it annotated your code. Oh, yeah.
+[1410.7 - 1411.4] SPEAKER_06 (DFN): Oh yeah.
+[1411.7 - 1428.2] SPEAKER_06 (DFN): Actually, in the moment, it's got a load of rubbish because the, the, the browser that I used from, you know, that they gave us had a lot of extra stuff in and I haven't dared thrown out to throw out all the functions of the house.
+[1424.8 - 1428.0] SPEAKER_03 (DFN): Just the days before the mission critical.            //
+[1429.0 - 1436.0] SPEAKER_06 (DFN): So they're all in there, still. A lot of rubbish, but we'll begin. We'll be chucked out right at the end I think.
+[1436.9 - 1442.0] SPEAKER_02 (DFN): coming, commenting it out one bit at a time and running it to work. Yeah.
+[1439.3 - 1440.0] SPEAKER_06 (DFN): Yeah.
+[1440.6 - 1441.3] SPEAKER_04 (DFN): Okay.
+[1442.7 - 1443.4] SPEAKER_04 (DFN): Thank you.
+[1446.4 - 1446.9] SPEAKER_04 (DFN): Bye.            //hall for a sound
+[1452.2 - 1458.0] SPEAKER_02 (DFN): Basically, we got kind of this work, really. Yeah, that's it. We can be honest to that. I'm not going to show up with it.
+[1458.3 - 1460.3] SPEAKER_06 (DFN): And again, still four days off.
+[1461.2 - 1465.1] SPEAKER_02 (DFN): Yeah, I'm still in the bottom of the mountain.
+[1465.5 - 1467.3] SPEAKER_02 (DFN): How many questions is this?
+[1467.5 - 1469.1] SPEAKER_06 (DFN): But you can see how that must do.
+[1469.9 - 1473.0] SPEAKER_02 (DFN): Well, since you've finally got to explore any of it.
+[1475.5 - 1480.5] SPEAKER_02 (DFN): How's your quantifier raising?
+[1480.8 - 1482.0] SPEAKER_04 (DFN): Yeah.
+[1483.1 - 1486.5] SPEAKER_06 (DFN): I can't wrinkle what I'm supposed to do, by the way. Am I supposed to do the...
+[1486.5 - 1487.5] SPEAKER_04 (DFN): summarization, thinkable.            //
+[1500.9 - 1502.0] SPEAKER_04 (DFN): I'm sorry.
+[1502.2 - 1503.1] SPEAKER_04 (DFN): I'll do that then.            //
+[1502.9 - 1503.6] SPEAKER_00 (DFN): This can be changed.
+[1503.5 - 1505.3] SPEAKER_04 (DFN): Do I do that?
+[1505.9 - 1511.3] SPEAKER_00 (DFN): I don't know, it doesn't, if you want to, it's just, you know, play around with some extra stuff, have some time.
+[1507.0 - 1507.8] SPEAKER_06 (DFN): Well, if...
+[1512.4 - 1513.5] SPEAKER_06 (DFN): I shouldn't be too different.
+[1516.9 - 1519.2] SPEAKER_02 (DFN): So of course it should have picked up, we're not doing anywhere.
+[1519.2 - 1520.1] SPEAKER_06 (DFN): Let me talk to you.
+[1520.8 - 1529.8] SPEAKER_06 (DFN): I learned doing communications, which I had one exercise and I've done that like two weeks ago. That's in two weeks.
+[1530.2 - 1532.4] SPEAKER_00 (DFN): Is that actually the informatics, of course?
+[1532.9 - 1534.4] SPEAKER_06 (DFN): Yeah, so.
+[1534.3 - 1535.5] SPEAKER_00 (DFN): Oh, it's like no.
+[1534.9 - 1537.3] SPEAKER_06 (DFN): Nine calls as well ten or something.
+[1537.8 - 1538.9] SPEAKER_01 (DFN): Well, expensive, you know.            //
+[1539.0 - 1543.9] SPEAKER_06 (DFN): And then they're doing parallel programming languages and systems.
+[1544.9 - 1547.9] SPEAKER_06 (DFN): which we had one exercise as well, and that seemed exciting.
+[1551.5 - 1557.4] SPEAKER_06 (DFN): Well, I'm not doing any background readings.
+[1557.4 - 1559.4] SPEAKER_04 (DFN): Sorry, just yeah.
+[1563.1 - 1565.0] SPEAKER_00 (DFN): because over.
+[1565.5 - 1568.4] SPEAKER_05 (DFN): We have ruined these courses at work. Yes.
+[1570.7 - 1574.7] SPEAKER_00 (DFN): Is that about it then? Anything else we need to discuss?
+[1576.5 - 1580.0] SPEAKER_00 (DFN): Did we want to meet before we talk to Steve?
+[1583.0 - 1591.0] SPEAKER_00 (DFN): Well, I don't know. We'll probably get some work done over the weekend. So I know after D&LG or something, maybe just got a little quick little update and just.
+[1592.3 - 1596.0] SPEAKER_06 (DFN): Yeah, if you like, we can always decide then. Yeah, exactly. Yeah.
+[1593.8 - 1596.0] SPEAKER_00 (DFN): We can always decide then. Yeah, exactly.             //
+[1597.4 - 1599.9] SPEAKER_06 (DFN): So what are you planning to do with the weekend then?
+[1601.5 - 1606.0] SPEAKER_06 (DFN): You're gonna do the search.
+[1604.4 - 1606.8] SPEAKER_00 (DFN): Yeah. Couldn't be that.
+[1606.0 - 1606.6] SPEAKER_04 (DFN): can be done.
+[1607.6 - 1610.7] SPEAKER_00 (DFN): Wow, it'll be still limited.
+[1611.0 - 1613.0] SPEAKER_00 (DFN): version of the next query.
+[1615.0 - 1616.5] SPEAKER_00 (DFN): won't be the whole thing.
+[1616.7 - 1619.0] SPEAKER_00 (DFN): Like we can just decide sort of things that we do.
+[1619.0 - 1620.0] SPEAKER_04 (DFN): want to do.
+[1647.3 - 1655.9] SPEAKER_04 (DFN): Like you're saying, actually, do we want to set a date for interim prototype?        //
+[1657.1 - 1658.1] SPEAKER_04 (DFN): Specifically, a date.              //
+[1660.8 - 1663.9] SPEAKER_04 (DFN): who was or you decide I'm not going to.
+[1667.8 - 1675.0] SPEAKER_04 (DFN): The progress report is June 23rd of February.
+[1675.3 - 1677.4] SPEAKER_04 (DFN): So what's that to me?
+[1677.3 - 1681.7] SPEAKER_06 (DFN): Yeah, well, how about we get it done by then?
+[1682.8 - 1683.5] SPEAKER_04 (DFN): Yes, yes.
+[1684.4 - 1688.1] SPEAKER_06 (DFN): then we can write about it in the interim report.
+[1688.1 - 1689.0] SPEAKER_06 (DFN): you know.
+[1689.0 - 1690.2] SPEAKER_04 (DFN): I'm going to share.
+[1689.0 - 1689.7] SPEAKER_06 (DFN): It's a good show.             
+[1699.8 - 1708.0] SPEAKER_04 (DFN): my own deadlines. When the search interface
+[1710.8 - 1716.9] SPEAKER_06 (DFN): Maybe you should decide pretty early what kind of things you want to be able to search for.
+[1718.1 - 1723.9] SPEAKER_06 (DFN): And then if you want, you can give that to me and I'll build your nice, you know, if you tick boxes and drop down menus.
+[1724.9 - 1735.0] SPEAKER_05 (DFN): Wasn't like what do you have now? Wasn't that pretty much what we read on or was it? Oh, that's like that one. That doesn't exist. That's completely true.
+[1728.5 - 1729.1] SPEAKER_06 (DFN): No, we don't
+[1735.0 - 1741.7] SPEAKER_06 (DFN): cut and pasted. Nicely done, isn't it?
+[1736.4 - 1736.9] SPEAKER_03 (DFN): Okay.                    //overlap
+[1740.4 - 1743.6] SPEAKER_03 (DFN): Let's see what this is.              //
+[1743.5 - 1752.0] SPEAKER_06 (DFN): Actually all these things are nicks from these drop-down menus and tick boxes are nicks from Google.
+[1754.0 - 1754.9] SPEAKER_06 (DFN): screenshot of Google.
+[1757.0 - 1757.8] SPEAKER_03 (DFN): Thank you.
+[1757.8 - 1759.0] SPEAKER_04 (DFN): Right.
+[1760.0 - 1762.6] SPEAKER_06 (DFN): Maybe you should make it exist then.              //
+[1763.6 - 1776.6] SPEAKER_06 (DFN): It's gonna be a little difficult, more difficult. Yeah, I mean, I was going to, but, you know, the whole drop-down menus and stuff, what we want to search for is not quite agreed on. We never agreed on what we want to be able to search for.
+[1776.6 - 1779.6] SPEAKER_00 (DFN): Nice, notice it, yeah. Decide on that on over the weekend.
+[1779.8 - 1789.3] SPEAKER_06 (DFN): Yeah, do you want to just get together and think about the different types of search we could possibly do? And then we could discuss at next meeting which options we really want to include.
+[1791.3 - 1796.1] SPEAKER_06 (DFN): I would probably involve researching the query language a bit as well to see what that can do.
+[1798.7 - 1811.6] SPEAKER_05 (DFN): It would be nice to, I don't know, and you can sort of show us a bit, but, you know, already. So we don't sort of have to do all the work again. Just like figuring out stuff. Oh, just the basics.
+[1810.3 - 1811.9] SPEAKER_00 (DFN): Oh, just the basics.
+[1812.1 - 1816.6] SPEAKER_05 (DFN): No already, but just like accessing the corpus and stuff.
+[1817.5 - 1822.9] SPEAKER_00 (DFN): Just like all the, and seeing the code and just sort of how, just to see the basics of what you've done, just get a quick look over and just.
+[1823.1 - 1825.0] SPEAKER_02 (DFN): can take us for a tutorial.
+[1824.6 - 1825.2] SPEAKER_00 (DFN): Yeah.
+[1825.9 - 1833.4] SPEAKER_00 (DFN): You know, the class paths, all that sort of thing to say, okay, well, here's, yeah, everything's basically something and then just, you know, just jump right in.
+[1829.7 - 1832.0] SPEAKER_06 (DFN): Yeah. Everything's basically something. Yeah.
+[1832.4 - 1833.7] SPEAKER_06 (DFN): show you what it is.
+[1833.8 - 1834.3] SPEAKER_06 (DFN): Okay.
+[1835.9 - 1839.1] SPEAKER_00 (DFN): next week's article.
+[1836.0 - 1836.5] SPEAKER_06 (DFN): this week.
+[1839.6 - 1840.6] SPEAKER_00 (DFN): in the morning.
+[1841.0 - 1842.8] SPEAKER_06 (DFN): Oh yeah.
+[1842.9 - 1847.2] SPEAKER_06 (DFN): Well there's some iron dig.
+[1847.5 - 1848.1] SPEAKER_06 (DFN): Yeah.
+[1848.5 - 1856.9] SPEAKER_00 (DFN): I don't think that could happen anytime. My schedule is like a class, a bright class, a bright class.
+[1856.3 - 1859.5] SPEAKER_06 (DFN): Yeah, I was not going to take an hour. Yeah, I know exactly. Yeah, yeah.
+[1857.7 - 1861.7] SPEAKER_00 (DFN): Yeah, I know exactly. That's why I'm thinking so. Something like that and then if I have a classic and run off.
+[1859.6 - 1860.3] SPEAKER_06 (DFN): So some like.
+[1862.6 - 1863.4] SPEAKER_06 (DFN): Pick a time.
+[1865.2 - 1867.4] SPEAKER_06 (DFN): Um, yeah, let me know.
+[1866.2 - 1868.2] SPEAKER_00 (DFN): let me know when it might be good
+[1868.1 - 1871.8] SPEAKER_06 (DFN): Yeah, Monday. What is next? Yeah, this Monday.
+[1870.3 - 1871.7] SPEAKER_00 (DFN): Which is next, now this money.
+[1871.9 - 1876.5] SPEAKER_00 (DFN): Just any time. Not at noon or two or four.
+[1877.4 - 1880.4] SPEAKER_00 (DFN): No, in between those three.
+[1881.1 - 1883.2] SPEAKER_04 (DFN): three o'clock? I should hear.
+[1885.4 - 1888.1] SPEAKER_02 (DFN): It was one time today on LG 4, isn't it?
+[1888.3 - 1891.1] SPEAKER_06 (DFN): It's fully, unless you want to do it after that.
+[1891.6 - 1892.6] SPEAKER_00 (DFN): Yeah that's an option too.
+[1896.0 - 1897.0] SPEAKER_02 (DFN): Please give the other...
+[1897.0 - 1898.0] SPEAKER_02 (DFN): But we have.
+[1898.0 - 1900.0] SPEAKER_02 (DFN): Well, it warps you far.
+[1900.2 - 1900.8] SPEAKER_00 (DFN): 330.
+[1903.4 - 1904.7] SPEAKER_04 (DFN): That doesn't matter for me.
+[1903.6 - 1905.2] SPEAKER_00 (DFN): That's necessary.
+[1904.7 - 1908.9] SPEAKER_02 (DFN): three in the computer in here and then we can just go in there though.
+[1905.2 - 1906.8] SPEAKER_04 (DFN): in the computer
+[1909.2 - 1913.7] SPEAKER_02 (DFN): If you can't, can you get in the front door? Oh, you haven't got a key, do you? Did none of you get in there?
+[1913.6 - 1915.8] SPEAKER_00 (DFN): what we can get in through the.
+[1915.8 - 1925.2] SPEAKER_02 (DFN): If there's computer rooms in here, the MSC computer is in here. Well, if you find me, I'll show you where I'll let us all in there.
+[1916.4 - 1917.0] SPEAKER_00 (DFN): this computer
+[1925.2 - 1927.4] SPEAKER_05 (DFN): Now afterwards.
+[1926.9 - 1927.4] SPEAKER_02 (DFN): Thank you.
+[1927.9 - 1933.0] SPEAKER_02 (DFN): You do need to have a key for it like this thing. It's going to knock the wall, but. Yeah, somebody.
+[1932.7 - 1937.6] SPEAKER_00 (DFN): I was asking Steve about that, whether we can get in there, whether he was going to get us access into that.
+[1938.1 - 1938.9] SPEAKER_05 (DFN): into work.
+[1939.4 - 1940.2] SPEAKER_05 (DFN): Okay.
+[1940.4 - 1947.7] SPEAKER_02 (DFN): It's only got this crap. It's only got about four or five computers. But it would do quite good for our job because it can all sit around. It's not very, not many people in it.
+[1948.7 - 1949.6] SPEAKER_00 (DFN): Is there a printer in there too?
+[1949.7 - 1950.5] SPEAKER_00 (DFN): Yeah, this one's in there.
+[1950.5 - 1958.4] SPEAKER_02 (DFN): and there's a photocopier with the code on it.
+[1957.7 - 1960.8] SPEAKER_00 (DFN): Well, I'm just going to cover it.
+[1959.0 - 1960.0] SPEAKER_03 (DFN): here.
+[1960.6 - 1962.2] SPEAKER_03 (DFN): We want to.
+[1962.7 - 1964.7] SPEAKER_06 (DFN): They're my computer. Yeah.
+[1964.0 - 1965.0] SPEAKER_03 (DFN): comments.
+[1965.9 - 1967.7] SPEAKER_05 (DFN): So what time do we say?
+[1967.7 - 1974.3] SPEAKER_06 (DFN): I just think it's better to do afterwards than we have all the time.
+[1970.6 - 1973.6] SPEAKER_04 (DFN): Yeah, that's all right.
+[1977.1 - 1977.9] SPEAKER_04 (DFN): Okay.
+[1978.7 - 1980.0] SPEAKER_00 (DFN): as long as D-mail G doesn't go.
+[1981.8 - 1983.6] SPEAKER_00 (DFN): Hopefully it's not that man, so it won't let it.
+[1986.3 - 1994.5] SPEAKER_06 (DFN): Actually, it's not even confirmed yet. What? She doesn't even know what she's talking about. Maybe it doesn't happen at all.
+[1988.7 - 1989.2] SPEAKER_02 (DFN): What's wrong?
+[1995.0 - 1998.6] SPEAKER_05 (DFN): It's reading week next week. Should it be? Should it be?
+[1995.4 - 1996.2] SPEAKER_06 (DFN): It's reading week.
+[1997.6 - 1998.2] SPEAKER_06 (DFN): Is it really?
+[1999.0 - 2003.1] SPEAKER_05 (DFN): Well, it's supposed to be next week, next week, next week.
+[2003.9 - 2005.4] SPEAKER_06 (DFN): I don't think we have a reading week though.
+[2005.4 - 2013.0] SPEAKER_05 (DFN): I don't know. We have one class at least when we like speech perception. We don't have any lectures, but I think we haven't like all other classes.
+[2007.8 - 2008.3] SPEAKER_06 (DFN): like speaking.
+[2013.0 - 2014.5] SPEAKER_06 (DFN): There's not my point.
+[2013.4 - 2014.2] SPEAKER_05 (DFN): There's love up.
+[2014.7 - 2018.7] SPEAKER_06 (DFN): I don't think there was an official one last semester. I think it was just a pancreatic, wasn't it?
+[2019.7 - 2026.5] SPEAKER_02 (DFN): something like that. Some classes didn't, some classes didn't. It's already, they didn't really know what was going to happen.
+[2020.2 - 2021.1] SPEAKER_06 (DFN): Oh thank you.
+[2021.1 - 2021.7] SPEAKER_05 (DFN): Some come.
+[2023.5 - 2027.8] SPEAKER_05 (DFN): I think the undergraduates had...
+[2028.1 - 2029.3] SPEAKER_05 (DFN): Oh, we're off.
+[2029.5 - 2034.1] SPEAKER_00 (DFN): It was up to the professor. I mean, they did it or not. Well, I don't like it.
+[2034.5 - 2035.1] SPEAKER_04 (DFN): like a one.
+[2036.3 - 2043.5] SPEAKER_00 (DFN): I think DIL will probably have one to make up for missing classes. But DIL will probably. Yeah, we will.
+[2042.2 - 2049.3] SPEAKER_04 (DFN): Yeah, we will probably have you now. Last week. Okay. Please meet Monday.
+[2050.4 - 2054.0] SPEAKER_04 (DFN): Yeah, I guess.
+[2054.3 - 2054.9] SPEAKER_04 (DFN): That's it.
+[2054.9 - 2060.4] SPEAKER_05 (DFN): Was there anything else do anyone know you want to like take care of this or should I take care of it?        //
+[2060.9 - 2061.8] SPEAKER_04 (DFN): We trust you.          //
+[2062.3 - 2064.0] SPEAKER_05 (DFN): I don't know.
+[2064.0 - 2067.3] SPEAKER_04 (DFN): if there was something I think he basically said.
+[2070.6 - 2074.9] SPEAKER_04 (DFN): the same things as in the comments, if I could read it.
+[2078.2 - 2080.5] SPEAKER_04 (DFN): You read that? Top one.
+[2081.3 - 2081.9] SPEAKER_04 (DFN): Um...
+[2084.3 - 2086.0] SPEAKER_04 (DFN): You really want multiple windows.
+[2088.9 - 2090.5] SPEAKER_05 (DFN): we'll see and go up
+[2089.6 - 2092.4] SPEAKER_00 (DFN): but most will probably want to go with the faults.
+[2094.4 - 2097.1] SPEAKER_05 (DFN): Yeah, that was what they said.
+[2096.5 - 2099.0] SPEAKER_01 (DFN): Yeah, I think your comments are basically the same as what you said.             //
+[2099.1 - 2100.7] SPEAKER_00 (DFN): Exactly, and just the other commentable.
+[2101.0 - 2104.9] SPEAKER_00 (DFN): whether you want to do both speaker characterization and topic segmentation.
+[2106.2 - 2106.9] SPEAKER_00 (DFN): That was funny.
+[2108.0 - 2108.6] SPEAKER_00 (DFN): of Lake City.            //hall
+[2109.9 - 2116.6] SPEAKER_05 (DFN): And now we have 7% of a day.
+[2114.2 - 2115.1] SPEAKER_04 (DFN): Yeah.
+[2117.0 - 2119.0] SPEAKER_05 (DFN): So you need to take the okay box right?
+[2119.3 - 2122.7] SPEAKER_05 (DFN): you're okay with having you.
+[2121.8 - 2122.7] SPEAKER_02 (DFN): Thank you for watching.
+[2123.1 - 2123.9] SPEAKER_05 (DFN): Haha.
+[2126.1 - 2127.7] SPEAKER_04 (DFN): time you often.                //
+[2131.5 - 2132.7] SPEAKER_04 (DFN): Should we turn these off in a while?
+[2133.9 - 2135.8] SPEAKER_04 (DFN): We're done now.
+[2139.3 - 2142.5] SPEAKER_04 (DFN): Is she still here? Yes, you are.           //hall
