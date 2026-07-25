@@ -32,6 +32,11 @@ Transcribes the audio segment-by-segment using WhisperX.
 - **Model Selection (`medium.en`):** The pipeline is explicitly optimized for the `medium.en` model with strict `language="en"` constraints. This prevents multilingual hallucinations and avoids the "hallucinated fluency" (grammar autocorrecting) inherent to larger Whisper architectures.
 - This results in highly accurate, verbatim text transcripts optimized for behavioral analytics.
 
+### 4. Quality Control (Multi-Condition QC Tagger)
+A custom post-diarization analytics module built to identify Pyannote misattributions.
+- **The Problem:** Diarization models struggle during sudden pitch shifts (e.g. mumbling, voice dropping, sudden laughing) and often assign the wrong speaker ID to very short segments.
+- **The Solution:** The `qc_tagger` uses `librosa.yin` to calculate the fundamental frequency (F0) baseline for each speaker. It mathematically flags any segment where the pitch suddenly deviates by >30% from the speaker's baseline AND the segment is extremely short (< 1 second). This gives researchers a highly targeted list of suspicious segments for manual review, avoiding the need for LLM post-processing.
+
 ---
 
 ## Setup
@@ -46,14 +51,14 @@ conda activate tcamp
 ---
 
 ## Usage
-Use the CLI to run the full pipeline (Enhancement -> Diarization -> Transcription):
+Use the CLI to run the full pipeline (Enhancement -> Diarization -> QC -> Transcription):
 
 ```bash
-# Run the full pipeline using the large-v2 model on GPU
-python run_pipeline.py --input screening_notebooks/sample_input_and_output_files/EN2002a.wav --transcription-model large-v2 --transcription-device cuda --transcription-compute float16
+# Run the full pipeline with the QC tagger using the default medium.en model
+python run_pipeline.py --input screening_notebooks/sample_input_and_output_files/EN2002a.wav --run-qc
 ```
 
-*Note: For local CPU testing, you can pass `--transcription-model tiny --transcription-device cpu`.*
+*Note: You can override the transcription model if needed (e.g., `--transcription-model large-v2 --transcription-device cuda`).*
 
 ---
 
@@ -71,5 +76,6 @@ python -m pytest tests/ -v -s
 - `tcamp/enhance/`: Audio enhancement models and audio quality metrics.
 - `tcamp/diarization/`: Pyannote integration and DER tracking algorithms.
 - `tcamp/transcription/`: WhisperX integration.
+- `tcamp/analytics/`: Home to the Multi-Condition QC Tagger and upcoming Phase 4 behavioral metrics.
 - `tests/`: Pytest suite using real lab recordings.
-- `observations/`: Folder where cleaned audio, diarization JSON outputs, transcripts, and evaluation reports are saved.
+- `observations/`: Folder where cleaned audio, diarization JSON outputs, transcripts, QC flags, and evaluation reports are saved.

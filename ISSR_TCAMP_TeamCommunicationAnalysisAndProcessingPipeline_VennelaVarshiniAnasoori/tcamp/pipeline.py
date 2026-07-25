@@ -8,6 +8,7 @@ from tcamp.enhance.enhance import AudioEnhancer
 from tcamp.diarization.diarize import DiarizationPipeline
 from tcamp.diarization.utils import save_diarization_results, parse_rttm, calculate_der, save_rttm
 from tcamp.transcription.transcribe import TranscriptionPipeline
+from tcamp.analytics.qc_tagger import QCTagger
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +37,8 @@ class TCAMPPipeline:
         vad_threshold: Optional[float] = None,
         transcription_model: str = "medium.en",
         transcription_device: str = "cpu",
-        transcription_compute: str = "int8"
+        transcription_compute: str = "int8",
+        run_qc: bool = False
     ) -> Dict[str, Any]:
         """
         Runs the full TCAMP Dual-Path pipeline.
@@ -109,6 +111,16 @@ class TCAMPPipeline:
                     logger.info(f"DER: {der_stats['der']:.2%} [Miss: {der_stats['miss']:.2%} | FA: {der_stats['false_alarm']:.2%}]")
                 except ImportError:
                     pass
+
+            if run_qc:
+                logger.info("Running QC Tagger on Diarization Output...")
+                qc_tagger = QCTagger()
+                qc_flags = qc_tagger.process(segments, str(input_path))
+                
+                qc_report_path = out_dir / f"qc_flags_{input_path.stem}.json"
+                qc_tagger.save_report(qc_flags, str(qc_report_path))
+                results["qc_report"] = str(qc_report_path)
+
 
         # 3. Transcription (Dual-Path Logic)
         if phase in ["all", "transcribe"]:

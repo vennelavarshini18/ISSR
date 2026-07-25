@@ -26,6 +26,7 @@ def main():
     parser.add_argument("--transcription-model", type=str, default="medium.en", help="WhisperX model size (e.g., medium.en, large-v2, base)")
     parser.add_argument("--transcription-device", type=str, default="cpu", help="Device for WhisperX (cpu or cuda)")
     parser.add_argument("--transcription-compute", type=str, default="int8", help="Compute precision for WhisperX (int8 or float16)")
+    parser.add_argument("--run-qc", action="store_true", help="Run the Multi-Condition QC Tagger on diarization output")
     
     args = parser.parse_args()
     setup_logger()
@@ -45,7 +46,8 @@ def main():
             vad_threshold=args.vad_threshold,
             transcription_model=args.transcription_model,
             transcription_device=args.transcription_device,
-            transcription_compute=args.transcription_compute
+            transcription_compute=args.transcription_compute,
+            run_qc=args.run_qc
         )
         
         logger.info("\npipeline execution summary:")

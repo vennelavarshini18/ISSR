@@ -133,7 +133,20 @@ Goal: set up the repository structure and test out early audio enhancement model
 - decided to pause phase 4 to investigate why whisper occasionally hallucinates.
 
 ### July 18: Phase 3.5 Hallucination Analysis
-- completed manual ground-truth inspection of EN2002a hallucinations.
+- completed MANUAL ground-truth inspection of EN2002a hallucinations.
 - generated base.en, medium.en, large-v2, and large-v3-turbo transcriptions and compared the models side-by-side.
 - officially selected `medium.en` as the default model due to its balance of acoustic robustness and verbatim faithfulness.
 - prepared `phase3.5_hallucination_analysis.md` and diagrams
+
+### July 21: Ninth Meeting
+- Discussed the phase 3.5 hallucination analysis findings.
+- Proposed and received approval for a "Multi-Condition QC Tagger" to mathematically flag diarization errors based on sudden pitch shifts and short segment durations.
+
+### July 24: Phase 3.5 QC Tagger Completion
+- Designed and implemented the Multi-Condition QC Tagger using `librosa.yin` for fundamental frequency (F0) tracking.
+- Ran the updated pipeline on `EN2002a`. The QC tagger successfully filtered 976 diarized segments down to 249 suspicious segments that matched the exact acoustic profile of Pyannote misattributions (pitch shift + micro-segment).
+
+### July 25: Phase 3.5 Final Validation & Documentation
+- Ran the full pipeline (with `--run-qc`) on an additional diverse AMI sample (`IS1009a`, Idiap corpus with non-native accents).
+- Successfully validated that the `medium.en` model handles heavily accented speech without foreign language hallucinations.
+- Validated the Multi-Condition QC Tagger across different acoustic profiles; it successfully isolated 32 anomalous segments for manual review.
