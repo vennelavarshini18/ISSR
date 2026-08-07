@@ -26,14 +26,11 @@ class QCTagger:
         
     def _extract_pitch(self, audio_array: np.ndarray, sr: int) -> float:
         """Calculate median fundamental frequency (pitch) of an audio segment."""
-        # Check if segment is completely silent
         if np.max(np.abs(audio_array)) < 1e-4:
             return 0.0
             
-        # Use YIN algorithm for fast F0 extraction
         f0 = librosa.yin(audio_array, fmin=self.f0_min, fmax=self.f0_max, sr=sr)
         
-        # Filter out NaN/invalid values (unvoiced frames)
         valid_f0 = f0[f0 > 0]
         if len(valid_f0) == 0:
             return 0.0
@@ -49,10 +46,8 @@ class QCTagger:
             
         print(f"Running QC Tagging on {len(diarization_segments)} segments...")
         
-        # Load audio into memory
         y, sr = librosa.load(audio_path, sr=16000)
         
-        # First Pass: Establish baseline pitch profiles for each speaker
         speaker_pitches = {}
         segment_pitches = []
         
@@ -60,7 +55,6 @@ class QCTagger:
             start_sample = int(seg['start'] * sr)
             end_sample = int(seg['end'] * sr)
             
-            # Avoid out of bounds
             end_sample = min(end_sample, len(y))
             audio_chunk = y[start_sample:end_sample]
             
@@ -82,7 +76,6 @@ class QCTagger:
             else:
                 speaker_baselines[speaker] = 0.0
                 
-        # Second Pass: Flag anomalies
         qc_flags = []
         
         for idx, seg in enumerate(diarization_segments):
@@ -93,17 +86,14 @@ class QCTagger:
             
             flags = []
             
-            # Condition 1: Pitch Anomaly
             if baseline > 0 and pitch > 0:
                 shift = abs(pitch - baseline) / baseline
                 if shift > self.pitch_shift_threshold:
                     flags.append(f"PITCH_SHIFT_{int(shift*100)}%")
                     
-            # Condition 2: Micro-segment
             if duration < 1.0:
                 flags.append("MICRO_SEGMENT")
                 
-            # Synthesis: Only flag if BOTH conditions are met (to avoid false positives)
             if len(flags) >= 2:
                 qc_flags.append({
                     "segment_id": idx,

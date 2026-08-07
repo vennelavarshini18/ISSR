@@ -9,15 +9,15 @@ Mentors: Piyush Pawar, Joshua White
 ## Overview
 In simulator driving studies, teams talk through headsets. These recordings often catch low-frequency room hum, clicks, and echo. **TCAMP** cleans up this audio so speech is clearer for analysis, and then diarizes the audio to extract precise "who spoke when" timestamps.
 
-Currently completed Phase 1 (Audio Enhancement), Phase 2 (Speaker Diarization), Phase 2.5 (Tuning & Normalization), Phase 3 (Transcription), and Phase 3.5 (Hallucination Management).
+Currently completed Phase 1 (Audio Enhancement), Phase 2 (Speaker Diarization), Phase 2.5 (Tuning & Normalization), Phase 3 (Transcription), Phase 3.5 (Hallucination Management), and Phase 4 (Behavioral Analytics).
 
 ---
 
 ## Architecture: The Segment-Level Dual-Path Pipeline
-The pipeline is divided into three core modules that execute sequentially, employing a unique "Dual-Path" approach to maximize both diarization accuracy and transcription accuracy.
+The pipeline is divided into four core modules that execute sequentially, plus an advanced analytics engine to maximize both diarization accuracy and psychological insights.
 
-### 1. Audio Enhancement (DeepFilterNet)
-Supports two options to remove background noise (standardized to 16000 Hz). The pipeline includes offline, reference-free evaluation (DNSMOS).
+### 1. Audio Enhancement (DeepFilterNet) & Video Support
+Automatically extracts `.wav` tracks from `.mp4` video files using `ffmpeg`. Supports two options to remove background noise (standardized to 16000 Hz). The pipeline includes offline, reference-free evaluation (DNSMOS).
 - `deepfilter`: Deep learning approach using DeepFilterNet3.
 - `noisereduce`: Simple spectral gating fallback.
 
@@ -33,9 +33,14 @@ Transcribes the audio segment-by-segment using WhisperX.
 - This results in highly accurate, verbatim text transcripts optimized for behavioral analytics.
 
 ### 4. Quality Control (Multi-Condition QC Tagger)
-A custom post-diarization analytics module built to identify Pyannote misattributions.
-- **The Problem:** Diarization models struggle during sudden pitch shifts (e.g. mumbling, voice dropping, sudden laughing) and often assign the wrong speaker ID to very short segments.
-- **The Solution:** The `qc_tagger` uses `librosa.yin` to calculate the fundamental frequency (F0) baseline for each speaker. It mathematically flags any segment where the pitch suddenly deviates by >30% from the speaker's baseline AND the segment is extremely short (< 1 second). This gives researchers a highly targeted list of suspicious segments for manual review, avoiding the need for LLM post-processing.
+A post-diarization analytics module built to identify potential misattributions caused by acoustic anomalies.
+- **Anomaly Detection:** Diarization models can struggle during sudden pitch shifts (e.g., mumbling, laughing). The `qc_tagger` uses `librosa.yin` to calculate the fundamental frequency (F0) baseline for each speaker.
+- **Multi-Condition Flagging:** It mathematically flags any segment where the pitch deviates by >30% from the speaker's baseline AND the segment duration is < 1 second. This generates a targeted list of suspicious segments for manual review, reducing the need for LLM-based post-processing.
+
+### 5. Behavioral Analytics Engine (Phase 4)
+The final stage transforms acoustic and textual data into quantifiable human factors research.
+- **Mathematical Signal Processing (`behavioral_metrics.py`):** Calculates 6 foundational metrics directly from the diarized timeline, including Silence Ratios (cognitive load), Interruption Rates (dominance), Response Latency, and the Gini Centralization Coefficient (team hierarchy).
+- **Semantic NLP Tagging (`dialogue_tagger.py`):** Uses a local Llama 3.2 instance (via Ollama) running strictly in JSON Mode to perform zero-shot qualitative analysis. It extracts Psychological Safety Markers (e.g., Hedging), Sentiment Shifts (e.g., Frustration), and Dialogue Acts from every utterance, completely offline for clinical data privacy.
 
 ---
 
@@ -51,11 +56,11 @@ conda activate tcamp
 ---
 
 ## Usage
-Use the CLI to run the full pipeline (Enhancement -> Diarization -> QC -> Transcription):
+Use the CLI to run the full pipeline (Video Extraction -> Enhancement -> Diarization -> QC -> Transcription -> Phase 4 Analytics):
 
 ```bash
-# Run the full pipeline with the QC tagger using the default medium.en model
-python run_pipeline.py --input screening_notebooks/sample_input_and_output_files/EN2002a.wav --run-qc
+# Run the full pipeline with QC and Phase 4 Behavioral Analytics
+python run_pipeline.py -i observations/audio_samples/Experimenter_CREW_999_0_0-Practice_1731617239.mp4 --run-qc --run-analytics
 ```
 
 *Note: You can override the transcription model if needed (e.g., `--transcription-model large-v2 --transcription-device cuda`).*

@@ -71,13 +71,13 @@ We test 5 pipelines across the above 5 samples to find the ultimate combination:
 
 ## Part 5: Metric Observations
 ### Diarization Error Rate (DER)
-DER degraded significantly when applying speech normalization (DRC). For example, `is1000a` DER jumped from 33.10% (baseline DFN) to a massive 40.36%. Condition 5 (combining lower VAD and DRC) yielded the exact same terrible scores as condition 4. The normalization process heavily distorted the acoustic features, making the system fail entirely.
+DER degraded significantly when applying speech normalization (DRC). For example, `is1000a` DER jumped from 33.10% (baseline DFN) to 40.36%. Condition 5 (combining lower VAD and DRC) yielded the same scores as condition 4. The normalization process distorted the acoustic features, reducing system performance.
 
 ### Miss Rate (The Main Bottleneck)
-Lowering the VAD threshold to 0.30 completely failed to recover the suppressed quiet speech. Across all samples, the miss rate either stayed exactly the same or actually increased. This proves that Pyannote's internal threshold is not the bottleneck; the deepfilternet algorithm is literally erasing the mathematical features of quiet speech.
+Lowering the VAD threshold to 0.30 failed to recover the suppressed quiet speech. Across all samples, the miss rate either stayed the same or increased. This indicates that Pyannote's internal threshold is not the bottleneck; the deepfilternet algorithm is suppressing the acoustic features of quiet speech.
 
 ### False Alarms & Confusion
-Speech normalization (DRC) caused speaker confusion to skyrocket (e.g., `ES2003A` confusion jumped from 4.36% to 14.88%). The compressor artificially amplified the noise floor during quiet moments, causing Pyannote's speaker embedding model to hallucinate and fail to cluster speakers accurately. Combining this with a lower VAD threshold (condition 5) did not change these hallucinated results.
+Speech normalization (DRC) caused speaker confusion to increase (e.g., `ES2003A` confusion jumped from 4.36% to 14.88%). The compressor artificially amplified the noise floor during quiet moments, causing Pyannote's speaker embedding model to fail to cluster speakers accurately. Combining this with a lower VAD threshold (condition 5) did not change these results.
 
 ---
 
@@ -89,7 +89,7 @@ Therefore, our recommendation for Phase 3 is to abandon post-processing fixes an
 2. **Embedding Path**: Run Pyannote's Speaker Identification on the **deepfilternet** audio (so the background noise doesn't cause high speaker confusion).
 
 ### Connection to Transcription (Whisper)
-The output of this dual-path architecture will be a highly accurate `rttm` file (the timestamps of who spoke when). This perfectly sets us up for Phase 3:
-- We will use the `rttm` timestamps to cut the clean deepfilternet audio into perfect, noise-free bite-sized clips.
+The output of this dual-path architecture will be a highly accurate `rttm` file (the timestamps of who spoke when). This sets us up for Phase 3:
+- We will use the `rttm` timestamps to cut the clean deepfilternet audio into noise-free clips.
 - We will feed those clean slices directly into the ASR model (Whisper).
-- Because Whisper is sensitive to noise but great at quiet speech, giving it noise-free deepfilternet slices cut precisely by raw-audio timestamps gives us the best possible transcription accuracy without sacrificing any missing audio.
+- Because Whisper is sensitive to noise but capable at quiet speech, giving it noise-free deepfilternet slices cut by raw-audio timestamps improves transcription accuracy without sacrificing missing audio.

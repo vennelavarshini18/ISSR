@@ -9,6 +9,8 @@ from tcamp.diarization.diarize import DiarizationPipeline
 from tcamp.diarization.utils import save_diarization_results, parse_rttm, calculate_der, save_rttm
 from tcamp.transcription.transcribe import TranscriptionPipeline
 from tcamp.analytics.qc_tagger import QCTagger
+from tcamp.analytics.behavioral_metrics import BehavioralAnalytics
+from tcamp.analytics.dialogue_tagger import OllamaDialogueTagger
 
 logger = logging.getLogger(__name__)
 
@@ -38,17 +40,38 @@ class TCAMPPipeline:
         transcription_model: str = "medium.en",
         transcription_device: str = "cpu",
         transcription_compute: str = "int8",
-        run_qc: bool = False
+        run_qc: bool = False,
+        run_analytics: bool = False
     ) -> Dict[str, Any]:
         """
         Runs the full TCAMP Dual-Path pipeline.
-        Step 1: Enhance the audio.
-        Step 2: Diarize the RAW audio.
-        Step 3: Transcribe segments (switching between DFN and RAW based on RMS energy).
+        Executes enhancement, diarization, QC tagging, and transcription.
         """
         input_path = Path(input_audio)
         out_dir = Path(output_dir)
         out_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Audio Extraction for Video Files
+        if input_path.suffix.lower() in ['.mp4', '.mkv', '.avi', '.mov']:
+            import subprocess
+            logger.info(f"Video file detected ({input_path.suffix}). Extracting audio track to WAV...")
+            extracted_wav_path = out_dir / f"{input_path.stem}_extracted.wav"
+            
+            if not extracted_wav_path.exists():
+                try:
+                    subprocess.run(
+                        ["ffmpeg", "-y", "-i", str(input_path), "-vn", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1", str(extracted_wav_path)],
+                        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+                    )
+                    logger.info(f"Successfully extracted audio to {extracted_wav_path.name}")
+                except Exception as e:
+                    logger.error(f"Failed to extract audio from video: {e}")
+                    raise
+            else:
+                logger.info(f"Extracted audio already exists at {extracted_wav_path.name}")
+            
+            # Point pipeline to the newly extracted WAV file
+            input_path = extracted_wav_path
         
         enhanced_audio_path = out_dir / f"enhanced_{enhance_method}_{input_path.name}"
         diarization_json_path = out_dir / f"diarization_{enhance_method}_{input_path.stem}.json"
@@ -67,7 +90,7 @@ class TCAMPPipeline:
             "transcript_segments": []
         }
         
-        # 1. Enhancement (Runs on Input)
+        # 1. Enhancement
         if phase in ["all", "enhance", "transcribe"]:
             if not enhanced_audio_path.exists() or phase == "enhance":
                 logger.info(f"Step 1: Enhancing audio using {enhance_method}...")
@@ -82,7 +105,7 @@ class TCAMPPipeline:
             else:
                 logger.info("Step 1: Enhanced audio already exists, skipping generation.")
         
-        # 2. Diarization (Runs on RAW audio for accurate timestamps)
+        # 2. Diarization
         if phase in ["all", "diarize", "transcribe"]:
             logger.info("Step 2: Running diarization on RAW audio...")
             if self.diarization_pipeline is None:
@@ -113,7 +136,7 @@ class TCAMPPipeline:
                     pass
 
             if run_qc:
-                logger.info("Running QC Tagger on Diarization Output...")
+                logger.info("Running QC Tagger...")
                 qc_tagger = QCTagger()
                 qc_flags = qc_tagger.process(segments, str(input_path))
                 
@@ -122,7 +145,7 @@ class TCAMPPipeline:
                 results["qc_report"] = str(qc_report_path)
 
 
-        # 3. Transcription (Dual-Path Logic)
+        # 3. Transcription
         if phase in ["all", "transcribe"]:
             logger.info("Step 3: Transcription initialization...")
             if self.transcription_pipeline is None:
@@ -132,7 +155,7 @@ class TCAMPPipeline:
                     compute_type=transcription_compute
                 )
             
-            logger.info("Running Segment-Level Dual-Path Transcription...")
+            logger.info("Running Dual-Path Transcription...")
             import soundfile as sf
             raw_audio, sr = sf.read(input_path)
             enhanced_audio, _ = sf.read(enhanced_audio_path)
@@ -195,5 +218,27 @@ class TCAMPPipeline:
             with open(transcript_path, "w", encoding="utf-8") as f:
                 f.write("\n".join(transcript_log))
             logger.info(f"Transcription complete! Saved to {transcript_path}")
+            
+        # 4. Behavioral Analytics
+        if run_analytics and phase in ["all", "transcribe"]:
+            logger.info("Step 4: Running Behavioral Analytics & AI Tagging...")
+            
+            # Dialogue Tagging
+            tagger = OllamaDialogueTagger()
+            tagged_segments = tagger.process(results["transcript_segments"])
+            
+            tagged_transcript_path = out_dir / f"tagged_transcript_{input_path.stem}.json"
+            tagger.save_report(tagged_segments, str(tagged_transcript_path))
+            results["tagged_transcript_file"] = str(tagged_transcript_path)
+            
+            # Calculate Metrics
+            analytics = BehavioralAnalytics()
+            metrics = analytics.process(tagged_segments)
+            
+            metrics_path = out_dir / f"behavioral_metrics_{input_path.stem}.json"
+            analytics.save_report(metrics, str(metrics_path))
+            results["behavioral_metrics"] = str(metrics_path)
+            
+            results["transcript_segments"] = tagged_segments
                 
         return results

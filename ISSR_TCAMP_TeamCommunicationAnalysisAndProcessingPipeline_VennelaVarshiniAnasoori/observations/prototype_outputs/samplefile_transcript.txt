@@ -1,4 +1,0 @@
-SPEAKER_00 [0.0 - 6.7] (Source: DFN): on the menu you can select a summarization box which pops up and an audio player.
-SPEAKER_01 [8.2 - 8.5] (Source: DFN): Right
-SPEAKER_00 [8.8 - 24.8] (Source: DFN): And I think the search works as well. So pop up a search. And it loads up just the background window so empty. And so when you start, you have to either open, open a particular observation or do a search and open it through that.
-SPEAKER_00 [26.5 - 29.2] (Source: DFN): Does that make sense?

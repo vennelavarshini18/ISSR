@@ -129,8 +129,8 @@ Goal: set up the repository structure and test out early audio enhancement model
 - Documented findings in `observations/hallucination_analysis.md`.
 
 ### July 14: Eighth Meeting
-- mentors confirmed the current dual-path pipeline is reproducible.
-- decided to pause phase 4 to investigate why whisper occasionally hallucinates.
+- Mentors confirmed the current dual-path pipeline is reproducible.
+- Decided to pause phase 4 to investigate why whisper occasionally hallucinates.
 
 ### July 18: Phase 3.5 Hallucination Analysis
 - completed MANUAL ground-truth inspection of EN2002a hallucinations.
@@ -150,3 +150,30 @@ Goal: set up the repository structure and test out early audio enhancement model
 - Ran the full pipeline (with `--run-qc`) on an additional diverse AMI sample (`IS1009a`, Idiap corpus with non-native accents).
 - Successfully validated that the `medium.en` model handles heavily accented speech without foreign language hallucinations.
 - Validated the Multi-Condition QC Tagger across different acoustic profiles; it successfully isolated 32 anomalous segments for manual review.
+
+### July 30: Tenth Meeting
+- Confirmed the pipeline's stability and readiness for Phase 4 (Behavioral Analytics).
+- Decided to build a foundational Metrics Extraction Block (Talk Time, Silence Ratio, Interruptions) before integrating LLM text tagging.
+- Mentors agreed to provide a TRIP Lab audio sample (6 speakers) to formally stress-test the pipeline.
+
+### August 1: Codebase Audit
+- updated `environment.yml` to include all recent dependencies (`librosa`, `soundfile`).
+- cross-referenced the current pipeline against deliverables defined in the GSoC Proposal to ensure complete Phase 1-3 coverage.
+
+### August 2: Phase 4 POC Implementation
+- defined the specific NLP goals for Phase 4 in `phase4_roadmap.md`.
+- built the core Analytics Engine to mathematically extract 6 GSoC metrics (Talk Time, Silence Ratio, Turn-Taking, Interruptions, Response Latency, Gini Centralization).
+- built the local AI tagging hook to pass pipeline transcripts to a local Llama 3.2 instance (via Ollama) for zero-shot Dialogue Act classification.
+- ran `test_analytics.py` on the AMI corpus (`EN2002a` and `IS1009a`); proved the pipeline can extract behavioral signals and semantic intents completely locally.
+
+### August 6: MP4 Video Support & NLP Expansion
+- reorganized the `observations/` folder into logical subdirectories for easy navigation.
+- modified `tcamp/pipeline.py` to automatically detect `.mp4` video files and extract the audio track to `.wav` using `ffmpeg` before processing.
+- expanded the `dialogue_tagger.py` prompt to force Llama 3.2 into JSON mode, extracting "Sentiment Shifts" and "Psychological Safety Markers" alongside basic dialogue acts.
+- documented the completed Behavioral Metrics and Semantic NLP capabilities in `phase4_analysis.md`.
+
+### August 7: TRIP Lab Stress Test
+- processed two `.mp4` video files from the TRIP Lab dataset.
+- validated the `behavioral_metrics.py` module, which successfully quantified cognitive load (51%+ silence ratios) and tracked hierarchical shifts across 6 distinct speakers.
+- validated the local Ollama NLP module (`dialogue_tagger.py`), which successfully extracted zero-shot psychological markers (e.g., identifying "Hedging" safety behaviors and "Anxious/Frustrated" sentiment shifts in real-time).
+
