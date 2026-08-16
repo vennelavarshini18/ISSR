@@ -11,7 +11,7 @@ def setup_logger():
     )
 
 def main():
-    parser = argparse.ArgumentParser(description="TCAMP Audio Processing Pipeline")
+    parser = argparse.ArgumentParser(description="TCAMP Telemetry Pipeline")
     parser.add_argument("--input", "-i", type=str, required=True, help="Path to input audio file")
     parser.add_argument("--output-dir", "-o", type=str, default="observations/outputs", help="Directory to save output files")
     parser.add_argument("--enhance-method", "-m", type=str, choices=["deepfilter", "noisereduce"], default="deepfilter", help="Enhancement method")
@@ -27,7 +27,7 @@ def main():
     parser.add_argument("--transcription-device", type=str, default="cpu", help="Device for WhisperX (cpu or cuda)")
     parser.add_argument("--transcription-compute", type=str, default="int8", help="Compute precision for WhisperX (int8 or float16)")
     parser.add_argument("--run-qc", action="store_true", help="Run the Multi-Condition QC Tagger on diarization output")
-    parser.add_argument("--run-analytics", action="store_true", help="Run Phase 4 Behavioral Analytics and Ollama Tagging")
+    parser.add_argument("--run-analytics", action="store_true", help="Run Behavioral Analytics and NLP Tagging")
     
     args = parser.parse_args()
     setup_logger()
@@ -52,8 +52,7 @@ def main():
             run_analytics=args.run_analytics
         )
         
-        logger.info("\npipeline execution summary:")
-        print(json.dumps(results, indent=2))
+        logger.info("\npipeline execution summary:\n" + json.dumps(results, indent=2))
         
     except ValueError as ve:
         logger.error(f"config error: {str(ve)}")

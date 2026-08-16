@@ -1,7 +1,10 @@
 import os
+import logging
 # pyrefly: ignore [missing-import]
 import torch
 from typing import Optional, Dict, Any, List
+
+logger = logging.getLogger(__name__)
 
 # Patch huggingface_hub to bypass deprecated 'use_auth_token' kwarg from pyannote
 import huggingface_hub.file_download
@@ -39,31 +42,31 @@ class DiarizationPipeline:
                 
         self.auth_token = auth_token
         os.environ["HF_TOKEN"] = self.auth_token
-        print("initializing pyannote speaker diarization pipeline...")
+        logger.info("Initializing pyannote speaker diarization pipeline...")
         self.pipeline = Pipeline.from_pretrained(
             "pyannote/speaker-diarization-3.1"
         )
         
         # apply vad tuning if threshold is provided
         if vad_threshold is not None:
-            print(f"applying custom vad threshold: {vad_threshold}")
+            logger.info(f"Applying custom VAD threshold: {vad_threshold}")
             try:
                 params = self.pipeline.parameters(instantiated=True)
                 if "segmentation" in params:
                     params["segmentation"]["threshold"] = vad_threshold
                     self.pipeline.instantiate(params)
             except Exception as e:
-                print(f"warning: could not apply vad tuning ({e})")
+                logger.warning(f"Could not apply VAD tuning ({e})")
         
         # hardware acceleration setup
         if torch.cuda.is_available():
-            print("cuda available. using gpu for diarization.")
+            logger.info("CUDA available. using GPU for diarization.")
             self.pipeline.to(torch.device("cuda"))
         elif hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
-            print("using mps for diarization.")
+            logger.info("using MPS for diarization.")
             self.pipeline.to(torch.device("mps"))
         else:
-            print("using cpu for diarization.")
+            logger.info("using CPU for diarization.")
         
     def process(self, audio_path: str, num_speakers: Optional[int] = None) -> List[Dict[str, Any]]:
         """
@@ -79,7 +82,7 @@ class DiarizationPipeline:
         if not os.path.exists(audio_path):
             raise FileNotFoundError(f"audio file not found: {audio_path}")
             
-        print(f"running diarization on {audio_path}...")
+        logger.info(f"Running diarization on {audio_path}...")
         
         # Run pipeline
         if num_speakers is not None:

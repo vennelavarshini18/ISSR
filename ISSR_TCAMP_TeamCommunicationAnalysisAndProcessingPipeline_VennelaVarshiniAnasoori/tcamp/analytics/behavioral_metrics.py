@@ -1,6 +1,10 @@
 import json
+import logging
+# pyrefly: ignore [missing-import]
 import numpy as np
 from typing import List, Dict, Any
+
+logger = logging.getLogger(__name__)
 
 class BehavioralAnalytics:
     """
@@ -56,7 +60,7 @@ class BehavioralAnalytics:
         if not segments:
             return {}
             
-        print(f"Extracting Behavioral Metrics from {len(segments)} segments...")
+        logger.info(f"Extracting Behavioral Metrics from {len(segments)} segments...")
         
         sorted_segs = sorted(segments, key=lambda x: x['start'])
         meeting_start = sorted_segs[0]['start']
@@ -115,4 +119,4 @@ class BehavioralAnalytics:
         """Save metrics to a JSON report."""
         with open(output_path, 'w') as f:
             json.dump(metrics, f, indent=4)
-        print(f"Saved Behavioral Metrics report to {output_path}")
+        logger.info(f"saved behavioral metrics to {output_path}")

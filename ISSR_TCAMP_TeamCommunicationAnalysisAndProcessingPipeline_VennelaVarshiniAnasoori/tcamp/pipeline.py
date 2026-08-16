@@ -11,6 +11,7 @@ from tcamp.transcription.transcribe import TranscriptionPipeline
 from tcamp.analytics.qc_tagger import QCTagger
 from tcamp.analytics.behavioral_metrics import BehavioralAnalytics
 from tcamp.analytics.dialogue_tagger import OllamaDialogueTagger
+from tcamp.analytics.export import export_metrics_to_csv, export_transcript_to_csv
 
 logger = logging.getLogger(__name__)
 
@@ -93,7 +94,7 @@ class TCAMPPipeline:
         # 1. Enhancement
         if phase in ["all", "enhance", "transcribe"]:
             if not enhanced_audio_path.exists() or phase == "enhance":
-                logger.info(f"Step 1: Enhancing audio using {enhance_method}...")
+                logger.info(f"enhancing audio via {enhance_method}...")
                 metrics = self.audio_enhancer.enhance(
                     input_path=input_path,
                     output_path=enhanced_audio_path,
@@ -103,11 +104,11 @@ class TCAMPPipeline:
                 )
                 results["enhancement_metrics"] = metrics
             else:
-                logger.info("Step 1: Enhanced audio already exists, skipping generation.")
+                logger.info("enhanced audio already exists, skipping generation.")
         
         # 2. Diarization
         if phase in ["all", "diarize", "transcribe"]:
-            logger.info("Step 2: Running diarization on RAW audio...")
+            logger.info("diarizing raw audio...")
             if self.diarization_pipeline is None:
                 if not self.auth_token:
                     raise ValueError("HF_TOKEN is missing. Cannot initialize diarization pipeline.")
@@ -147,7 +148,7 @@ class TCAMPPipeline:
 
         # 3. Transcription
         if phase in ["all", "transcribe"]:
-            logger.info("Step 3: Transcription initialization...")
+            logger.info("initializing transcriber...")
             if self.transcription_pipeline is None:
                 self.transcription_pipeline = TranscriptionPipeline(
                     model_size=transcription_model, 
@@ -155,7 +156,7 @@ class TCAMPPipeline:
                     compute_type=transcription_compute
                 )
             
-            logger.info("Running Dual-Path Transcription...")
+            logger.info("executing dual-path transcription...")
             import soundfile as sf
             raw_audio, sr = sf.read(input_path)
             enhanced_audio, _ = sf.read(enhanced_audio_path)
@@ -205,7 +206,7 @@ class TCAMPPipeline:
                     continue
                     
                 log_line = f"[{start_time:05.1f} - {end_time:05.1f}] {speaker} ({source}): {text}"
-                print(log_line)
+                logger.info(log_line)
                 transcript_log.append(log_line)
                 results["transcript_segments"].append({
                     "start": start_time,
@@ -221,7 +222,7 @@ class TCAMPPipeline:
             
         # 4. Behavioral Analytics
         if run_analytics and phase in ["all", "transcribe"]:
-            logger.info("Step 4: Running Behavioral Analytics & AI Tagging...")
+            logger.info("running behavioral analytics and NLP tagging...")
             
             # Dialogue Tagging
             tagger = OllamaDialogueTagger()
@@ -231,6 +232,10 @@ class TCAMPPipeline:
             tagger.save_report(tagged_segments, str(tagged_transcript_path))
             results["tagged_transcript_file"] = str(tagged_transcript_path)
             
+            tagged_transcript_csv_path = out_dir / f"tagged_transcript_{input_path.stem}.csv"
+            export_transcript_to_csv(tagged_segments, str(tagged_transcript_csv_path))
+            results["tagged_transcript_csv_file"] = str(tagged_transcript_csv_path)
+            
             # Calculate Metrics
             analytics = BehavioralAnalytics()
             metrics = analytics.process(tagged_segments)
@@ -238,6 +243,10 @@ class TCAMPPipeline:
             metrics_path = out_dir / f"behavioral_metrics_{input_path.stem}.json"
             analytics.save_report(metrics, str(metrics_path))
             results["behavioral_metrics"] = str(metrics_path)
+            
+            metrics_csv_path = out_dir / f"behavioral_metrics_{input_path.stem}.csv"
+            export_metrics_to_csv(metrics, str(metrics_csv_path))
+            results["behavioral_metrics_csv"] = str(metrics_csv_path)
             
             results["transcript_segments"] = tagged_segments
                 

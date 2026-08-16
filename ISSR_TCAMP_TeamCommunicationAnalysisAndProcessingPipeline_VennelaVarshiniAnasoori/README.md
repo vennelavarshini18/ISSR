@@ -9,7 +9,7 @@ Mentors: Piyush Pawar, Joshua White
 ## Overview
 In simulator driving studies, teams talk through headsets. These recordings often catch low-frequency room hum, clicks, and echo. **TCAMP** cleans up this audio so speech is clearer for analysis, and then diarizes the audio to extract precise "who spoke when" timestamps.
 
-Currently completed Phase 1 (Audio Enhancement), Phase 2 (Speaker Diarization), Phase 2.5 (Tuning & Normalization), Phase 3 (Transcription), Phase 3.5 (Hallucination Management), and Phase 4 (Behavioral Analytics).
+The pipeline features 4 fully-integrated stages: Audio Enhancement, Speaker Diarization, Transcription, and Behavioral Analytics.
 
 ---
 
@@ -41,6 +41,8 @@ A post-diarization analytics module built to identify potential misattributions 
 The final stage transforms acoustic and textual data into quantifiable human factors research.
 - **Mathematical Signal Processing (`behavioral_metrics.py`):** Calculates 6 foundational metrics directly from the diarized timeline, including Silence Ratios (cognitive load), Interruption Rates (dominance), Response Latency, and the Gini Centralization Coefficient (team hierarchy).
 - **Semantic NLP Tagging (`dialogue_tagger.py`):** Uses a local Llama 3.2 instance (via Ollama) running strictly in JSON Mode to perform zero-shot qualitative analysis. It extracts Psychological Safety Markers (e.g., Hedging), Sentiment Shifts (e.g., Frustration), and Dialogue Acts from every utterance, completely offline for clinical data privacy.
+- **CSV Exporter (`export.py`):** Automatically flattens all JSON outputs into clean, statistical-analysis-ready `.csv` files for direct import into SPSS, R, or Excel.
+- **Interactive Dashboard (`dashboard.py`):** A Plotly Dash web application for real-time visualization of KPIs, talk-time dominance, dialogue act breakdowns, sentiment timelines, and turn-taking Gantt charts.
 
 ---
 
@@ -60,10 +62,16 @@ Use the CLI to run the full pipeline (Video Extraction -> Enhancement -> Diariza
 
 ```bash
 # Run the full pipeline with QC and Phase 4 Behavioral Analytics
-python run_pipeline.py -i observations/audio_samples/Experimenter_CREW_999_0_0-Practice_1731617239.mp4 --run-qc --run-analytics
+python run_pipeline.py -i observations/audio_samples/sample_meeting.mp4 --run-qc --run-analytics
 ```
 
 *Note: You can override the transcription model if needed (e.g., `--transcription-model large-v2 --transcription-device cuda`).*
+
+### Launch the Dashboard
+```bash
+python dashboard.py
+# Open http://127.0.0.1:8050 in your browser
+```
 
 ---
 
@@ -77,10 +85,11 @@ python -m pytest tests/ -v -s
 
 ## Repository Structure
 - `run_pipeline.py`: Unified CLI entry point for the entire pipeline.
+- `dashboard.py`: Plotly Dash interactive visualization dashboard.
 - `tcamp/pipeline.py`: Core logic router implementing the Segment-Level Dual-Path architecture.
 - `tcamp/enhance/`: Audio enhancement models and audio quality metrics.
 - `tcamp/diarization/`: Pyannote integration and DER tracking algorithms.
 - `tcamp/transcription/`: WhisperX integration.
-- `tcamp/analytics/`: Home to the Multi-Condition QC Tagger and upcoming Phase 4 behavioral metrics.
+- `tcamp/analytics/`: Behavioral metrics engine, Llama 3.2 dialogue tagger, QC tagger, and CSV exporter.
 - `tests/`: Pytest suite using real lab recordings.
 - `observations/`: Folder where cleaned audio, diarization JSON outputs, transcripts, QC flags, and evaluation reports are saved.

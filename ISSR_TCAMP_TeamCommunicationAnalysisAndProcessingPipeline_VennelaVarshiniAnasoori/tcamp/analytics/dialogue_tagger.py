@@ -1,11 +1,14 @@
 import json
+import logging
 import requests
 from typing import List, Dict, Any
 
+logger = logging.getLogger(__name__)
+
 class OllamaDialogueTagger:
     """
-    Local AI text tagger using Llama 3.2 via Ollama.
-    Classifies transcript utterances into dialogue acts.
+    Local NLP tagging engine using Llama 3.2 via Ollama.
+    Classifies transcript utterances into distinct dialogue acts.
     """
     
     def __init__(self, model_name: str = "llama3.2", host: str = "http://localhost:11434"):
@@ -21,7 +24,7 @@ class OllamaDialogueTagger:
             return False
 
     def _query_ollama(self, text: str) -> Dict[str, str]:
-        """Send prompt to local Ollama instance and get JSON tags."""
+        """Query local Ollama instance for JSON semantic tags."""
         prompt = (
             f"Analyze the following utterance and classify it into three fields. Return ONLY a valid JSON object.\n"
             f"1. dialogue_act: strictly one of [Instruction, Question, Acknowledgment, Warning, Statement]\n"
@@ -51,11 +54,11 @@ class OllamaDialogueTagger:
                 try:
                     return json.loads(result_str)
                 except json.JSONDecodeError:
-                    print(f"Failed to parse JSON from Ollama: {result_str}")
+                    logger.warning(f"Failed to parse JSON from Ollama: {result_str}")
                     return default_resp
             return default_resp
         except requests.exceptions.RequestException as e:
-            print(f"Ollama API error: {e}")
+            logger.warning(f"Ollama API error: {e}")
             return default_resp
 
     def process(self, segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -65,13 +68,13 @@ class OllamaDialogueTagger:
         if not segments:
             return []
             
-        print("Checking local Ollama connection...")
+        logger.info("Checking local Ollama connection...")
         if not self._test_connection():
-            print("WARNING: Ollama is not running on localhost:11434. Skipping dialogue tagging.")
+            logger.warning("Ollama is not running on localhost:11434. Skipping dialogue tagging.")
             # Still return segments, just without tags or with Error tags
             return segments
             
-        print(f"Running Llama 3.2 Dialogue Tagging on {len(segments)} segments...")
+        logger.info(f"running semantic NLP tagging on {len(segments)} segments...")
         
         tagged_segments = []
         for i, seg in enumerate(segments):
@@ -88,15 +91,15 @@ class OllamaDialogueTagger:
                 tagged_seg['psychological_safety'] = tags.get('psychological_safety', 'Unclassified')
                 
             if (i + 1) % 10 == 0:
-                print(f"Tagged {i + 1}/{len(segments)} segments...")
+                logger.info(f"Tagged {i + 1}/{len(segments)} segments...")
                 
             tagged_segments.append(tagged_seg)
             
-        print("Dialogue Tagging complete.")
+        logger.info("Dialogue Tagging complete.")
         return tagged_segments
 
     def save_report(self, tagged_segments: List[Dict[str, Any]], output_path: str):
         """Save tagged segments to a JSON file."""
         with open(output_path, 'w') as f:
             json.dump(tagged_segments, f, indent=4)
-        print(f"Saved Tagged Transcript to {output_path}")
+        logger.info(f"Saved Tagged Transcript to {output_path}")

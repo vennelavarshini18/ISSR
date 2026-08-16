@@ -1,14 +1,16 @@
 import os
 import json
+import logging
 import librosa
 import numpy as np
 from typing import List, Dict, Any
 
+logger = logging.getLogger(__name__)
+
 class QCTagger:
     """
-    Quality Control (QC) Tagger for Pyannote Diarization.
-    Scans the diarization output and raw audio to flag suspicious segments
-    (e.g., sudden pitch shifts on short segments) for manual review.
+    Quality Control (QC) verification suite for Pyannote Diarization.
+    Scans diarization output against raw audio features to flag anomalous segments.
     """
     
     def __init__(self, f0_min: float = 65.0, f0_max: float = 300.0, pitch_shift_threshold: float = 0.3):
@@ -44,7 +46,7 @@ class QCTagger:
         if not os.path.exists(audio_path):
             raise FileNotFoundError(f"Audio file not found: {audio_path}")
             
-        print(f"Running QC Tagging on {len(diarization_segments)} segments...")
+        logger.info(f"Running QC Tagging on {len(diarization_segments)} segments...")
         
         y, sr = librosa.load(audio_path, sr=16000)
         
@@ -106,11 +108,11 @@ class QCTagger:
                     "flags": flags
                 })
                 
-        print(f"QC Tagging complete. Found {len(qc_flags)} suspicious segments requiring manual review.")
+        logger.info(f"QC Tagging complete. Found {len(qc_flags)} suspicious segments requiring manual review.")
         return qc_flags
 
     def save_report(self, qc_flags: List[Dict[str, Any]], output_path: str):
         """Save the flagged segments to a JSON report."""
         with open(output_path, 'w') as f:
             json.dump(qc_flags, f, indent=4)
-        print(f"Saved QC report to {output_path}")
+        logger.info(f"Saved QC report to {output_path}")

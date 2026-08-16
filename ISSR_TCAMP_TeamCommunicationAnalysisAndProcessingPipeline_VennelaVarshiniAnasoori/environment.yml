@@ -73,4 +73,9 @@ dependencies:
       - torchaudio==2.5.1
       - torchcodec==0.14.0
       - torchvision==0.20.1
+      - requests
+      - dash>=2.0.0
+      - dash-bootstrap-components>=1.0.0
+      - plotly>=5.0.0
+      - pandas
 prefix: C:\Users\venne\miniconda3\envs\tcamp
