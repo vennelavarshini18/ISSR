@@ -1,13 +1,12 @@
 # TCAMP: Team Communication Processing and Analysis
 
-GSoC 2026 Project | HumanAI Foundation | TRIP Lab, University of Alabama
+GSoC 2026 Project | HumanAI Foundation | Institute for Social Science Research (ISSR) & TRIP Lab, University of Alabama
 Contributor: Vennela Varshini Anasoori
-Mentors: Piyush Pawar, Joshua White
 
 ---
 
 ## Overview
-In simulator driving studies, teams talk through headsets. These recordings often catch low-frequency room hum, clicks, and echo. **TCAMP** cleans up this audio so speech is clearer for analysis, and then diarizes the audio to extract precise "who spoke when" timestamps.
+In simulator driving studies conducted by the Institute for Social Science Research (ISSR) and the TRIP Laboratory at the University of Alabama, teams talk through headsets. These recordings often catch low-frequency room hum, clicks, and echo. **TCAMP** cleans up this audio so speech is clearer for analysis, and then diarizes the audio to extract precise "who spoke when" timestamps.
 
 The pipeline features 4 fully-integrated stages: Audio Enhancement, Speaker Diarization, Transcription, and Behavioral Analytics.
 
@@ -61,7 +60,6 @@ conda activate tcamp
 Use the CLI to run the full pipeline (Video Extraction -> Enhancement -> Diarization -> QC -> Transcription -> Phase 4 Analytics):
 
 ```bash
-# Run the full pipeline with QC and Phase 4 Behavioral Analytics
 python run_pipeline.py -i observations/audio_samples/sample_meeting.mp4 --run-qc --run-analytics
 ```
 
@@ -84,12 +82,40 @@ python -m pytest tests/ -v -s
 ---
 
 ## Repository Structure
-- `run_pipeline.py`: Unified CLI entry point for the entire pipeline.
-- `dashboard.py`: Plotly Dash interactive visualization dashboard.
-- `tcamp/pipeline.py`: Core logic router implementing the Segment-Level Dual-Path architecture.
-- `tcamp/enhance/`: Audio enhancement models and audio quality metrics.
-- `tcamp/diarization/`: Pyannote integration and DER tracking algorithms.
-- `tcamp/transcription/`: WhisperX integration.
-- `tcamp/analytics/`: Behavioral metrics engine, Llama 3.2 dialogue tagger, QC tagger, and CSV exporter.
-- `tests/`: Pytest suite using real lab recordings.
-- `observations/`: Folder where cleaned audio, diarization JSON outputs, transcripts, QC flags, and evaluation reports are saved.
+
+```text
+├── tcamp/
+│   ├── pipeline.py            # Core Segment-Level Dual-Path architecture router
+│   ├── enhance/               # DeepFilterNet/NoiseReduce models and quality metrics
+│   ├── diarization/           # Pyannote integration and DER tracking algorithms
+│   ├── transcription/         # WhisperX integration
+│   └── analytics/             # Behavioral metrics engine, Llama 3.2 tagger, and QC tagger
+│
+├── observations/
+│   ├── audio_samples/         # Raw audio and video files (.wav, .mp4)
+│   ├── ground_truths/         # Ground truth RTTM files for evaluation
+│   ├── reports/               # Formal evaluation notes and ablation studies
+│   └── outputs/               # Generated pipeline artifacts (JSONs, CSVs, Audio)
+│
+├── tests/                     # Pytest suite using real lab recordings
+├── dashboard.py               # Plotly Dash interactive visualization dashboard
+├── run_pipeline.py            # Unified CLI entry point for the pipeline
+└── environment.yml            # Conda environment specifications
+```
+
+---
+
+## Blog
+
+Read the detailed technical writeup explaining the engineering pivots, dual-path architecture, and offline analytics here:
+[Micro Rooms, Macro Noise: Engineering the TCAMP Architecture for Human-Factors Research (Draft)](https://medium.com/@vennelavarshini07/loud-rooms-refined-data-engineering-the-tcamp-architecture-for-human-factors-research-380235fc242b)
+
+---
+
+## Credits
+
+Developed during **Google Summer of Code (GSoC) 2026** by **@vennelavarshini18**
+
+**Organization:** HumanAI Foundation  
+**Institute:** Institute for Social Science Research (ISSR), University of Alabama  
+**Laboratory:** TRIP Lab, University of Alabama  
