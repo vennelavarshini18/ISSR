@@ -108,7 +108,7 @@ python -m pytest tests/ -v -s
 ## Blog
 
 Read the detailed technical writeup explaining the engineering pivots, dual-path architecture, and offline analytics here:
-[Micro Rooms, Macro Noise: Engineering the TCAMP Architecture for Human-Factors Research (Draft)](https://medium.com/@vennelavarshini07/loud-rooms-refined-data-engineering-the-tcamp-architecture-for-human-factors-research-380235fc242b)
+[Micro Rooms, Macro Noise: Engineering the TCAMP Architecture for Human-Factors Research](https://medium.com/@vennelavarshini07/micro-rooms-macro-noise-engineering-the-tcamp-architecture-for-human-factors-research-380235fc242b)
 
 ---
 
